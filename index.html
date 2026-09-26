@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/content.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/method-figure.js" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -100,14 +101,18 @@
     </section>
 
     <section class="section section-tinted" id="method" aria-labelledby="method-title">
-      <div class="container">
+      <div class="container wide-container">
         <h2 class="section-title" id="method-title">Explicit Physical Reasoning Guides Visual Generation</h2>
         <p class="section-intro">A training-free pipeline for physical counterfactual video editing in rigid-body scenes.</p>
-        <div class="pipeline" aria-label="Method overview">
-          <article class="pipeline-step"><span class="step-number">01</span><h3>Physical scene reconstruction</h3><p>Recover an executable physical scene whose simulation reproduces the observed motion and interactions.</p><span class="step-output">Source video → Physical scene</span></article>
-          <article class="pipeline-step"><span class="step-number">02</span><h3>Physical intervention</h3><p>Apply the physical edit at its execution frame and simulate the resulting motion and interactions.</p><span class="step-output">Physical edit → Counterfactual trajectories</span></article>
-          <article class="pipeline-step"><span class="step-number">03</span><h3>Counterfactual video generation</h3><p>Use projected point trajectories to guide the video generator while preserving the source scene.</p><span class="step-output">Projected point trajectories → Generated video</span></article>
-        </div>
+        <figure class="method-figure">
+          <a class="method-figure-link" data-pdf-figure href="assets/images/method-overview.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open the original VideoPhysEdit method overview PDF">
+            <img src="assets/images/method-overview.webp" width="3200" height="1700" loading="lazy" decoding="async" alt="Figure 2. The seven stages of VideoPhysEdit, from object identification and tracking through physical scene reconstruction, physical intervention, and counterfactual video generation.">
+            <canvas hidden></canvas>
+          </a>
+          <figcaption><strong>Overview of VideoPhysEdit.</strong> We reconstruct an executable physical scene from the source video, apply the physical intervention, and use the simulated counterfactual trajectories and an edited reference image to guide counterfactual video generation.
+            <a class="figure-expand" href="assets/images/method-overview.pdf" target="_blank" rel="noopener noreferrer">Open original PDF <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
