@@ -14,11 +14,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css?v=method-viewport-2">
+  <link rel="stylesheet" href="assets/css/interactive-demo.css?v=interactive-1">
   <script src="assets/js/content.js" defer></script>
   <script src="assets/js/site.js" defer></script>
   <script src="assets/js/method-figure.js?v=method-viewport-2" type="module"></script>
+  <script src="assets/js/interactive-demo.mjs?v=interactive-1" type="module"></script>
 </head>
-<body>
+<body class="has-interactive-demo">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="site-header">
     <a class="wordmark" href="#top" aria-label="VideoPhysEdit, back to top">VideoPhysEdit</a>
@@ -56,14 +58,13 @@
       </div>
     </section>
 
-    <section class="teaser-section" id="teaser" aria-label="VideoPhysEdit overview">
-      <div class="container">
+    <section class="teaser-section interactive-teaser" id="teaser" aria-label="Interactive VideoPhysEdit overview">
+      <div class="container wide-container">
         <p class="teaser-lead">Change not only how a scene looks, but also what happens after a physical edit.</p>
-        <div class="paired-media teaser-media">
-          <figure class="media-column"><figcaption>Source video</figcaption><div class="media-slot" data-media="teaser.source" aria-label="Source video placeholder"></div></figure>
-          <div class="pair-arrow" aria-hidden="true">→</div>
-          <figure class="media-column is-ours"><figcaption>VideoPhysEdit</figcaption><div class="media-slot" data-media="teaser.result" aria-label="VideoPhysEdit result placeholder"></div></figure>
+        <div class="demo-shell" id="interactive-demo" data-config="assets/data/interactive-demo.json?v=interactive-1" aria-busy="true">
+          <p class="demo-loading">Loading the interactive preview…</p>
         </div>
+        <noscript><p>The interactive preview requires JavaScript.</p></noscript>
         <p class="teaser-caption"><strong>VideoPhysEdit</strong> reconstructs an executable physical scene, applies a physical edit as an intervention, and guides counterfactual video generation using the resulting trajectories.</p>
       </div>
     </section>

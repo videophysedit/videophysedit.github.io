@@ -1,0 +1,97 @@
+{
+  "controls": {
+    "velocity": {
+      "label": "Initial velocity",
+      "hint": "Scale the initial velocity in its original direction.",
+      "defaultIndex": 1,
+      "steps": [
+        { "id": "0.5", "value": 0.5, "label": "0.5×" },
+        { "id": "1", "value": 1, "label": "1×" },
+        { "id": "1.5", "value": 1.5, "label": "1.5×" },
+        { "id": "2", "value": 2, "label": "2×" },
+        { "id": "2.5", "value": 2.5, "label": "2.5×" }
+      ]
+    },
+    "friction": {
+      "label": "Friction",
+      "hint": "Choose the object's friction coefficient.",
+      "defaultIndex": 2,
+      "steps": [
+        { "id": "0", "value": 0, "label": "0.0" },
+        { "id": "0.2", "value": 0.2, "label": "0.2" },
+        { "id": "0.4", "value": 0.4, "label": "0.4" },
+        { "id": "0.6", "value": 0.6, "label": "0.6" },
+        { "id": "0.8", "value": 0.8, "label": "0.8" }
+      ]
+    },
+    "restitution": {
+      "label": "Restitution",
+      "hint": "Choose the object's coefficient of restitution.",
+      "defaultIndex": 2,
+      "steps": [
+        { "id": "0", "value": 0, "label": "0.00" },
+        { "id": "0.25", "value": 0.25, "label": "0.25" },
+        { "id": "0.5", "value": 0.5, "label": "0.50" },
+        { "id": "0.75", "value": 0.75, "label": "0.75" },
+        { "id": "1", "value": 1, "label": "1.00" }
+      ]
+    },
+    "insert": {
+      "label": "Insertion position",
+      "hint": "Move the new object along the highlighted path.",
+      "defaultIndex": 2,
+      "steps": [
+        { "id": "1-6", "value": 0.1666666667, "label": "1/6" },
+        { "id": "1-3", "value": 0.3333333333, "label": "1/3" },
+        { "id": "1-2", "value": 0.5, "label": "1/2", "name": "Center" },
+        { "id": "2-3", "value": 0.6666666667, "label": "2/3" },
+        { "id": "5-6", "value": 0.8333333333, "label": "5/6" }
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "collision", "title": "Collision", "subtitle": "Remove an object", "illustration": "collision", "defaultMode": "remove",
+      "source": { "video": null, "poster": null, "editTime": 0, "width": 720, "height": 405 },
+      "objects": [
+        { "id": "blue-ball", "label": "Blue ball", "shape": "sphere", "color": "blue", "x": 0.24, "y": 0.59, "w": 0.10, "h": 0.178, "edits": ["remove", "velocity", "friction", "restitution"] },
+        { "id": "amber-ball", "label": "Amber ball", "shape": "sphere", "color": "amber", "x": 0.54, "y": 0.57, "w": 0.125, "h": 0.222, "edits": ["remove"] },
+        { "id": "block", "label": "Block", "shape": "block", "color": "slate", "x": 0.78, "y": 0.595, "w": 0.09, "h": 0.18, "edits": ["remove"] }
+      ],
+      "insertion": { "object": { "id": "new-block", "label": "Block", "shape": "block", "color": "teal", "w": 0.07, "h": 0.16 }, "start": { "x": 0.14, "y": 0.85 }, "end": { "x": 0.86, "y": 0.85 } },
+      "variants": {}
+    },
+    {
+      "id": "ramp", "title": "Ramp", "subtitle": "Change friction", "illustration": "ramp", "defaultMode": "friction",
+      "source": { "video": null, "poster": null, "editTime": 0, "width": 720, "height": 405 },
+      "objects": [
+        { "id": "blue-block", "label": "Blue block", "shape": "block", "color": "blue", "x": 0.38, "y": 0.56, "w": 0.10, "h": 0.18, "edits": ["remove", "velocity", "friction", "restitution"] },
+        { "id": "amber-ball", "label": "Amber ball", "shape": "sphere", "color": "amber", "x": 0.70, "y": 0.335, "w": 0.085, "h": 0.151, "edits": ["remove"] }
+      ],
+      "insertion": { "object": { "id": "new-ball", "label": "Ball", "shape": "sphere", "color": "teal", "w": 0.075, "h": 0.133 }, "start": { "x": 0.18, "y": 0.85 }, "end": { "x": 0.86, "y": 0.85 } },
+      "variants": {}
+    },
+    {
+      "id": "bounce", "title": "Bounce", "subtitle": "Change restitution", "illustration": "bounce", "defaultMode": "restitution",
+      "source": { "video": null, "poster": null, "editTime": 0, "width": 720, "height": 405 },
+      "objects": [
+        { "id": "blue-ball", "label": "Blue ball", "shape": "sphere", "color": "blue", "x": 0.36, "y": 0.31, "w": 0.10, "h": 0.178, "edits": ["remove", "velocity", "friction", "restitution"] },
+        { "id": "block", "label": "Block", "shape": "block", "color": "amber", "x": 0.75, "y": 0.64, "w": 0.12, "h": 0.16, "edits": ["remove"] }
+      ],
+      "insertion": { "object": { "id": "new-block", "label": "Block", "shape": "block", "color": "teal", "w": 0.08, "h": 0.16 }, "start": { "x": 0.14, "y": 0.83 }, "end": { "x": 0.86, "y": 0.83 } },
+      "variants": {}
+    },
+    {
+      "id": "chain", "title": "Chain reaction", "subtitle": "Insert an object", "illustration": "chain", "defaultMode": "insert",
+      "source": { "video": null, "poster": null, "editTime": 0, "width": 720, "height": 405 },
+      "objects": [
+        { "id": "blue-ball", "label": "Blue ball", "shape": "sphere", "color": "blue", "x": 0.15, "y": 0.63, "w": 0.085, "h": 0.151, "edits": ["remove", "velocity", "friction", "restitution"] },
+        { "id": "first-block", "label": "First block", "shape": "block", "color": "amber", "x": 0.36, "y": 0.575, "w": 0.045, "h": 0.26, "edits": ["remove"] },
+        { "id": "middle-block", "label": "Middle block", "shape": "block", "color": "amber", "x": 0.57, "y": 0.575, "w": 0.045, "h": 0.26, "edits": ["remove"] },
+        { "id": "last-block", "label": "Last block", "shape": "block", "color": "amber", "x": 0.78, "y": 0.575, "w": 0.045, "h": 0.26, "edits": ["remove"] }
+      ],
+      "insertion": { "object": { "id": "new-block", "label": "Block", "shape": "block", "color": "teal", "w": 0.045, "h": 0.23 }, "start": { "x": 0.15, "y": 0.87 }, "end": { "x": 0.86, "y": 0.87 } },
+      "variants": {}
+    }
+  ]
+}
