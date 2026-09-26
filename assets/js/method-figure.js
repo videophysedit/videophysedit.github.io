@@ -14,7 +14,7 @@ if (figure) {
     const scrollOffset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     const imageOffset = figure.getBoundingClientRect().top - section.getBoundingClientRect().top;
     const captionSpace = caption.offsetHeight + parseFloat(getComputedStyle(caption).marginTop);
-    const availableHeight = Math.max(64, window.innerHeight - scrollOffset - imageOffset - captionSpace - 24);
+    const availableHeight = Math.max(64, window.innerHeight - scrollOffset - imageOffset - captionSpace - 16);
     const maxWidth = `${Math.floor(availableHeight * aspectRatio)}px`;
     if (figure.style.maxWidth !== maxWidth) figure.style.maxWidth = maxWidth;
   }
