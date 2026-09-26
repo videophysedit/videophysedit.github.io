@@ -89,7 +89,7 @@ button, a, summary { touch-action: manipulation; }
 #method { padding-block: 36px; }
 #method .section-title { margin-bottom: 12px; }
 #method .section-intro { margin-bottom: 20px; }
-.method-figure { width: 80%; margin-inline: auto; }
+.method-figure { width: 90%; margin-inline: auto; }
 .method-figure-link { display: block; max-width: 100%; margin-inline: auto; background: var(--surface); cursor: zoom-in; }
 .method-figure img, .method-figure canvas { display: block; width: 100%; height: auto; }
 .method-figure figcaption { max-width: 960px; margin: 12px auto 0; text-align: center; font-size: 14px; line-height: 1.65; }

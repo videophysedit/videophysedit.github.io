@@ -2,8 +2,6 @@ const figure = document.querySelector("[data-pdf-figure]");
 
 if (figure) {
   const preview = figure.querySelector("img");
-  const section = figure.closest("section");
-  const caption = figure.parentElement.querySelector("figcaption");
   const aspectRatio = Number(preview.getAttribute("width")) / Number(preview.getAttribute("height"));
   let page;
   let activeRender;
@@ -12,18 +10,13 @@ if (figure) {
 
   function fitFigure() {
     const scrollOffset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-    const imageOffset = figure.getBoundingClientRect().top - section.getBoundingClientRect().top;
-    const captionSpace = caption.offsetHeight + parseFloat(getComputedStyle(caption).marginTop);
-    const availableHeight = Math.max(64, window.innerHeight - scrollOffset - imageOffset - captionSpace - 16);
+    const availableHeight = Math.max(64, window.innerHeight - scrollOffset - 16);
     const maxWidth = `${Math.floor(availableHeight * aspectRatio)}px`;
     if (figure.style.maxWidth !== maxWidth) figure.style.maxWidth = maxWidth;
   }
 
   fitFigure();
   window.addEventListener("resize", fitFigure);
-  const layoutObserver = new ResizeObserver(fitFigure);
-  layoutObserver.observe(section);
-  document.fonts.ready.then(fitFigure);
 
   async function renderFigure() {
     const width = figure.clientWidth;
