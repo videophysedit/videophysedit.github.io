@@ -178,3 +178,7 @@
 .demo-steps { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; padding: 0; list-style: none; counter-reset: demo-step; font-size: 15px; color: var(--text); }
 .demo-steps li { display: flex; align-items: center; gap: 7px; counter-increment: demo-step; }
 .demo-steps li::before { content: counter(demo-step); display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #eaf0f5; color: var(--deep-blue); font-size: 13px; font-weight: 600; }
+
+.demo-edit-label { flex-basis: 100%; font-size: 14px; color: #627889; white-space: nowrap; }
+.has-edit-timeline .demo-mode-list { align-items: center; }
+.has-edit-timeline .demo-edit-label { flex-basis: auto; margin-right: 7px; }

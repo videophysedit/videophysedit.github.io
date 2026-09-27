@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-12";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-13";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -128,7 +128,7 @@ async function initialize() {
           <output id="demo-edit-frame-output" for="demo-edit-frame"></output>
         </div>
         <div class="demo-controls-heading"><h3>Physical edit</h3><button type="button" class="demo-reset" data-action="reset" title="Reset this scene" aria-label="Reset edit">${icon("reset")}</button></div>
-        <div class="demo-mode-list" role="group" aria-label="Edit type">${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
+        <div class="demo-mode-list" role="group" aria-labelledby="demo-edit-label"><span class="demo-edit-label" id="demo-edit-label">Select edit</span>${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
         <div class="demo-target" id="demo-target"><span class="demo-field-label">Object</span><div class="demo-object-list" id="demo-object-list" role="group" aria-label="Target object"></div></div>
         <div class="demo-remove-help" id="demo-remove-help">Click an object to remove it. Click again to restore it.</div>
         <div class="demo-slider-control" id="demo-slider-control" hidden>
@@ -204,7 +204,7 @@ async function initialize() {
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
     find("demo-selection").hidden = !interactive || !descriptor?.object.track;
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
-    find("demo-return").hidden = atEditFrame || playing || sourceFailed || (scene.source.video && !sourceReady());
+    find("demo-return").hidden = atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
     find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
     find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
