@@ -44,7 +44,7 @@ Add result videos under the exact keys in each scene's `variants` object:
 }
 ```
 
-Video paths are relative to the website root. The source can play independently. When a matching result is present, the shared playback controls synchronize both clips and hold the shorter clip's last frame. The edit-time slider selects the intervention frame; the separate playback timeline only seeks the comparison. Only selected clips are loaded, and slider video requests wait until the thumb is released.
+Video paths are relative to the website root. The source has its own play/pause button and can play independently even when a result is selected. The shared playback controls synchronize both clips and hold the shorter clip's last frame. The playback timeline follows the active player. The edit-time slider selects the intervention frame. Only selected clips are loaded, and slider video requests wait until the thumb is released.
 
 Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results, and `plannedFrames` controls the preparation-list export.
 

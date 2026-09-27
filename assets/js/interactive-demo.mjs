@@ -81,6 +81,7 @@ async function initialize() {
   let descriptor;
   let loadedResultKey = null;
   let playing = false;
+  let playbackMode = "comparison";
   let playVersion = 0;
   let animationFrame = 0;
   let sourceFailed = false;
@@ -101,6 +102,7 @@ async function initialize() {
             <div class="demo-insertion-overlay" id="demo-insertion-overlay" aria-hidden="true" hidden></div>
             <div class="demo-selection" id="demo-selection" aria-hidden="true" hidden><span class="demo-selection-bloom" id="demo-selection-bloom"></span></div>
             <div class="demo-hotspots" id="demo-hotspots" role="group" aria-label="Objects in the source scene"></div>
+            <button class="demo-source-play" id="demo-source-play" type="button" data-action="play-source" aria-label="Play source video" title="Play source video" hidden>${icon("play")}</button>
             <button class="demo-return" id="demo-return" type="button" data-action="edit-frame" hidden>Edit this scene</button>
           </div>
         </figure>
@@ -149,17 +151,24 @@ async function initialize() {
   const timeline = find("demo-timeline");
   const editFrameRange = find("demo-edit-frame");
   const playButton = find("demo-play");
+  const sourcePlayButton = find("demo-source-play");
   const stageSource = find("demo-source-stage");
   const stageResult = find("demo-result-stage");
   const formatTime = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
   const editTime = () => interventionTime(scene, selection.editFrame);
   const sourceReady = () => Boolean(scene.source.video && !sourceFailed && sourceVideo.readyState >= 1 && Number.isFinite(sourceVideo.duration));
-  const playbackVideos = () => ready() ? [sourceVideo, resultVideo] : [sourceVideo];
-  const masterVideo = () => ready() && resultVideo.duration > sourceVideo.duration ? resultVideo : sourceVideo;
-  const canPlay = () => sourceReady() && (!descriptor?.clip?.video || resultFailed || ready());
+  const playsComparison = () => playbackMode === "comparison" && ready();
+  const playbackVideos = () => playsComparison() ? [sourceVideo, resultVideo] : [sourceVideo];
+  const masterVideo = () => playsComparison() && resultVideo.duration > sourceVideo.duration ? resultVideo : sourceVideo;
+  const canPlay = (mode = playbackMode) => sourceReady() && (mode === "source" || !descriptor?.clip?.video || resultFailed || ready());
 
   function updatePlayLabel() {
-    playButton.innerHTML = `${icon(playing ? "pause" : "play")}<span>${playing ? "Pause" : "Play"} ${ready() ? "comparison" : "source"}</span>`;
+    const mainPlaying = playing && (playbackMode === "comparison" || !ready());
+    playButton.innerHTML = `${icon(mainPlaying ? "pause" : "play")}<span>${mainPlaying ? "Pause" : "Play"} ${ready() ? "comparison" : "source"}</span>`;
+    sourcePlayButton.innerHTML = icon(playing ? "pause" : "play");
+    sourcePlayButton.setAttribute("aria-label", `${playing ? "Pause" : "Play"} source video`);
+    sourcePlayButton.title = `${playing ? "Pause" : "Play"} source video`;
+    timeline.setAttribute("aria-label", `${playsComparison() ? "Comparison" : "Source"} timeline`);
   }
 
   function stopPlayback() {
@@ -174,7 +183,7 @@ async function initialize() {
 
   function duration() {
     if (!sourceReady()) return 0;
-    return currentResultReady(1) && Number.isFinite(resultVideo.duration) ? Math.max(sourceVideo.duration, resultVideo.duration) : sourceVideo.duration;
+    return playsComparison() ? Math.max(sourceVideo.duration, resultVideo.duration) : sourceVideo.duration;
   }
 
   function currentResultReady(minimumState = 2) {
@@ -193,7 +202,7 @@ async function initialize() {
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = interactive || playing || sourceFailed;
     find("demo-return").textContent = scene.editTimeline ? "Edit at this frame" : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (ready() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
   }
 
   function updateMediaState() {
@@ -214,14 +223,15 @@ async function initialize() {
     startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
     find("demo-pending").textContent = resultFailed ? "Video unavailable" : descriptor?.clip?.video ? "Loading result…" : "Result video coming soon";
-    const playable = canPlay();
+    sourcePlayButton.hidden = !sourceFrameReady;
+    const playable = canPlay("comparison");
     playButton.disabled = !playable;
-    timeline.disabled = !playable;
+    timeline.disabled = !canPlay();
     playButton.title = playable ? (ready() ? "Play source and result together" : "Play the source video") : "Waiting for video";
     updatePlayLabel();
     const status = find("demo-media-status");
     status.classList.toggle("sr-only", actualScene && !sourceFailed && !resultFailed);
-    status.textContent = sourceFailed || resultFailed ? "This video could not be loaded." : !scene.source.video ? "Interaction preview · videos coming soon" : !descriptor ? "Choose a physical edit to compare." : !descriptor.clip?.video ? "No video has been added for this edit yet." : playable ? "Source and result play together" : "Loading comparison…";
+    status.textContent = sourceFailed || resultFailed ? "This video could not be loaded." : !scene.source.video ? "Interaction preview · videos coming soon" : playing && playbackMode === "source" ? "Playing the source video" : !descriptor ? "Choose a physical edit to compare." : !descriptor.clip?.video ? "No video has been added for this edit yet." : playable ? "Source and result can play together" : "Loading comparison…";
     updateHotspotVisibility();
     updateTime();
   }
@@ -244,6 +254,7 @@ async function initialize() {
   }
 
   function showEditFrame() {
+    playbackMode = "comparison";
     stopPlayback();
     restartOnPlay = true;
     if (sourceReady() && Math.abs(sourceVideo.currentTime - editTime()) > .01) sourceVideo.currentTime = Math.min(editTime(), sourceVideo.duration);
@@ -426,15 +437,18 @@ async function initialize() {
     renderControls();
   }
 
-  async function togglePlayback() {
-    if (playing) {
+  async function togglePlayback(mode = ready() ? "comparison" : "source") {
+    if (playing && (mode === playbackMode || mode === "source")) {
       stopPlayback();
       updateHotspotVisibility();
       return;
     }
-    if (!canPlay()) return;
+    if (!canPlay(mode)) return;
+    const switchingMode = playbackMode !== mode;
+    stopPlayback();
+    playbackMode = mode;
     const videos = playbackVideos(), master = masterVideo(), length = duration();
-    const startTime = restartOnPlay || master.currentTime >= length - .05 ? 0 : master.currentTime;
+    const startTime = restartOnPlay || (switchingMode && mode === "comparison") || master.currentTime >= length - .05 ? 0 : master.currentTime;
     restartOnPlay = false;
     for (const video of videos) video.currentTime = Math.min(startTime, video.duration);
     const version = ++playVersion;
@@ -443,8 +457,7 @@ async function initialize() {
       if (version !== playVersion) return;
       playing = true;
       root.classList.add("is-playing");
-      updatePlayLabel();
-      updateHotspotVisibility();
+      updateMediaState();
       function tick() {
         if (!playing) return;
         if (master.currentTime >= length - .04 || master.ended) {
@@ -494,6 +507,7 @@ async function initialize() {
       } else showEditFrame();
     }
     else if (button.dataset.action === "play") togglePlayback();
+    else if (button.dataset.action === "play-source") togglePlayback("source");
   });
   find("demo-examples").addEventListener("change", event => {
     const preset = scene.presets?.[Number(event.target.value)];

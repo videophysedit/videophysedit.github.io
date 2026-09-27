@@ -55,6 +55,9 @@
 .demo-edit-time output { width: 47px; flex: none; text-align: right; color: var(--demo-accent); font-size: 12px; font-variant-numeric: tabular-nums; }
 .demo-examples { max-width: 230px; min-width: 0; border: 1px solid #dce5ed; border-radius: 5px; padding: 6px 9px; background: white; color: #627a8d; font: 11px var(--sans); }
 .demo-return { position: absolute; left: 50%; bottom: 11px; transform: translateX(-50%); border: 1px solid #a8bfd1; border-radius: 6px; background: #fffffff0; color: var(--deep-blue); padding: 5px 12px; font-size: 11px; white-space: nowrap; }
+.demo-source-play { position: absolute; left: 10px; bottom: 10px; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid #ffffffa6; border-radius: 50%; background: #20394dcc; color: white; box-shadow: 0 2px 8px #0000001a; }
+.demo-source-play svg { width: 17px; height: 17px; }
+.demo-source-play:hover { background: #315f84; }
 .demo-controls { min-width: 0; padding-left: 20px; border-left: 1px solid var(--line); }
 .demo-controls-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .demo-controls h3 { font: 600 15px/1.4 var(--sans); }
