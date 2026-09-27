@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-8";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-9";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -143,7 +143,6 @@ async function initialize() {
       <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play comparison</span></button>
       <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
       <span class="demo-time" id="demo-time">0:00 / —</span>
-      <select class="demo-examples" id="demo-examples" aria-label="Available examples" hidden></select>
       <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
     </div>`;
   root.removeAttribute("aria-busy");
@@ -371,8 +370,6 @@ async function initialize() {
       find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s`;
       root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(!needsEditTime() && Number(button.dataset.editIndex) === frameIndex)));
     }
-    const presetIndex = scene.presets?.findIndex(preset => descriptor?.key === describeSelection(scene, config.controls, preset)?.key) ?? -1;
-    find("demo-examples").value = presetIndex < 0 ? "" : String(presetIndex);
     positionHotspots();
     updateSelectionShape();
     paintScenes();
@@ -424,8 +421,6 @@ async function initialize() {
         return `<button type="button" data-edit-index="${index}" style="left:${index / Math.max(1, frames.length - 1) * 100}%" aria-label="Edit at ${seconds} seconds, frame ${frame}" title="Frame ${frame}" aria-pressed="false">${seconds}</button>`;
       }).join("");
     }
-    find("demo-examples").hidden = !scene.presets?.length;
-    find("demo-examples").innerHTML = `<option value="" disabled>Examples</option>${(scene.presets || []).map((preset, index) => `<option value="${index}">${escapeText(preset.label)}</option>`).join("")}`;
     updateSelection();
   }
 
@@ -530,13 +525,6 @@ async function initialize() {
     }
     else if (button.dataset.action === "play") togglePlayback();
     else if (button.dataset.action === "play-source") togglePlayback("source");
-  });
-  find("demo-examples").addEventListener("change", event => {
-    const preset = scene.presets?.[Number(event.target.value)];
-    if (!preset) return;
-    selection = { ...preset, timeChosen: true };
-    renderControls();
-    revealSelection();
   });
   root.querySelector(".demo-scenes").addEventListener("keydown", event => {
     const index = config.scenes.findIndex(item => item.id === scene.id);

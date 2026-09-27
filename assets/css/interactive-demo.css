@@ -58,7 +58,6 @@
 .demo-edit-stops button:hover, .demo-edit-stops button[aria-pressed="true"] { color: var(--demo-accent); font-weight: 600; }
 .demo-edit-stops button:focus-visible { outline-offset: 1px; }
 .demo-edit-time output { width: 47px; flex: none; text-align: right; color: var(--demo-accent); font-size: 12px; font-variant-numeric: tabular-nums; }
-.demo-examples { max-width: 230px; min-width: 0; border: 1px solid #dce5ed; border-radius: 5px; padding: 6px 9px; background: white; color: #627a8d; font: 11px var(--sans); }
 .demo-return { position: absolute; left: 50%; bottom: 11px; transform: translateX(-50%); border: 1px solid #a8bfd1; border-radius: 6px; background: #fffffff0; color: var(--deep-blue); padding: 5px 12px; font-size: 11px; white-space: nowrap; }
 .demo-source-play { position: absolute; left: 10px; bottom: 10px; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid #ffffffa6; border-radius: 50%; background: #20394dcc; color: white; box-shadow: 0 2px 8px #0000001a; }
 .demo-source-play svg { width: 17px; height: 17px; }
@@ -171,7 +170,6 @@
   .has-edit-timeline .demo-edit-time label { grid-column: 1; grid-row: 1; }
   .has-edit-timeline .demo-edit-time output { grid-column: 2; grid-row: 1; }
   .has-edit-timeline .demo-edit-time-track { grid-column: 1/-1; grid-row: 2; }
-  .demo-examples { flex: 1 1 100%; max-width: none; min-height: 34px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .demo-shell *, .demo-shell *::before, .demo-shell *::after { transition: none !important; }
