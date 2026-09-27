@@ -39,7 +39,7 @@ test("domino clips match the exact object, operation and one-based intervention 
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 0 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 82 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 2.5 }), null);
-  assert.equal(Object.keys(domino.variants).length, 19);
+  assert.equal(Object.keys(domino.variants).length, 36);
   const names = ["first", "second", "third"];
   for (const editFrame of editableFrames(domino)) {
     for (let index = 0; index < domino.objects.length; index++) {
@@ -59,7 +59,18 @@ test("domino clips match the exact object, operation and one-based intervention 
   }
   const heavy = { mode: "mass", objectId: "domino-2", stepIndex: 0, editFrame: 1 };
   assert.match(describeSelection(domino, config.controls, heavy).clip.video, /second-mass-10x/);
-  assert.equal(describeSelection(domino, config.controls, { ...heavy, editFrame: 25 }).clip, null);
+  for (const editFrame of editableFrames(domino)) {
+    for (let index = 0; index < domino.objects.length; index++) {
+      const variant = describeSelection(domino, config.controls, {
+        ...heavy, objectId: domino.objects[index].id, editFrame,
+      });
+      const existing = index === 1 && editFrame === 1;
+      assert.equal(variant.clip.caseId, existing ? "second_mass_x10" : `mass_${names[index]}_f${editFrame}`);
+      if (!existing) assert.ok(variant.clip.video.endsWith(`${names[index]}-mass-10x-frame-${editFrame}.mp4`));
+      await access(new URL(`../${variant.clip.video}`, import.meta.url));
+      await access(new URL(`../${variant.clip.poster}`, import.meta.url));
+    }
+  }
 });
 
 test("domino edits use six fixed times while playback can return to the nearest allowed frame", () => {
@@ -77,7 +88,7 @@ test("domino edits use six fixed times while playback can return to the nearest 
   }
   const variants = listVariants(domino, config.controls);
   assert.equal(variants.length, 36);
-  assert.equal(variants.filter(item => item.clip).length, 19);
+  assert.equal(variants.filter(item => item.clip).length, 36);
   assert.deepEqual([...new Set(variants.map(item => item.editFrame))], frames);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 55 }).clip.caseId, "remove_first_f55");
 });
