@@ -25,11 +25,22 @@ test("domino clips match the exact object, operation and one-based intervention 
   assert.equal(interventionTime(domino, 1), 0);
   assert.match(describeSelection(domino, config.controls, selection).clip.video, /remove-first-frame-25/);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 24 }), null);
-  assert.equal(describeSelection(domino, config.controls, { ...selection, objectId: "domino-3" }).clip, null);
+  assert.equal(describeSelection(domino, config.controls, { ...selection, objectId: "domino-3" }).clip.caseId, "remove_third_f25");
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 0 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 82 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 2.5 }), null);
-  assert.equal(Object.keys(domino.variants).length, 4);
+  assert.equal(Object.keys(domino.variants).length, 19);
+  const names = ["first", "second", "third"];
+  for (const editFrame of editableFrames(domino)) {
+    for (let index = 0; index < domino.objects.length; index++) {
+      const objectId = domino.objects[index].id;
+      const variant = describeSelection(domino, config.controls, { ...selection, objectId, editFrame });
+      assert.equal(variant.clip.caseId, `remove_${names[index]}_f${editFrame}`);
+      assert.ok(variant.clip.video.endsWith(`remove-${names[index]}-frame-${editFrame}.mp4`));
+      await access(new URL(`../${variant.clip.video}`, import.meta.url));
+      await access(new URL(`../${variant.clip.poster}`, import.meta.url));
+    }
+  }
   for (const preset of domino.presets) {
     const variant = describeSelection(domino, config.controls, preset);
     assert.ok(variant.clip);
@@ -56,9 +67,9 @@ test("domino edits use six fixed times while playback can return to the nearest 
   }
   const variants = listVariants(domino, config.controls);
   assert.equal(variants.length, 36);
-  assert.equal(variants.filter(item => item.clip).length, 4);
+  assert.equal(variants.filter(item => item.clip).length, 19);
   assert.deepEqual([...new Set(variants.map(item => item.editFrame))], frames);
-  assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 55 }).clip, null);
+  assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 55 }).clip.caseId, "remove_first_f55");
 });
 
 test("click regions follow the selected source frame and interpolate between keyframes", () => {

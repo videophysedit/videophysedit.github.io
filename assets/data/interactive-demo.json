@@ -143,22 +143,94 @@
       ],
       "variants": {
         "remove:domino-1:frame-1": {
-          "video": "assets/videos/interactive/domino/remove-first-frame-1.mp4",
-          "poster": "assets/images/interactive/domino/remove-first-frame-1.jpg",
-          "caseId": "remove_first_f1",
-          "catalogItem": "classic/domino/remove_first_f1__gt_v1"
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-1.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-1.jpg",
+          "caseId": "remove_first_f1"
         },
         "remove:domino-2:frame-1": {
-          "video": "assets/videos/interactive/domino/remove-second-frame-1.mp4",
-          "poster": "assets/images/interactive/domino/remove-second-frame-1.jpg",
-          "caseId": "remove_second_f1",
-          "catalogItem": "classic/domino/remove_second_f1__gt_v1"
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-1.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-1.jpg",
+          "caseId": "remove_second_f1"
+        },
+        "remove:domino-3:frame-1": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-1.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-1.jpg",
+          "caseId": "remove_third_f1"
+        },
+        "remove:domino-1:frame-19": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-19.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-19.jpg",
+          "caseId": "remove_first_f19"
+        },
+        "remove:domino-2:frame-19": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-19.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-19.jpg",
+          "caseId": "remove_second_f19"
+        },
+        "remove:domino-3:frame-19": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-19.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-19.jpg",
+          "caseId": "remove_third_f19"
         },
         "remove:domino-1:frame-25": {
-          "video": "assets/videos/interactive/domino/remove-first-frame-25.mp4",
-          "poster": "assets/images/interactive/domino/remove-first-frame-25.jpg",
-          "caseId": "remove_first_f25",
-          "catalogItem": "classic/domino/remove_first_f25__gt_v1"
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-25.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-25.jpg",
+          "caseId": "remove_first_f25"
+        },
+        "remove:domino-2:frame-25": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-25.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-25.jpg",
+          "caseId": "remove_second_f25"
+        },
+        "remove:domino-3:frame-25": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-25.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-25.jpg",
+          "caseId": "remove_third_f25"
+        },
+        "remove:domino-1:frame-31": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-31.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-31.jpg",
+          "caseId": "remove_first_f31"
+        },
+        "remove:domino-2:frame-31": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-31.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-31.jpg",
+          "caseId": "remove_second_f31"
+        },
+        "remove:domino-3:frame-31": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-31.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-31.jpg",
+          "caseId": "remove_third_f31"
+        },
+        "remove:domino-1:frame-37": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-37.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-37.jpg",
+          "caseId": "remove_first_f37"
+        },
+        "remove:domino-2:frame-37": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-37.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-37.jpg",
+          "caseId": "remove_second_f37"
+        },
+        "remove:domino-3:frame-37": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-37.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-37.jpg",
+          "caseId": "remove_third_f37"
+        },
+        "remove:domino-1:frame-55": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-first-frame-55.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-first-frame-55.jpg",
+          "caseId": "remove_first_f55"
+        },
+        "remove:domino-2:frame-55": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-second-frame-55.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-second-frame-55.jpg",
+          "caseId": "remove_second_f55"
+        },
+        "remove:domino-3:frame-55": {
+          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-55.mp4",
+          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-55.jpg",
+          "caseId": "remove_third_f55"
         },
         "mass:domino-2:10:frame-1": {
           "video": "assets/videos/interactive/domino/second-mass-10x-frame-1.mp4",
