@@ -174,3 +174,7 @@
 @media (prefers-reduced-motion: reduce) {
   .demo-shell *, .demo-shell *::before, .demo-shell *::after { transition: none !important; }
 }
+
+.demo-steps { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; padding: 0; list-style: none; counter-reset: demo-step; font-size: 12px; color: var(--text); }
+.demo-steps li { display: flex; align-items: center; gap: 7px; counter-increment: demo-step; }
+.demo-steps li::before { content: counter(demo-step); display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #eaf0f5; color: var(--deep-blue); font-size: 11px; font-weight: 600; }

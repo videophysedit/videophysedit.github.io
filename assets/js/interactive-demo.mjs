@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-9";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-10";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -93,6 +93,7 @@ async function initialize() {
     <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
     <div class="demo-workspace" id="demo-workspace" role="tabpanel" aria-labelledby="demo-tab-${scene.id}">
       <div class="demo-comparison">
+        <ol class="demo-steps" aria-label="How to edit"><li>Select a time</li><li>Click an object</li><li>Click Play</li></ol>
         <figure class="demo-view">
           <figcaption><span>Source video</span><small id="demo-source-hint">Click an object</small></figcaption>
           <div class="demo-stage" id="demo-source-stage">
@@ -140,7 +141,7 @@ async function initialize() {
       </aside>
     </div>
     <div class="demo-playback" role="group" aria-label="Comparison playback">
-      <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play comparison</span></button>
+      <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play</span></button>
       <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
       <span class="demo-time" id="demo-time">0:00 / —</span>
       <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
@@ -167,7 +168,7 @@ async function initialize() {
 
   function updatePlayLabel() {
     const mainPlaying = playing && (playbackMode === "comparison" || !ready());
-    playButton.innerHTML = `${icon(mainPlaying ? "pause" : "play")}<span>${mainPlaying ? "Pause" : "Play"} ${ready() ? "comparison" : "source"}</span>`;
+    playButton.innerHTML = `${icon(mainPlaying ? "pause" : "play")}<span>${mainPlaying ? "Pause" : "Play"}</span>`;
     sourcePlayButton.innerHTML = icon(playing ? "pause" : "play");
     sourcePlayButton.setAttribute("aria-label", `${playing ? "Pause" : "Play"} source video`);
     sourcePlayButton.title = `${playing ? "Pause" : "Play"} source video`;
