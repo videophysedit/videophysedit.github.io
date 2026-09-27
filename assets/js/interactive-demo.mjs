@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame } from "./demo-model.mjs?v=domino-1";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame } from "./demo-model.mjs?v=domino-2";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -86,9 +86,10 @@ async function initialize() {
   let sourceFailed = false;
   let resultFailed = false;
   let restartOnPlay = true;
+  let selectionAnimation;
 
   root.innerHTML = `
-    <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><span><strong>${escapeText(item.title)}</strong><small>${escapeText(item.subtitle)}</small></span><span class="demo-scene-number">0${index + 1}</span></button>`).join("")}</div>
+    <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
     <div class="demo-workspace" id="demo-workspace" role="tabpanel" aria-labelledby="demo-tab-${scene.id}">
       <div class="demo-comparison">
         <figure class="demo-view">
@@ -98,14 +99,9 @@ async function initialize() {
             <video id="demo-source-video" muted playsinline preload="metadata" hidden aria-label="Source video"></video>
             <span class="demo-preview-label" id="demo-source-label">Illustration</span>
             <div class="demo-insertion-overlay" id="demo-insertion-overlay" aria-hidden="true" hidden></div>
+            <div class="demo-selection" id="demo-selection" aria-hidden="true" hidden><span class="demo-selection-bloom" id="demo-selection-bloom"></span></div>
             <div class="demo-hotspots" id="demo-hotspots" role="group" aria-label="Objects in the source scene"></div>
             <button class="demo-return" id="demo-return" type="button" data-action="edit-frame" hidden>Edit this scene</button>
-          </div>
-          <div class="demo-edit-time" id="demo-edit-time" hidden>
-            <div class="demo-slider-heading"><label for="demo-edit-frame">Edit time</label><output id="demo-edit-frame-output" for="demo-edit-frame"></output></div>
-            <input id="demo-edit-frame" class="demo-range" type="range" min="1" max="81" step="1" value="1" aria-label="Edit time">
-            <div class="demo-edit-time-scale"><span>0.00 s</span><span id="demo-edit-time-end"></span></div>
-            <p class="demo-edit-time-help">Choose when the physical edit begins.</p>
           </div>
         </figure>
         <figure class="demo-view demo-view-result">
@@ -122,6 +118,11 @@ async function initialize() {
       <aside class="demo-controls" aria-label="Physical edit controls">
         <div class="demo-controls-heading"><h3>Physical edit</h3><button type="button" class="demo-reset" data-action="reset" title="Reset this scene" aria-label="Reset edit">${icon("reset")}</button></div>
         <div class="demo-mode-list" role="group" aria-label="Edit type">${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
+        <div class="demo-edit-time" id="demo-edit-time" hidden>
+          <label for="demo-edit-frame">Edit time</label>
+          <input id="demo-edit-frame" class="demo-range" type="range" min="1" max="81" step="1" value="1" aria-label="Edit time">
+          <output id="demo-edit-frame-output" for="demo-edit-frame"></output>
+        </div>
         <div class="demo-target" id="demo-target"><span class="demo-field-label">Object</span><div class="demo-object-list" id="demo-object-list" role="group" aria-label="Target object"></div></div>
         <div class="demo-remove-help" id="demo-remove-help">Click an object to remove it. Click again to restore it.</div>
         <div class="demo-slider-control" id="demo-slider-control" hidden>
@@ -133,11 +134,11 @@ async function initialize() {
         <p class="demo-command" id="demo-command" aria-live="polite"></p>
       </aside>
     </div>
-    <div class="demo-presets" id="demo-presets" role="group" aria-label="Available result videos" hidden></div>
     <div class="demo-playback" role="group" aria-label="Comparison playback">
       <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play comparison</span></button>
       <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
       <span class="demo-time" id="demo-time">0:00 / —</span>
+      <select class="demo-examples" id="demo-examples" aria-label="Available examples" hidden></select>
       <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
     </div>`;
   root.removeAttribute("aria-busy");
@@ -188,10 +189,11 @@ async function initialize() {
     const atEditFrame = !scene.source.video || (sourceReady() && !sourceVideo.seeking && Math.abs(sourceVideo.currentTime - editTime()) < .025);
     const interactive = !playing && atEditFrame;
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
+    find("demo-selection").hidden = !interactive || !descriptor?.object.track;
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = interactive || playing || sourceFailed;
     find("demo-return").textContent = scene.editTimeline ? "Edit at this frame" : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (ready() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? "Click a domino" : "Click an object";
+    find("demo-source-hint").textContent = playing ? (ready() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
   }
 
   function updateMediaState() {
@@ -203,12 +205,13 @@ async function initialize() {
     find("demo-result-illustration").hidden = Boolean(resultReady);
     find("demo-source-label").hidden = Boolean(sourceFrameReady);
     find("demo-source-label").textContent = scene.source.video ? (sourceFailed ? "Video unavailable" : "Loading video…") : "Illustration";
-    find("demo-result-label").hidden = Boolean(resultReady);
     const actualScene = Boolean(scene.source.video);
+    find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
-    startHint.querySelector("strong").textContent = actualScene ? (descriptor ? "No result for this edit yet" : "Choose a domino to edit") : "What would happen without it?";
-    startHint.querySelector("p").textContent = actualScene ? (descriptor ? "Try one of the available edits below." : "Select an object, then choose the action and time.") : "Click an object in the source scene.";
+    startHint.querySelector("strong").textContent = actualScene ? (descriptor ? "No result for this edit yet" : "Click a domino to begin") : "What would happen without it?";
+    startHint.querySelector("p").hidden = actualScene;
+    startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
     find("demo-pending").textContent = resultFailed ? "Video unavailable" : descriptor?.clip?.video ? "Loading result…" : "Result video coming soon";
     const playable = canPlay();
@@ -217,6 +220,7 @@ async function initialize() {
     playButton.title = playable ? (ready() ? "Play source and result together" : "Play the source video") : "Waiting for video";
     updatePlayLabel();
     const status = find("demo-media-status");
+    status.classList.toggle("sr-only", actualScene && !sourceFailed && !resultFailed);
     status.textContent = sourceFailed || resultFailed ? "This video could not be loaded." : !scene.source.video ? "Interaction preview · videos coming soon" : !descriptor ? "Choose a physical edit to compare." : !descriptor.clip?.video ? "No video has been added for this edit yet." : playable ? "Source and result play together" : "Loading comparison…";
     updateHotspotVisibility();
     updateTime();
@@ -270,9 +274,50 @@ async function initialize() {
       if (object.polygon) {
         const points = object.polygon.map(([x,y]) => [(x - object.x + object.w / 2) / object.w * 100, (y - object.y + object.h / 2) / object.h * 100]);
         button.style.clipPath = `polygon(${points.map(([x,y]) => `${x}% ${y}%`).join(",")})`;
-        button.querySelector("polygon").setAttribute("points", points.map(point => point.join(",")).join(" "));
       }
     });
+  }
+
+  function updateSelectionShape() {
+    selectionAnimation?.cancel();
+    selectionAnimation = null;
+    const overlay = find("demo-selection");
+    overlay.classList.remove("is-revealing");
+    if (!descriptor?.object.track) {
+      overlay.hidden = true;
+      return;
+    }
+    const object = objectAtFrame(descriptor.object, selection.editFrame);
+    overlay.style.clipPath = `polygon(${object.polygon.map(([x, y]) => `${x * 100}% ${y * 100}%`).join(",")})`;
+  }
+
+  function revealSelection(event) {
+    if (!descriptor?.object.track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const object = objectAtFrame(descriptor.object, selection.editFrame);
+    const bounds = stageSource.getBoundingClientRect();
+    const fromPointer = event?.detail > 0 && event.target.closest(".demo-hotspot");
+    const x = fromPointer ? event.clientX - bounds.left : object.x * bounds.width;
+    const y = fromPointer ? event.clientY - bounds.top : object.y * bounds.height;
+    const radius = Math.max(...object.polygon.map(([px, py]) => Math.hypot(px * bounds.width - x, py * bounds.height - y))) + 2;
+    const overlay = find("demo-selection");
+    const bloom = find("demo-selection-bloom");
+    bloom.style.left = `${x / bounds.width * 100}%`;
+    bloom.style.top = `${y / bounds.height * 100}%`;
+    bloom.style.width = bloom.style.height = `${radius * 2}px`;
+    selectionAnimation?.cancel();
+    overlay.classList.add("is-revealing");
+    const animation = bloom.animate([
+      { transform: "translate(-50%, -50%) scale(0)", opacity: .75, offset: 0 },
+      { transform: "translate(-50%, -50%) scale(1)", opacity: .48, offset: .72 },
+      { transform: "translate(-50%, -50%) scale(1)", opacity: .18, offset: 1 },
+    ], { duration: 760, easing: "cubic-bezier(.2,.65,.3,1)", fill: "forwards" });
+    selectionAnimation = animation;
+    animation.finished.then(() => {
+      if (selectionAnimation !== animation) return;
+      overlay.classList.remove("is-revealing");
+      animation.cancel();
+      selectionAnimation = null;
+    }).catch(() => {});
   }
 
   function updateSelection(commit = true) {
@@ -304,13 +349,12 @@ async function initialize() {
       editFrameRange.value = String(selection.editFrame);
       editFrameRange.style.setProperty("--range-progress", `${(selection.editFrame - 1) / Math.max(1, scene.source.frameCount - 1) * 100}%`);
       editFrameRange.setAttribute("aria-valuetext", `Frame ${selection.editFrame}, ${editTime().toFixed(2)} seconds`);
-      find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s · Frame ${selection.editFrame}`;
+      find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s`;
     }
-    root.querySelectorAll("[data-preset]").forEach(button => {
-      const preset = scene.presets[Number(button.dataset.preset)];
-      button.setAttribute("aria-pressed", String(descriptor?.key === describeSelection(scene, config.controls, preset)?.key));
-    });
+    const presetIndex = scene.presets?.findIndex(preset => descriptor?.key === describeSelection(scene, config.controls, preset)?.key) ?? -1;
+    find("demo-examples").value = presetIndex < 0 ? "" : String(presetIndex);
     positionHotspots();
+    updateSelectionShape();
     paintScenes();
     if (commit) {
       const nextKey = descriptor?.key || null;
@@ -326,19 +370,21 @@ async function initialize() {
   function renderControls() {
     const availableModes = sceneModes(scene);
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
+    find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline));
     root.querySelectorAll("[data-mode]").forEach(button => {
       button.setAttribute("aria-pressed", String(button.dataset.mode === selection.mode));
       button.hidden = !availableModes.some(mode => mode.id === button.dataset.mode);
       button.disabled = button.hidden;
+      if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? "Mass ×10" : "Increase mass"}`;
     });
     const objects = editableObjects(scene, selection.mode);
-    find("demo-target").hidden = selection.mode === "insert";
+    find("demo-target").hidden = Boolean(scene.editTimeline) || selection.mode === "insert";
     find("demo-object-list").innerHTML = objects.map(object => `<button type="button" class="demo-object" data-object="${object.id}" aria-pressed="false"><span class="demo-object-dot" style="background:${(colors[object.color] || colors.blue)[1]}"></span>${escapeText(object.label)}</button>`).join("");
-    find("demo-hotspots").innerHTML = objects.map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}" title="${escapeText(object.label)}">${object.track ? `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="" vector-effect="non-scaling-stroke"/></svg><span aria-hidden="true">${object.number}</span>` : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
+    find("demo-hotspots").innerHTML = objects.map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
-    find("demo-remove-help").hidden = !isRemoval;
+    find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? "Click a domino to select it. Drag the edit time to choose when it disappears." : "Click an object to remove it. Click again to restore it.";
-    find("demo-slider-control").hidden = isRemoval;
+    find("demo-slider-control").hidden = Boolean(scene.editTimeline) || isRemoval;
     if (!isRemoval) {
       const control = config.controls[selection.mode];
       const singleValue = control.steps.length === 1;
@@ -352,10 +398,9 @@ async function initialize() {
     find("demo-edit-time").hidden = !scene.editTimeline;
     if (scene.editTimeline) {
       editFrameRange.max = String(scene.source.frameCount);
-      find("demo-edit-time-end").textContent = `${((scene.source.frameCount - 1) / scene.source.fps).toFixed(2)} s`;
     }
-    find("demo-presets").hidden = !scene.presets?.length;
-    find("demo-presets").innerHTML = scene.presets?.length ? `<span class="demo-presets-label">Available edits</span>${scene.presets.map((preset, index) => `<button type="button" data-preset="${index}" aria-pressed="false">${escapeText(preset.label)}</button>`).join("")}` : "";
+    find("demo-examples").hidden = !scene.presets?.length;
+    find("demo-examples").innerHTML = `<option value="" disabled>Examples</option>${(scene.presets || []).map((preset, index) => `<option value="${index}">${escapeText(preset.label)}</option>`).join("")}`;
     updateSelection();
   }
 
@@ -430,14 +475,12 @@ async function initialize() {
     else if (button.dataset.mode) {
       selection.mode = button.dataset.mode;
       selection.stepIndex = config.controls[selection.mode]?.defaultIndex ?? 0;
-      if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
+      if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = scene.editTimeline || selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
       renderControls();
     } else if (button.dataset.object) {
       selection.objectId = !scene.editTimeline && selection.mode === "remove" && selection.objectId === button.dataset.object ? null : button.dataset.object;
       updateSelection();
-    } else if (button.dataset.preset !== undefined) {
-      selection = { ...scene.presets[Number(button.dataset.preset)] };
-      renderControls();
+      revealSelection(event);
     } else if (button.dataset.step !== undefined) {
       selection.stepIndex = Number(button.dataset.step);
       updateSelection();
@@ -451,6 +494,13 @@ async function initialize() {
       } else showEditFrame();
     }
     else if (button.dataset.action === "play") togglePlayback();
+  });
+  find("demo-examples").addEventListener("change", event => {
+    const preset = scene.presets?.[Number(event.target.value)];
+    if (!preset) return;
+    selection = { ...preset };
+    renderControls();
+    revealSelection();
   });
   root.querySelector(".demo-scenes").addEventListener("keydown", event => {
     const index = config.scenes.findIndex(item => item.id === scene.id);

@@ -21,7 +21,7 @@ The Three dominoes demo includes its source video and four existing VideoPhysEdi
 
 ## Interactive demo
 
-Each scene shows its available edit types. Three dominoes supports removal and mass ×10, with an edit-time slider covering all 81 source frames at 24 fps. Click a domino, choose an action, and set the frame where it takes effect. The available-edit buttons select the four existing results: first-domino removal at frames 1 and 25, second-domino removal at frame 1, and second-domino mass ×10 at frame 1.
+Each scene shows its available edit types. Three dominoes supports removal and mass ×10, with an edit-time slider covering all 81 source frames at 24 fps. Click a domino to highlight it from the click point, choose an action, and set the frame where it takes effect. The Examples menu selects the four existing results: first-domino removal at frames 1 and 25, second-domino removal at frame 1, and second-domino mass ×10 at frame 1.
 
 Each selection applies one edit and looks up one prepared video. Other scene controls cover initial velocity, friction, restitution, and insertion at 1/6, 1/3, 1/2, 2/3, and 5/6 of a path. Elasticity and restitution share one control.
 
