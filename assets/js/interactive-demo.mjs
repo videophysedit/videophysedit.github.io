@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-10";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-11";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -93,7 +93,7 @@ async function initialize() {
     <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
     <div class="demo-workspace" id="demo-workspace" role="tabpanel" aria-labelledby="demo-tab-${scene.id}">
       <div class="demo-comparison">
-        <ol class="demo-steps" aria-label="How to edit"><li>Select a time</li><li>Click an object</li><li>Click Play</li></ol>
+        <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select a time</li><li>Click an object</li><li>Click Play</li></ol>
         <figure class="demo-view">
           <figcaption><span>Source video</span><small id="demo-source-hint">Click an object</small></figcaption>
           <div class="demo-stage" id="demo-source-stage">
