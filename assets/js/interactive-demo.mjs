@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame } from "./demo-model.mjs?v=domino-2";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-4";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -122,7 +122,10 @@ async function initialize() {
         <div class="demo-mode-list" role="group" aria-label="Edit type">${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
         <div class="demo-edit-time" id="demo-edit-time" hidden>
           <label for="demo-edit-frame">Edit time</label>
-          <input id="demo-edit-frame" class="demo-range" type="range" min="1" max="81" step="1" value="1" aria-label="Edit time">
+          <div class="demo-edit-time-track">
+            <input id="demo-edit-frame" class="demo-range" type="range" min="0" max="5" step="1" value="0" aria-label="Edit time">
+            <div class="demo-edit-stops" id="demo-edit-stops" role="group" aria-label="Edit times"></div>
+          </div>
           <output id="demo-edit-frame-output" for="demo-edit-frame"></output>
         </div>
         <div class="demo-target" id="demo-target"><span class="demo-field-label">Object</span><div class="demo-object-list" id="demo-object-list" role="group" aria-label="Target object"></div></div>
@@ -200,8 +203,9 @@ async function initialize() {
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
     find("demo-selection").hidden = !interactive || !descriptor?.object.track;
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
-    find("demo-return").hidden = interactive || playing || sourceFailed;
-    find("demo-return").textContent = scene.editTimeline ? "Edit at this frame" : "Edit this scene";
+    find("demo-return").hidden = interactive || playing || sourceFailed || (scene.source.video && !sourceReady());
+    const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
+    find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
     find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
   }
 
@@ -332,6 +336,7 @@ async function initialize() {
   }
 
   function updateSelection(commit = true) {
+    selection.editFrame = nearestEditFrame(scene, selection.editFrame);
     showEditFrame();
     descriptor = describeSelection(scene, config.controls, selection);
     root.dataset.variant = descriptor?.key || "";
@@ -357,10 +362,13 @@ async function initialize() {
       root.querySelectorAll("[data-step]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.step) === selection.stepIndex)));
     }
     if (scene.editTimeline) {
-      editFrameRange.value = String(selection.editFrame);
-      editFrameRange.style.setProperty("--range-progress", `${(selection.editFrame - 1) / Math.max(1, scene.source.frameCount - 1) * 100}%`);
+      const frames = editableFrames(scene);
+      const frameIndex = frames.indexOf(selection.editFrame);
+      editFrameRange.value = String(frameIndex);
+      editFrameRange.style.setProperty("--range-progress", `${frameIndex / Math.max(1, frames.length - 1) * 100}%`);
       editFrameRange.setAttribute("aria-valuetext", `Frame ${selection.editFrame}, ${editTime().toFixed(2)} seconds`);
       find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s`;
+      root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.editIndex) === frameIndex)));
     }
     const presetIndex = scene.presets?.findIndex(preset => descriptor?.key === describeSelection(scene, config.controls, preset)?.key) ?? -1;
     find("demo-examples").value = presetIndex < 0 ? "" : String(presetIndex);
@@ -408,7 +416,12 @@ async function initialize() {
     }
     find("demo-edit-time").hidden = !scene.editTimeline;
     if (scene.editTimeline) {
-      editFrameRange.max = String(scene.source.frameCount);
+      const frames = editableFrames(scene);
+      editFrameRange.max = String(frames.length - 1);
+      find("demo-edit-stops").innerHTML = frames.map((frame, index) => {
+        const seconds = interventionTime(scene, frame).toFixed(2);
+        return `<button type="button" data-edit-index="${index}" style="left:${index / Math.max(1, frames.length - 1) * 100}%" aria-label="Edit at ${seconds} seconds, frame ${frame}" title="Frame ${frame}" aria-pressed="false">${seconds}</button>`;
+      }).join("");
     }
     find("demo-examples").hidden = !scene.presets?.length;
     find("demo-examples").innerHTML = `<option value="" disabled>Examples</option>${(scene.presets || []).map((preset, index) => `<option value="${index}">${escapeText(preset.label)}</option>`).join("")}`;
@@ -497,12 +510,15 @@ async function initialize() {
     } else if (button.dataset.step !== undefined) {
       selection.stepIndex = Number(button.dataset.step);
       updateSelection();
+    } else if (button.dataset.editIndex !== undefined) {
+      selection.editFrame = editableFrames(scene)[Number(button.dataset.editIndex)];
+      updateSelection();
     } else if (button.dataset.action === "reset") {
       selection = initialSelection(scene, config.controls);
       renderControls();
     } else if (button.dataset.action === "edit-frame") {
       if (scene.editTimeline) {
-        selection.editFrame = Math.min(scene.source.frameCount, Math.max(1, Math.round(sourceVideo.currentTime * scene.source.fps) + 1));
+        selection.editFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
         updateSelection();
       } else showEditFrame();
     }
@@ -534,7 +550,7 @@ async function initialize() {
   });
   range.addEventListener("change", () => updateSelection(true));
   editFrameRange.addEventListener("input", () => {
-    selection.editFrame = Number(editFrameRange.value);
+    selection.editFrame = editableFrames(scene)[Number(editFrameRange.value)];
     updateSelection(false);
   });
   editFrameRange.addEventListener("change", () => updateSelection(true));

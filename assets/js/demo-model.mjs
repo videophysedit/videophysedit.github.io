@@ -19,6 +19,16 @@ export function interventionTime(scene, frame) {
   return scene.editTimeline ? (frame - 1) / scene.source.fps : scene.source.editTime;
 }
 
+export function editableFrames(scene) {
+  return scene.editTimeline?.frames || [scene.editTimeline?.defaultFrame ?? 1];
+}
+
+export function nearestEditFrame(scene, frame) {
+  return editableFrames(scene).reduce((nearest, candidate) =>
+    Math.abs(candidate - frame) < Math.abs(nearest - frame) ? candidate : nearest
+  );
+}
+
 export function objectAtFrame(object, frame) {
   if (!object.track?.length) return object;
   const after = object.track.findIndex(item => item.frame >= frame);
@@ -37,7 +47,7 @@ export function initialSelection(scene, controls) {
     mode,
     objectId: mode === "remove" || mode === "insert" ? null : editableObjects(scene, mode)[0]?.id,
     stepIndex: controls[mode]?.defaultIndex ?? 0,
-    editFrame: scene.editTimeline?.defaultFrame ?? 1,
+    editFrame: nearestEditFrame(scene, scene.editTimeline?.defaultFrame ?? 1),
   };
 }
 
@@ -48,7 +58,7 @@ export function describeSelection(scene, controls, selection) {
   if (!object) return null;
   const step = controls[mode]?.steps[stepIndex];
   if (mode !== "remove" && (!Number.isInteger(stepIndex) || !step)) return null;
-  if (scene.editTimeline && (!Number.isInteger(editFrame) || editFrame < 1 || editFrame > scene.source.frameCount)) return null;
+  if (scene.editTimeline && (!Number.isInteger(editFrame) || editFrame < 1 || editFrame > scene.source.frameCount || !editableFrames(scene).includes(editFrame))) return null;
   const baseKey = mode === "remove" ? `remove:${object.id}` : `${mode}:${object.id}:${step.id}`;
   const key = scene.editTimeline ? `${baseKey}:frame-${editFrame}` : baseKey;
   const name = object.label.toLowerCase();
@@ -84,6 +94,6 @@ export function listVariants(scene, controls) {
       else controls[mode.id].steps.forEach((_, stepIndex) => selections.push({ mode: mode.id, objectId: object.id, stepIndex }));
     }
   }
-  const frames = scene.editTimeline?.plannedFrames || [scene.editTimeline?.defaultFrame ?? 1];
+  const frames = editableFrames(scene);
   return selections.flatMap(selection => frames.map(editFrame => describeSelection(scene, controls, { ...selection, editFrame })));
 }

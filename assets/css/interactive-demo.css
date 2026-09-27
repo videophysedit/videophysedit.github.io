@@ -51,7 +51,12 @@
 .demo-selection.is-revealing .demo-selection-bloom { display: block; }
 .demo-edit-time { display: flex; align-items: center; gap: 13px; min-width: 0; width: 100%; max-width: 510px; }
 .demo-edit-time label { font-size: 12px; color: #627889; white-space: nowrap; }
-.demo-edit-time .demo-range { min-width: 60px; flex: 1; }
+.demo-edit-time-track { position: relative; min-width: 60px; flex: 1; }
+.demo-edit-stops { position: absolute; top: calc(100% + 6px); left: 8.5px; right: 8.5px; height: 20px; }
+.demo-edit-stops button { position: absolute; transform: translateX(-50%); padding: 0 1px; min-height: 20px; border: 0; background: transparent; color: #7c8e9d; font-size: 10px; line-height: 20px; font-variant-numeric: tabular-nums; }
+.demo-edit-stops button::before { content: ""; position: absolute; top: -3px; left: 50%; width: 1px; height: 3px; background: #bdcdd9; }
+.demo-edit-stops button:hover, .demo-edit-stops button[aria-pressed="true"] { color: var(--demo-accent); font-weight: 600; }
+.demo-edit-stops button:focus-visible { outline-offset: 1px; }
 .demo-edit-time output { width: 47px; flex: none; text-align: right; color: var(--demo-accent); font-size: 12px; font-variant-numeric: tabular-nums; }
 .demo-examples { max-width: 230px; min-width: 0; border: 1px solid #dce5ed; border-radius: 5px; padding: 6px 9px; background: white; color: #627a8d; font: 11px var(--sans); }
 .demo-return { position: absolute; left: 50%; bottom: 11px; transform: translateX(-50%); border: 1px solid #a8bfd1; border-radius: 6px; background: #fffffff0; color: var(--deep-blue); padding: 5px 12px; font-size: 11px; white-space: nowrap; }
@@ -102,7 +107,7 @@
 .demo-media-status { font-size: 10px; color: #81919e; text-align: right; flex: none; margin-left: auto; }
 .demo-media-status.sr-only { width: 1px; margin: -1px; }
 .has-edit-timeline .demo-workspace { grid-template-columns: 1fr; gap: 17px; }
-.has-edit-timeline .demo-controls { display: grid; grid-template-columns: auto minmax(0,1fr) 30px; gap: 20px; align-items: center; padding: 0; border: 0; }
+.has-edit-timeline .demo-controls { display: grid; grid-template-columns: auto minmax(0,1fr) 30px; gap: 20px; align-items: center; padding: 0 0 18px; border: 0; }
 .has-edit-timeline .demo-controls-heading { grid-column: 3; grid-row: 1; margin: 0; }
 .has-edit-timeline .demo-controls-heading h3 { display: none; }
 .has-edit-timeline .demo-mode-list { grid-column: 1; grid-row: 1; }
@@ -158,7 +163,7 @@
   .demo-playback { padding: 11px 14px; gap: 10px; flex-wrap: wrap; }
   .demo-play { font-size: 10px; padding-inline: 8px; }
   .demo-media-status { max-width: none; width: 100%; text-align: center; margin-top: 2px; }
-  .has-edit-timeline .demo-controls { grid-template-columns: minmax(0,1fr) 30px; gap: 20px 12px; padding-bottom: 4px; }
+  .has-edit-timeline .demo-controls { grid-template-columns: minmax(0,1fr) 30px; gap: 20px 12px; padding-bottom: 22px; }
   .has-edit-timeline .demo-controls-heading { grid-column: 2; }
   .has-edit-timeline .demo-mode { min-height: 36px; padding-inline: 13px; }
   .has-edit-timeline .demo-edit-time { grid-column: 1/-1; grid-row: 2; }

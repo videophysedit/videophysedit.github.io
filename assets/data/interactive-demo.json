@@ -66,7 +66,7 @@
         "fps": 24,
         "frameCount": 81
       },
-      "editTimeline": {"defaultFrame": 1, "plannedFrames": [1, 25]},
+      "editTimeline": {"defaultFrame": 1, "frames": [1, 19, 25, 31, 37, 55]},
       "objects": [
         {
           "id": "domino-1",

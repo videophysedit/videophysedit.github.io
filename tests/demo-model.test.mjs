@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
-import { describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes } from "../assets/js/demo-model.mjs";
+import { describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
 
 const config = JSON.parse(await readFile(new URL("../assets/data/interactive-demo.json", import.meta.url)));
 const collision = config.scenes.find(scene => scene.id === "collision");
@@ -24,7 +24,7 @@ test("domino clips match the exact object, operation and one-based intervention 
   assert.equal(interventionTime(domino, 25), 1);
   assert.equal(interventionTime(domino, 1), 0);
   assert.match(describeSelection(domino, config.controls, selection).clip.video, /remove-first-frame-25/);
-  assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 24 }).clip, null);
+  assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 24 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, objectId: "domino-3" }).clip, null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 0 }), null);
   assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 82 }), null);
@@ -39,6 +39,26 @@ test("domino clips match the exact object, operation and one-based intervention 
   const heavy = { mode: "mass", objectId: "domino-2", stepIndex: 0, editFrame: 1 };
   assert.match(describeSelection(domino, config.controls, heavy).clip.video, /second-mass-10x/);
   assert.equal(describeSelection(domino, config.controls, { ...heavy, editFrame: 25 }).clip, null);
+});
+
+test("domino edits use six fixed times while playback can return to the nearest allowed frame", () => {
+  const frames = [1, 19, 25, 31, 37, 55];
+  assert.deepEqual(editableFrames(domino), frames);
+  assert.deepEqual(frames.map(frame => interventionTime(domino, frame)), [0, .75, 1, 1.25, 1.5, 2.25]);
+  for (const frame of frames) assert.equal(nearestEditFrame(domino, frame), frame);
+  assert.equal(nearestEditFrame(domino, 13), 19);
+  assert.equal(nearestEditFrame(domino, 23), 25);
+  assert.equal(nearestEditFrame(domino, 22), 19);
+  assert.equal(nearestEditFrame(domino, 81), 55);
+  const selection = { mode: "remove", objectId: "domino-1", stepIndex: 0 };
+  for (const editFrame of [13, 24, 26, 49, 81]) {
+    assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame }), null);
+  }
+  const variants = listVariants(domino, config.controls);
+  assert.equal(variants.length, 36);
+  assert.equal(variants.filter(item => item.clip).length, 4);
+  assert.deepEqual([...new Set(variants.map(item => item.editFrame))], frames);
+  assert.equal(describeSelection(domino, config.controls, { ...selection, editFrame: 55 }).clip, null);
 });
 
 test("click regions follow the selected source frame and interpolate between keyframes", () => {

@@ -21,7 +21,7 @@ The Three dominoes demo includes its source video and four existing VideoPhysEdi
 
 ## Interactive demo
 
-Each scene shows its available edit types. Three dominoes supports removal and mass ×10, with an edit-time slider covering all 81 source frames at 24 fps. Click a domino to highlight it from the click point, choose an action, and set the frame where it takes effect. The Examples menu selects the four existing results: first-domino removal at frames 1 and 25, second-domino removal at frame 1, and second-domino mass ×10 at frame 1.
+Each scene shows its available edit types. Three dominoes supports removal and mass ×10 at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). Click a domino to highlight it from the click point, choose an action, and drag the edit-time slider or click a time label. The Examples menu selects the four existing results: first-domino removal at frames 1 and 25, second-domino removal at frame 1, and second-domino mass ×10 at frame 1.
 
 Each selection applies one edit and looks up one prepared video. Other scene controls cover initial velocity, friction, restitution, and insertion at 1/6, 1/3, 1/2, 2/3, and 5/6 of a path. Elasticity and restitution share one control.
 
@@ -46,7 +46,7 @@ Add result videos under the exact keys in each scene's `variants` object:
 
 Video paths are relative to the website root. The source has its own play/pause button and can play independently even when a result is selected. The shared playback controls synchronize both clips and hold the shorter clip's last frame. The playback timeline follows the active player. The edit-time slider selects the intervention frame. Only selected clips are loaded, and slider video requests wait until the thumb is released.
 
-Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results, and `plannedFrames` controls the preparation-list export.
+Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. `editTimeline.frames` sets the allowed edit frames and the preparation-list export. Playback seeking stays continuous; entering edit mode from playback snaps to the nearest allowed frame. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results.
 
 The domino media retain their original pixels and timing. They are remuxed for web playback; result videos use square pixels to match their 768×432 frames and the source's 16:9 display ratio.
 
