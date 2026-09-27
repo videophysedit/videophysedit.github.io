@@ -21,7 +21,7 @@ The Three dominoes demo includes its source video, 18 removal results, and one m
 
 ## Interactive demo
 
-Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). Click a domino to highlight it from the click point, choose an action, and drag the edit-time slider or click a time label. Mass ×10 is available for the second domino at frame 1. The Examples menu provides shortcuts to selected results.
+Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). First select an edit time using the slider on the left or a time label, then click a domino in the source video and choose an action on the right. Changing the time keeps the selected domino for comparison. Reset returns to time selection. Mass ×10 is available for the second domino at frame 1. The Examples menu provides shortcuts to selected results.
 
 Each selection applies one edit and looks up one prepared video. Other scene controls cover initial velocity, friction, restitution, and insertion at 1/6, 1/3, 1/2, 2/3, and 5/6 of a path. Elasticity and restitution share one control.
 

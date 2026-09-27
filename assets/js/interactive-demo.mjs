@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-5";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-6";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -118,16 +118,16 @@ async function initialize() {
         </figure>
       </div>
       <aside class="demo-controls" aria-label="Physical edit controls">
-        <div class="demo-controls-heading"><h3>Physical edit</h3><button type="button" class="demo-reset" data-action="reset" title="Reset this scene" aria-label="Reset edit">${icon("reset")}</button></div>
-        <div class="demo-mode-list" role="group" aria-label="Edit type">${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
         <div class="demo-edit-time" id="demo-edit-time" hidden>
-          <label for="demo-edit-frame">Edit time</label>
+          <label for="demo-edit-frame">Select edit time</label>
           <div class="demo-edit-time-track">
-            <input id="demo-edit-frame" class="demo-range" type="range" min="0" max="5" step="1" value="0" aria-label="Edit time">
+            <input id="demo-edit-frame" class="demo-range" type="range" min="0" max="5" step="1" value="0" aria-label="Select edit time">
             <div class="demo-edit-stops" id="demo-edit-stops" role="group" aria-label="Edit times"></div>
           </div>
           <output id="demo-edit-frame-output" for="demo-edit-frame"></output>
         </div>
+        <div class="demo-controls-heading"><h3>Physical edit</h3><button type="button" class="demo-reset" data-action="reset" title="Reset this scene" aria-label="Reset edit">${icon("reset")}</button></div>
+        <div class="demo-mode-list" role="group" aria-label="Edit type">${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
         <div class="demo-target" id="demo-target"><span class="demo-field-label">Object</span><div class="demo-object-list" id="demo-object-list" role="group" aria-label="Target object"></div></div>
         <div class="demo-remove-help" id="demo-remove-help">Click an object to remove it. Click again to restore it.</div>
         <div class="demo-slider-control" id="demo-slider-control" hidden>
@@ -159,6 +159,7 @@ async function initialize() {
   const stageResult = find("demo-result-stage");
   const formatTime = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
   const editTime = () => interventionTime(scene, selection.editFrame);
+  const needsEditTime = () => Boolean(scene.editTimeline && !selection.timeChosen);
   const sourceReady = () => Boolean(scene.source.video && !sourceFailed && sourceVideo.readyState >= 1 && Number.isFinite(sourceVideo.duration));
   const playsComparison = () => playbackMode === "comparison" && ready();
   const playbackVideos = () => playsComparison() ? [sourceVideo, resultVideo] : [sourceVideo];
@@ -199,14 +200,14 @@ async function initialize() {
 
   function updateHotspotVisibility() {
     const atEditFrame = !scene.source.video || (sourceReady() && !sourceVideo.seeking && Math.abs(sourceVideo.currentTime - editTime()) < .025);
-    const interactive = !playing && atEditFrame;
+    const interactive = !playing && atEditFrame && !needsEditTime();
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
     find("demo-selection").hidden = !interactive || !descriptor?.object.track;
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
-    find("demo-return").hidden = interactive || playing || sourceFailed || (scene.source.video && !sourceReady());
+    find("demo-return").hidden = atEditFrame || playing || sourceFailed || (scene.source.video && !sourceReady());
     const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
     find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
   }
 
   function updateMediaState() {
@@ -222,7 +223,7 @@ async function initialize() {
     find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
-    startHint.querySelector("strong").textContent = actualScene ? (descriptor ? "No result for this edit yet" : "Click a domino to begin") : "What would happen without it?";
+    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? "Select an edit time, then click a domino" : descriptor ? "No result for this edit yet" : "Click a domino in the source video") : "What would happen without it?";
     startHint.querySelector("p").hidden = actualScene;
     startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
@@ -342,7 +343,7 @@ async function initialize() {
     root.dataset.variant = descriptor?.key || "";
     root.dataset.editFrame = String(selection.editFrame);
     savedSelections.set(scene.id, { ...selection });
-    find("demo-command").textContent = descriptor?.instruction || (scene.editTimeline ? "Select a domino in the source video, then choose the edit and its starting time." : "Click an object in the source scene to remove it.");
+    find("demo-command").textContent = descriptor?.instruction || (needsEditTime() ? "Select an edit time, then click a domino in the source video." : scene.editTimeline ? "Click a domino in the source video." : "Click an object in the source scene to remove it.");
     find("demo-result-hint").textContent = descriptor ? modes.find(mode => mode.id === selection.mode).label : "Counterfactual video";
     root.querySelectorAll("[data-object]").forEach(button => {
       const selected = button.dataset.object === selection.objectId;
@@ -368,7 +369,7 @@ async function initialize() {
       editFrameRange.style.setProperty("--range-progress", `${frameIndex / Math.max(1, frames.length - 1) * 100}%`);
       editFrameRange.setAttribute("aria-valuetext", `Frame ${selection.editFrame}, ${editTime().toFixed(2)} seconds`);
       find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s`;
-      root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.editIndex) === frameIndex)));
+      root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(!needsEditTime() && Number(button.dataset.editIndex) === frameIndex)));
     }
     const presetIndex = scene.presets?.findIndex(preset => descriptor?.key === describeSelection(scene, config.controls, preset)?.key) ?? -1;
     find("demo-examples").value = presetIndex < 0 ? "" : String(presetIndex);
@@ -402,7 +403,7 @@ async function initialize() {
     find("demo-hotspots").innerHTML = objects.map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
-    find("demo-remove-help").textContent = scene.editTimeline ? "Click a domino to select it. Drag the edit time to choose when it disappears." : "Click an object to remove it. Click again to restore it.";
+    find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";
     find("demo-slider-control").hidden = Boolean(scene.editTimeline) || isRemoval;
     if (!isRemoval) {
       const control = config.controls[selection.mode];
@@ -494,6 +495,12 @@ async function initialize() {
     }
   }
 
+  function selectEditTime(frame, commit = true) {
+    selection.editFrame = frame;
+    selection.timeChosen = true;
+    updateSelection(commit);
+  }
+
   root.addEventListener("click", event => {
     const button = event.target.closest("button");
     if (!button || button.disabled) return;
@@ -504,6 +511,7 @@ async function initialize() {
       if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = scene.editTimeline || selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
       renderControls();
     } else if (button.dataset.object) {
+      if (needsEditTime()) return;
       selection.objectId = !scene.editTimeline && selection.mode === "remove" && selection.objectId === button.dataset.object ? null : button.dataset.object;
       updateSelection();
       revealSelection(event);
@@ -511,15 +519,13 @@ async function initialize() {
       selection.stepIndex = Number(button.dataset.step);
       updateSelection();
     } else if (button.dataset.editIndex !== undefined) {
-      selection.editFrame = editableFrames(scene)[Number(button.dataset.editIndex)];
-      updateSelection();
+      selectEditTime(editableFrames(scene)[Number(button.dataset.editIndex)]);
     } else if (button.dataset.action === "reset") {
       selection = initialSelection(scene, config.controls);
       renderControls();
     } else if (button.dataset.action === "edit-frame") {
       if (scene.editTimeline) {
-        selection.editFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
-        updateSelection();
+        selectEditTime(nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1));
       } else showEditFrame();
     }
     else if (button.dataset.action === "play") togglePlayback();
@@ -528,7 +534,7 @@ async function initialize() {
   find("demo-examples").addEventListener("change", event => {
     const preset = scene.presets?.[Number(event.target.value)];
     if (!preset) return;
-    selection = { ...preset };
+    selection = { ...preset, timeChosen: true };
     renderControls();
     revealSelection();
   });
@@ -550,10 +556,17 @@ async function initialize() {
   });
   range.addEventListener("change", () => updateSelection(true));
   editFrameRange.addEventListener("input", () => {
-    selection.editFrame = editableFrames(scene)[Number(editFrameRange.value)];
-    updateSelection(false);
+    selectEditTime(editableFrames(scene)[Number(editFrameRange.value)], false);
   });
-  editFrameRange.addEventListener("change", () => updateSelection(true));
+  const commitEditTime = () => selectEditTime(editableFrames(scene)[Number(editFrameRange.value)]);
+  editFrameRange.addEventListener("change", commitEditTime);
+  editFrameRange.addEventListener("pointerup", commitEditTime);
+  editFrameRange.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      commitEditTime();
+    }
+  });
   timeline.addEventListener("input", () => {
     if (!canPlay()) return;
     stopPlayback();

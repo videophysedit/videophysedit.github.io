@@ -48,11 +48,13 @@ export function initialSelection(scene, controls) {
     objectId: mode === "remove" || mode === "insert" ? null : editableObjects(scene, mode)[0]?.id,
     stepIndex: controls[mode]?.defaultIndex ?? 0,
     editFrame: nearestEditFrame(scene, scene.editTimeline?.defaultFrame ?? 1),
+    timeChosen: !scene.editTimeline,
   };
 }
 
 export function describeSelection(scene, controls, selection) {
   const { mode, objectId, stepIndex, editFrame = 1 } = selection;
+  if (scene.editTimeline && selection.timeChosen === false) return null;
   if (!modes.some(item => item.id === mode)) return null;
   const object = mode === "insert" ? scene.insertion?.object : editableObjects(scene, mode).find(item => item.id === objectId);
   if (!object) return null;

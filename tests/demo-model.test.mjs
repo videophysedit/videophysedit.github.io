@@ -18,6 +18,16 @@ test("four scenes have unique exact variant keys and useful initial states", () 
   }
 });
 
+test("domino edits wait for a time selection before choosing a result", () => {
+  const selection = initialSelection(domino, config.controls);
+  assert.equal(selection.timeChosen, false);
+  assert.equal(describeSelection(domino, config.controls, { ...selection, objectId: "domino-1" }), null);
+  const chosen = { ...selection, timeChosen: true, objectId: "domino-1", editFrame: 19 };
+  assert.equal(describeSelection(domino, config.controls, chosen).clip.caseId, "remove_first_f19");
+  assert.equal(describeSelection(domino, config.controls, { ...chosen, editFrame: 25 }).clip.caseId, "remove_first_f25");
+  assert.equal(initialSelection(domino, config.controls).timeChosen, false);
+});
+
 test("domino clips match the exact object, operation and one-based intervention frame", async () => {
   assert.deepEqual(sceneModes(domino).map(mode => mode.id), ["remove", "mass"]);
   const selection = { mode: "remove", objectId: "domino-1", stepIndex: 0, editFrame: 25 };
