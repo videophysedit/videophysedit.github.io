@@ -17,11 +17,13 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
 
-The interactive demo currently uses illustrations, labeled as previews. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
+The Three dominoes demo includes its source video and four existing VideoPhysEdit results. The other three scenes use labeled illustrations. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
 
 ## Interactive demo
 
-The four scene tabs share five edit types: object removal, initial velocity, friction, restitution, and object insertion. Each selection applies one edit and looks up one prepared video. Sliders use discrete stops; insertion positions are 1/6, 1/3, 1/2, 2/3, and 5/6. Elasticity and restitution share one control.
+Each scene shows its available edit types. Three dominoes supports removal and mass ×10, with an edit-time slider covering all 81 source frames at 24 fps. Click a domino, choose an action, and set the frame where it takes effect. The available-edit buttons select the four existing results: first-domino removal at frames 1 and 25, second-domino removal at frame 1, and second-domino mass ×10 at frame 1.
+
+Each selection applies one edit and looks up one prepared video. Other scene controls cover initial velocity, friction, restitution, and insertion at 1/6, 1/3, 1/2, 2/3, and 5/6 of a path. Elasticity and restitution share one control.
 
 In `assets/data/interactive-demo.json`, set each scene's `source.video`, `source.poster`, and `source.editTime`. Object centers and sizes (`x`, `y`, `w`, `h`) are fractions of the source frame. Match `source.width` and `source.height` to the actual video aspect ratio. The `edits` list controls which objects can be edited in each mode.
 
@@ -42,7 +44,11 @@ Add result videos under the exact keys in each scene's `variants` object:
 }
 ```
 
-Video paths are relative to the website root. An unfilled entry displays a preview with playback disabled. The shared play and seek controls synchronize source and result videos; object selection returns to `editTime` so hotspots stay aligned. Only the selected clips are loaded, and slider video requests wait until the thumb is released.
+Video paths are relative to the website root. The source can play independently. When a matching result is present, the shared playback controls synchronize both clips and hold the shorter clip's last frame. The edit-time slider selects the intervention frame; the separate playback timeline only seeks the comparison. Only selected clips are loaded, and slider video requests wait until the thumb is released.
+
+Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results, and `plannedFrames` controls the preparation-list export.
+
+The domino media retain their original pixels and timing. They are remuxed for web playback; result videos use square pixels to match their 768×432 frames and the source's 16:9 display ratio.
 
 Export the current video preparation list with `node scripts/list-demo-variants.mjs planned-videos.csv`. Check the selection mapping with `node --test tests/demo-model.test.mjs`.
 
