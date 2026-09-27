@@ -106,12 +106,12 @@
 .demo-media-status { font-size: 10px; color: #81919e; text-align: right; flex: none; margin-left: auto; }
 .demo-media-status.sr-only { width: 1px; margin: -1px; }
 .has-edit-timeline .demo-workspace { grid-template-columns: 1fr; gap: 17px; }
-.has-edit-timeline .demo-controls { display: grid; grid-template-columns: minmax(0,1fr) auto 30px; gap: 20px; align-items: center; padding: 0 0 18px; border: 0; }
+.has-edit-timeline .demo-controls { display: grid; grid-template-columns: auto minmax(0,1fr) 30px; gap: 20px; align-items: center; padding: 0 0 18px; border: 0; }
 .has-edit-timeline .demo-controls-heading { grid-column: 3; grid-row: 1; margin: 0; }
 .has-edit-timeline .demo-controls-heading h3 { display: none; }
-.has-edit-timeline .demo-mode-list { grid-column: 2; grid-row: 1; }
+.has-edit-timeline .demo-mode-list { grid-column: 1; grid-row: 1; }
 .has-edit-timeline .demo-mode { flex: none; padding: 6px 12px; }
-.has-edit-timeline .demo-edit-time { grid-column: 1; grid-row: 1; justify-self: start; }
+.has-edit-timeline .demo-edit-time { grid-column: 2; grid-row: 1; justify-self: start; }
 .has-edit-timeline .demo-command { padding: 0; border: 0; margin: -1px; min-height: 0; }
 .has-edit-timeline .demo-view > figcaption small { display: inline; }
 .has-edit-timeline .demo-start-hint strong { font-size: 13px; font-weight: 400; color: #728595; }
@@ -163,10 +163,10 @@
   .demo-play { font-size: 14px; padding-inline: 8px; }
   .demo-media-status { max-width: none; width: 100%; text-align: center; margin-top: 2px; }
   .has-edit-timeline .demo-controls { grid-template-columns: minmax(0,1fr) 30px; gap: 28px 12px; padding-bottom: 0; }
-  .has-edit-timeline .demo-controls-heading { grid-column: 2; grid-row: 2; }
-  .has-edit-timeline .demo-mode-list { grid-column: 1; grid-row: 2; }
+  .has-edit-timeline .demo-controls-heading { grid-column: 2; grid-row: 1; }
+  .has-edit-timeline .demo-mode-list { grid-column: 1; grid-row: 1; }
   .has-edit-timeline .demo-mode { min-height: 36px; padding-inline: 13px; }
-  .has-edit-timeline .demo-edit-time { grid-column: 1/-1; grid-row: 1; max-width: none; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; }
+  .has-edit-timeline .demo-edit-time { grid-column: 1/-1; grid-row: 2; max-width: none; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; }
   .has-edit-timeline .demo-edit-time label { grid-column: 1; grid-row: 1; }
   .has-edit-timeline .demo-edit-time output { grid-column: 2; grid-row: 1; }
   .has-edit-timeline .demo-edit-time-track { grid-column: 1/-1; grid-row: 2; }
