@@ -182,3 +182,8 @@
 .demo-edit-label { flex-basis: 100%; font-size: 14px; color: #627889; white-space: nowrap; }
 .has-edit-timeline .demo-mode-list { align-items: center; }
 .has-edit-timeline .demo-edit-label { flex-basis: auto; margin-right: 7px; }
+
+/* Separate edit type and time without adding another panel. */
+@media (min-width: 641px) {
+  .has-edit-timeline .demo-edit-time { border-left: 1px solid #dce5ed; padding-left: 26px; margin-left: 6px; width: calc(100% - 6px); }
+}
