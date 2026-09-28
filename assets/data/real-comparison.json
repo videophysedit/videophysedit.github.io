@@ -14,6 +14,14 @@
         "ditto": "assets/videos/comparisons/real/real__morpheus_projectile/ditto.mp4",
         "minimax": "assets/videos/comparisons/real/real__morpheus_projectile/minimax.mp4",
         "seedance": "assets/videos/comparisons/real/real__morpheus_projectile/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/real/real__morpheus_projectile/source.jpg",
+        "videophysedit": "assets/images/comparisons/real/real__morpheus_projectile/videophysedit.jpg",
+        "vace": "assets/images/comparisons/real/real__morpheus_projectile/vace.jpg",
+        "ditto": "assets/images/comparisons/real/real__morpheus_projectile/ditto.jpg",
+        "minimax": "assets/images/comparisons/real/real__morpheus_projectile/minimax.jpg",
+        "seedance": "assets/images/comparisons/real/real__morpheus_projectile/seedance.jpg"
       }
     },
     {
@@ -30,6 +38,14 @@
         "ditto": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/ditto.mp4",
         "minimax": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/minimax.mp4",
         "seedance": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/real/real__morpheus_rolling_full_can/source.jpg",
+        "videophysedit": "assets/images/comparisons/real/real__morpheus_rolling_full_can/videophysedit.jpg",
+        "vace": "assets/images/comparisons/real/real__morpheus_rolling_full_can/vace.jpg",
+        "ditto": "assets/images/comparisons/real/real__morpheus_rolling_full_can/ditto.jpg",
+        "minimax": "assets/images/comparisons/real/real__morpheus_rolling_full_can/minimax.jpg",
+        "seedance": "assets/images/comparisons/real/real__morpheus_rolling_full_can/seedance.jpg"
       }
     },
     {
@@ -46,6 +62,14 @@
         "ditto": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/ditto.mp4",
         "minimax": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/minimax.mp4",
         "seedance": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/source.jpg",
+        "videophysedit": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/videophysedit.jpg",
+        "vace": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/vace.jpg",
+        "ditto": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/ditto.jpg",
+        "minimax": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/minimax.jpg",
+        "seedance": "assets/images/comparisons/real/real__morpheus_collision_big_hits_small/seedance.jpg"
       }
     },
     {
@@ -62,6 +86,14 @@
         "ditto": "assets/videos/comparisons/real/real__ball_ramp/ditto.mp4",
         "minimax": "assets/videos/comparisons/real/real__ball_ramp/minimax.mp4",
         "seedance": "assets/videos/comparisons/real/real__ball_ramp/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/real/real__ball_ramp/source.jpg",
+        "videophysedit": "assets/images/comparisons/real/real__ball_ramp/videophysedit.jpg",
+        "vace": "assets/images/comparisons/real/real__ball_ramp/vace.jpg",
+        "ditto": "assets/images/comparisons/real/real__ball_ramp/ditto.jpg",
+        "minimax": "assets/images/comparisons/real/real__ball_ramp/minimax.jpg",
+        "seedance": "assets/images/comparisons/real/real__ball_ramp/seedance.jpg"
       }
     }
   ]

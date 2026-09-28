@@ -13,6 +13,14 @@
         "minimax": "assets/videos/comparisons/synthetic/bouncing_ball/minimax.mp4",
         "seedance": "assets/videos/comparisons/synthetic/bouncing_ball/seedance.mp4",
         "videophysedit": "assets/videos/comparisons/synthetic/bouncing_ball/videophysedit.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/synthetic/bouncing_ball/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/bouncing_ball/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/bouncing_ball/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/bouncing_ball/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/bouncing_ball/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/bouncing_ball/videophysedit.jpg"
       }
     },
     {
@@ -28,6 +36,14 @@
         "minimax": "assets/videos/comparisons/synthetic/car_gap_jump/minimax.mp4",
         "seedance": "assets/videos/comparisons/synthetic/car_gap_jump/seedance.mp4",
         "videophysedit": "assets/videos/comparisons/synthetic/car_gap_jump/videophysedit.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/synthetic/car_gap_jump/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/car_gap_jump/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/car_gap_jump/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/car_gap_jump/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/car_gap_jump/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/car_gap_jump/videophysedit.jpg"
       }
     },
     {
@@ -43,6 +59,14 @@
         "minimax": "assets/videos/comparisons/synthetic/car_ramp_climb/minimax.mp4",
         "seedance": "assets/videos/comparisons/synthetic/car_ramp_climb/seedance.mp4",
         "videophysedit": "assets/videos/comparisons/synthetic/car_ramp_climb/videophysedit.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/synthetic/car_ramp_climb/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/car_ramp_climb/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/car_ramp_climb/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/car_ramp_climb/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/car_ramp_climb/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/car_ramp_climb/videophysedit.jpg"
       }
     },
     {
@@ -58,6 +82,14 @@
         "minimax": "assets/videos/comparisons/synthetic/curling_collision/minimax.mp4",
         "seedance": "assets/videos/comparisons/synthetic/curling_collision/seedance.mp4",
         "videophysedit": "assets/videos/comparisons/synthetic/curling_collision/videophysedit.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/synthetic/curling_collision/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/curling_collision/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/curling_collision/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/curling_collision/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/curling_collision/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/curling_collision/videophysedit.jpg"
       }
     },
     {
@@ -73,6 +105,14 @@
         "minimax": "assets/videos/comparisons/synthetic/table_marble_collision/minimax.mp4",
         "seedance": "assets/videos/comparisons/synthetic/table_marble_collision/seedance.mp4",
         "videophysedit": "assets/videos/comparisons/synthetic/table_marble_collision/videophysedit.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/synthetic/table_marble_collision/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/table_marble_collision/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/table_marble_collision/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/table_marble_collision/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/table_marble_collision/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/table_marble_collision/videophysedit.jpg"
       }
     }
   ]

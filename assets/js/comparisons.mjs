@@ -31,7 +31,7 @@ async function initComparison(root, dataPath) {
     playing = false;
     cancelAnimationFrame(frame);
     videos.forEach(video => video.pause());
-    play.disabled = failed || duration <= 0;
+    play.disabled = failed || !videos.length;
     play.textContent = time >= duration && duration ? "Replay all" : "Play all";
   }
   function seekTo(value) {
@@ -42,11 +42,17 @@ async function initComparison(root, dataPath) {
     displayTime();
   }
   function metadataReady() {
-    if (failed || !videos.length || videos.some(video => !Number.isFinite(video.duration))) return;
+    if (failed || !videos.length) return;
+    const loaded = videos.filter(video => Number.isFinite(video.duration)).length;
+    if (loaded < videos.length) {
+      status.textContent = "Loading videos (" + loaded + "/" + videos.length + ")… You can tap Play all to start.";
+      return;
+    }
     duration = Math.max(...videos.map(video => video.duration));
     seek.max = duration;
     seek.disabled = false;
-    play.disabled = false;
+    play.disabled = starting;
+    status.textContent = "";
     displayTime();
     autoplay();
   }
@@ -76,6 +82,8 @@ async function initComparison(root, dataPath) {
       if (item.videos[key]) {
         const video = document.createElement("video");
         video.muted = true;
+        video.defaultMuted = true;
+        if (item.posters?.[key]) video.poster = item.posters[key];
         video.playsInline = true;
         video.preload = "auto";
         video.setAttribute("aria-label", `${item.label} — ${name}`);
@@ -106,21 +114,29 @@ async function initComparison(root, dataPath) {
       }
       grid.append(figure);
     }
+    play.disabled = !videos.length;
+    status.textContent = "Loading videos… You can tap Play all to start.";
     displayTime();
   }
   async function startPlayback() {
-    if (playing || starting || failed || !duration) return;
+    if (playing || starting || failed || !videos.length) return;
     starting = true;
-    if (time >= duration) seekTo(0);
+    if (duration > 0 && time >= duration) seekTo(0);
     const activeGeneration = generation;
     const activeVideos = [...videos];
     const activePlayback = ++playback;
     status.textContent = "";
     play.disabled = true;
     play.textContent = "Loading…";
+    let loadTimeout;
     try {
-      await Promise.all(activeVideos.filter(video => time < video.duration).map(video => video.play()));
+      // Calling play directly also starts loading when mobile browsers defer preload.
+      await Promise.race([
+        Promise.all(activeVideos.filter(video => !Number.isFinite(video.duration) || time < video.duration).map(video => video.play())),
+        new Promise((_, reject) => { loadTimeout = setTimeout(() => reject(new Error("Video loading timed out")), 15000); })
+      ]);
       if (activeGeneration !== generation || activePlayback !== playback) return;
+      metadataReady();
       starting = false;
       playing = true;
       play.disabled = false;
@@ -149,7 +165,9 @@ async function initComparison(root, dataPath) {
       pause();
       manualPause = true;
       play.disabled = false;
-      status.textContent = "Playback could not start. Please try again.";
+      status.textContent = "Videos are still loading or autoplay was blocked. Tap Play all to retry.";
+    } finally {
+      clearTimeout(loadTimeout);
     }
   }
   play.addEventListener("click", () => {
@@ -186,5 +204,5 @@ async function initComparison(root, dataPath) {
 
 }
 for (const kind of ["synthetic", "real", "removal"]) {
-  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=instructions-49`);
+  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=mobile-video-63`);
 }

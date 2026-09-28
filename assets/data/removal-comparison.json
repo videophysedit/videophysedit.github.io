@@ -14,6 +14,14 @@
         "ditto": "assets/videos/comparisons/removal/ball_box_rebound/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/ball_box_rebound/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/ball_box_rebound/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/ball_box_rebound/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/ball_box_rebound/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/ball_box_rebound/void.jpg",
+        "ditto": "assets/images/comparisons/removal/ball_box_rebound/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/ball_box_rebound/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/ball_box_rebound/seedance.jpg"
       }
     },
     {
@@ -30,6 +38,14 @@
         "ditto": "assets/videos/comparisons/removal/toy_car_ball/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/toy_car_ball/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/toy_car_ball/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/toy_car_ball/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/toy_car_ball/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/toy_car_ball/void.jpg",
+        "ditto": "assets/images/comparisons/removal/toy_car_ball/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/toy_car_ball/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/toy_car_ball/seedance.jpg"
       }
     },
     {
@@ -46,6 +62,14 @@
         "ditto": "assets/videos/comparisons/removal/ball_block/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/ball_block/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/ball_block/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/ball_block/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/ball_block/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/ball_block/void.jpg",
+        "ditto": "assets/images/comparisons/removal/ball_block/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/ball_block/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/ball_block/seedance.jpg"
       }
     },
     {
@@ -62,6 +86,14 @@
         "ditto": "assets/videos/comparisons/removal/ramp_collision/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/ramp_collision/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/ramp_collision/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/ramp_collision/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/ramp_collision/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/ramp_collision/void.jpg",
+        "ditto": "assets/images/comparisons/removal/ramp_collision/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/ramp_collision/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/ramp_collision/seedance.jpg"
       }
     },
     {
@@ -78,6 +110,14 @@
         "ditto": "assets/videos/comparisons/removal/table_marble_collision/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/table_marble_collision/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/table_marble_collision/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/table_marble_collision/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/table_marble_collision/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/table_marble_collision/void.jpg",
+        "ditto": "assets/images/comparisons/removal/table_marble_collision/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/table_marble_collision/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/table_marble_collision/seedance.jpg"
       }
     },
     {
@@ -94,6 +134,14 @@
         "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/void.jpg",
+        "ditto": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.jpg"
       }
     },
     {
@@ -110,6 +158,14 @@
         "ditto": "assets/videos/comparisons/removal/real__balls_collide/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/real__balls_collide/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/real__balls_collide/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/real__balls_collide/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/real__balls_collide/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/real__balls_collide/void.jpg",
+        "ditto": "assets/images/comparisons/removal/real__balls_collide/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/real__balls_collide/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/real__balls_collide/seedance.jpg"
       }
     }
   ]
