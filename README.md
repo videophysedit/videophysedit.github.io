@@ -14,6 +14,7 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - Set authors, affiliations, paper links, citation, and video paths in `assets/js/content.js`.
 - Configure the homepage interactive demo in `assets/data/interactive-demo.json`.
 - Configure synthetic baseline comparisons in `assets/data/synthetic-comparison.json`.
+- Configure real-video baseline comparisons in `assets/data/real-comparison.json`.
 - Adjust the layout in `assets/css/style.css`.
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
@@ -56,6 +57,8 @@ Export the current video preparation list with `node scripts/list-demo-variants.
 ## Baseline comparisons
 
 The synthetic comparison section includes five selectable scenes with Source, VACE, Ditto, MiniMax H3, Seedance 2.5, and VideoPhysEdit. Videos automatically play together when visible and restart together after the longest clip ends. Shorter clips hold their last frame. Switching scenes starts a new comparison; scrolling away pauses playback. The shared timeline uses seconds at the original playback speed, and manual pause and seeking remain available. Each video can also be opened separately.
+
+Real-video comparisons cover projectile speed ×2, rolling-can speed ×0.5, large-ball mass ×0.5, and ramp gravity ×0.5. They use the same playback controls as synthetic comparisons, with 5:4 or 3:2 scene frames and the original media aspect ratios preserved within each frame.
 
 ## Publish with GitHub Pages
 

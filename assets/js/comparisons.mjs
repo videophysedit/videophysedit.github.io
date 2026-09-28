@@ -1,4 +1,4 @@
-const root = document.querySelector("#synthetic-comparison");
+async function initComparison(root, dataPath) {
 const grid = root.querySelector(".comparison-grid");
 const choices = root.querySelector(".comparison-cases");
 const instruction = root.querySelector(".comparison-instruction");
@@ -69,6 +69,7 @@ function render(item) {
     caption.textContent = name;
     const slot = document.createElement("div");
     slot.className = "media-slot";
+    slot.style.aspectRatio = item.aspect || "16/9";
     figure.append(caption, slot);
     if (item.videos[key]) {
       const video = document.createElement("video");
@@ -165,7 +166,7 @@ new IntersectionObserver(entries => {
 }).observe(grid);
 
 try {
-  const response = await fetch("assets/data/synthetic-comparison.json?v=40");
+  const response = await fetch(dataPath);
   if (!response.ok) throw new Error("Comparison data unavailable");
   const data = await response.json();
   data.cases.forEach(item => {
@@ -179,4 +180,9 @@ try {
   render(data.cases[0]);
 } catch {
   status.textContent = "Comparisons could not be loaded. Please reload the page.";
+}
+
+}
+for (const kind of ["synthetic", "real"]) {
+  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=real-42`);
 }

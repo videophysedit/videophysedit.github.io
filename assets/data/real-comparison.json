@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "id": "real__morpheus_projectile/edit_velocity_x2",
+      "scene": "morpheus_projectile",
+      "edit": "edit_velocity_x2",
+      "label": "Projectile ball",
+      "instruction": "From frame 1 onward, increase the projectile ball's initial speed to 2 times its original value.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/real/real__morpheus_projectile/source.mp4",
+        "videophysedit": "assets/videos/comparisons/real/real__morpheus_projectile/videophysedit.mp4",
+        "vace": "assets/videos/comparisons/real/real__morpheus_projectile/vace.mp4",
+        "ditto": "assets/videos/comparisons/real/real__morpheus_projectile/ditto.mp4",
+        "minimax": "assets/videos/comparisons/real/real__morpheus_projectile/minimax.mp4",
+        "seedance": "assets/videos/comparisons/real/real__morpheus_projectile/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__morpheus_rolling_full_can/edit_velocity_x0p5",
+      "scene": "morpheus_rolling_full_can",
+      "edit": "edit_velocity_x0p5",
+      "label": "Rolling can",
+      "instruction": "From frame 1 onward, decrease the can's initial speed to 0.5 times its original value.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/source.mp4",
+        "videophysedit": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/videophysedit.mp4",
+        "vace": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/vace.mp4",
+        "ditto": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/ditto.mp4",
+        "minimax": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/minimax.mp4",
+        "seedance": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__morpheus_collision_big_hits_small/edit_big_mass_x0p5",
+      "scene": "morpheus_collision_big_hits_small",
+      "edit": "edit_big_mass_x0p5",
+      "label": "Ball collision",
+      "instruction": "From frame 1 onward, decrease the large ball's mass to 0.5 times its original value.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/source.mp4",
+        "videophysedit": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/videophysedit.mp4",
+        "vace": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/vace.mp4",
+        "ditto": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/ditto.mp4",
+        "minimax": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/minimax.mp4",
+        "seedance": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__ball_ramp/ramp_gravity_half",
+      "scene": "ball_ramp",
+      "edit": "ramp_gravity_half",
+      "label": "Ball on a ramp",
+      "instruction": "From frame 1 onward, decrease the scene's gravity magnitude to 0.5 times its original value.",
+      "aspect": "3/2",
+      "videos": {
+        "source": "assets/videos/comparisons/real/real__ball_ramp/source.mp4",
+        "videophysedit": "assets/videos/comparisons/real/real__ball_ramp/videophysedit.mp4",
+        "vace": "assets/videos/comparisons/real/real__ball_ramp/vace.mp4",
+        "ditto": "assets/videos/comparisons/real/real__ball_ramp/ditto.mp4",
+        "minimax": "assets/videos/comparisons/real/real__ball_ramp/minimax.mp4",
+        "seedance": "assets/videos/comparisons/real/real__ball_ramp/seedance.mp4"
+      }
+    }
+  ]
+}
