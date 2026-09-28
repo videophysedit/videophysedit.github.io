@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "id": "bouncing_ball/edit_dead_ball",
+      "scene": "bouncing_ball",
+      "edit": "edit_dead_ball",
+      "label": "Bouncing ball",
+      "instruction": "From frame 1 onwards, reduce the red ball's restitution to 0.4 times its original value.",
+      "videos": {
+        "source": "assets/videos/comparisons/synthetic/bouncing_ball/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/bouncing_ball/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/bouncing_ball/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/bouncing_ball/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/bouncing_ball/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/bouncing_ball/videophysedit.mp4"
+      }
+    },
+    {
+      "id": "car_gap_jump/edit_overpowered",
+      "scene": "car_gap_jump",
+      "edit": "edit_overpowered",
+      "label": "Car gap jump",
+      "instruction": "From frame 1 onwards, increase the toy car's initial speed to 2 times its original value.",
+      "videos": {
+        "source": "assets/videos/comparisons/synthetic/car_gap_jump/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/car_gap_jump/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/car_gap_jump/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/car_gap_jump/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/car_gap_jump/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/car_gap_jump/videophysedit.mp4"
+      }
+    },
+    {
+      "id": "car_ramp_climb/edit_slick_wheels",
+      "scene": "car_ramp_climb",
+      "edit": "edit_slick_wheels",
+      "label": "Car ramp climb",
+      "instruction": "From frame 1 onwards, reduce the toy car's friction coefficient to 0.2 times its original value.",
+      "videos": {
+        "source": "assets/videos/comparisons/synthetic/car_ramp_climb/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/car_ramp_climb/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/car_ramp_climb/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/car_ramp_climb/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/car_ramp_climb/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/car_ramp_climb/videophysedit.mp4"
+      }
+    },
+    {
+      "id": "curling_collision/edit_yellow_at_rest",
+      "scene": "curling_collision",
+      "edit": "edit_yellow_at_rest",
+      "label": "Curling collision",
+      "instruction": "From frame 1 onwards, leave the yellow stone at rest.",
+      "videos": {
+        "source": "assets/videos/comparisons/synthetic/curling_collision/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/curling_collision/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/curling_collision/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/curling_collision/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/curling_collision/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/curling_collision/videophysedit.mp4"
+      }
+    },
+    {
+      "id": "table_marble_collision/edit_heavy_big_marble",
+      "scene": "table_marble_collision",
+      "edit": "edit_heavy_big_marble",
+      "label": "Marble collision",
+      "instruction": "From frame 1 onwards, increase the big marble's mass to 5 times its original value.",
+      "videos": {
+        "source": "assets/videos/comparisons/synthetic/table_marble_collision/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/table_marble_collision/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/table_marble_collision/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/table_marble_collision/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/table_marble_collision/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/table_marble_collision/videophysedit.mp4"
+      }
+    }
+  ]
+}

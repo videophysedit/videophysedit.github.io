@@ -70,6 +70,7 @@
   }
 
   document.querySelectorAll("[data-comparison]").forEach(grid => {
+    if (grid.dataset.comparison === "synthetic") return;
     content.comparisons[grid.dataset.comparison].forEach(method => {
       const figure = document.createElement("figure");
       figure.className = "media-column" + (method.role ? ` is-${method.role}` : "");

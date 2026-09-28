@@ -13,10 +13,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=abstract-justify-39">
+  <link rel="stylesheet" href="assets/css/style.css?v=synthetic-comparison-40">
+  <link rel="stylesheet" href="assets/css/comparisons.css?v=40">
   <link rel="stylesheet" href="assets/css/interactive-demo.css?v=real-balls-37">
   <script src="assets/js/content.js" defer></script>
-  <script src="assets/js/site.js?v=remove-edit-section-39" defer></script>
+  <script src="assets/js/site.js?v=synthetic-comparison-40" defer></script>
+  <script src="assets/js/comparisons.mjs?v=40" type="module"></script>
   <script src="assets/js/method-figure.js?v=method-viewport-2" type="module"></script>
   <script src="assets/js/interactive-demo.mjs?v=real-balls-37" type="module"></script>
 </head>
@@ -129,7 +131,15 @@
         <div class="comparison-block" id="synthetic-comparison">
           <h3>Synthetic Videos</h3>
           <p class="comparison-description">Physical edits and their downstream consequences on PCVE-RigidBench.</p>
+          <div class="comparison-cases" role="group" aria-label="Select synthetic scene"></div>
+          <p class="comparison-instruction" aria-live="polite"></p>
           <div class="comparison-grid" data-comparison="synthetic" role="region" aria-label="Synthetic video comparisons" tabindex="0"></div>
+          <div class="comparison-playback">
+            <button class="comparison-play" type="button" disabled>Play all</button>
+            <input class="comparison-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="Comparison playback time" disabled>
+            <output class="comparison-time">0.0 s</output>
+          </div>
+          <p class="comparison-status" role="status"></p>
         </div>
         <div class="comparison-block" id="real-comparison">
           <h3>Real Videos</h3>

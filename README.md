@@ -13,6 +13,7 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - Edit the page text and quantitative table in `index.html`.
 - Set authors, affiliations, paper links, citation, and video paths in `assets/js/content.js`.
 - Configure the homepage interactive demo in `assets/data/interactive-demo.json`.
+- Configure synthetic baseline comparisons in `assets/data/synthetic-comparison.json`.
 - Adjust the layout in `assets/css/style.css`.
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
@@ -51,6 +52,10 @@ Scenes with `editTimeline` append a one-based frame to the variant key, for exam
 The domino removal videos contain 81 frames at 24 fps, including the source video before the selected edit time. They use square pixels at 768×432 to match the source's 16:9 display ratio.
 
 Export the current video preparation list with `node scripts/list-demo-variants.mjs planned-videos.csv`. Check the selection mapping with `node --test tests/demo-model.test.mjs`.
+
+## Baseline comparisons
+
+The synthetic comparison section includes five selectable scenes with Source, VACE, Ditto, MiniMax H3, Seedance 2.5, and VideoPhysEdit. Its shared playback timeline uses seconds at the original playback speed. Shorter clips hold their last frame. Each video can also be opened separately.
 
 ## Publish with GitHub Pages
 
