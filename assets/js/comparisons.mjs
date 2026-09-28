@@ -17,7 +17,7 @@ async function initComparison(root, dataPath) {
   let visible = false, manualPause = false, starting = false, failed = false;
 
   function autoplay() {
-    if (visible && !document.hidden && !manualPause && !failed && duration > 0) startPlayback();
+    if (visible && !document.hidden && !manualPause && !failed && videos.length) startPlayback();
   }
 
   function displayTime() {
@@ -117,6 +117,7 @@ async function initComparison(root, dataPath) {
     play.disabled = !videos.length;
     status.textContent = "Loading videos… You can tap Play all to start.";
     displayTime();
+    autoplay();
   }
   async function startPlayback() {
     if (playing || starting || failed || !videos.length) return;
@@ -194,7 +195,10 @@ async function initComparison(root, dataPath) {
       button.type = "button";
       button.dataset.id = item.id;
       button.textContent = item.label;
-      button.addEventListener("click", () => render(item));
+      button.addEventListener("click", () => {
+        render(item);
+        startPlayback();
+      });
       choices.append(button);
     });
     render(data.cases[0]);
