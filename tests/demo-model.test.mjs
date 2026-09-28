@@ -106,7 +106,7 @@ test("football controls use exact clips and scene-wide gravity", async () => {
   assert.deepEqual(sceneModes(football).map(m => m.id), ["remove", "velocity", "restitution", "gravity"]);
   assert.deepEqual(editableFrames(football), [1,7,19]);
   const variants = listVariants(football, config.controls);
-  assert.equal(variants.length, 24);
+  assert.equal(variants.length, 30);
   for (const variant of variants) {
     assert.ok(variant.clip);
     await access(new URL(`../${variant.clip.video}`, import.meta.url));
@@ -132,7 +132,12 @@ test("football controls use exact clips and scene-wide gravity", async () => {
   assert.match(gravity.clip.video, /gravity_x05/);
   assert.equal(gravity.object.scope, "scene");
   assert.equal(describeSelection(football,config.controls,{mode:"gravity",objectId:"football",stepIndex:0}),null);
-  assert.equal(describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:1}),null);
+  for (const editFrame of [1,7,19]) {
+    const blockBounce = describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:1,editFrame});
+    assert.match(blockBounce.instruction, /wooden block/);
+    assert.ok(blockBounce.clip.video.endsWith(`block-restitution-x2-frame-${editFrame}.mp4`));
+    assert.match(describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:0,editFrame}).clip.video,/source-720p/);
+  }
   assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:2}),null);
   assert.match(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:0}).clip.video,/source/);
 });

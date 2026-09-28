@@ -51,7 +51,7 @@
     },
     "restitution": {
       "label": "Restitution",
-      "hint": "Scale the football’s coefficient of restitution.",
+      "hint": "Scale the selected object’s coefficient of restitution.",
       "defaultIndex": 1,
       "steps": [
         {
@@ -1835,7 +1835,8 @@
           "w": 0.19,
           "h": 0.29,
           "edits": [
-            "remove"
+            "remove",
+            "restitution"
           ],
           "track": [
             {
@@ -2432,6 +2433,30 @@
         "restitution:football:2:frame-19": {
           "video": "assets/videos/interactive/football/restitution-x2-frame-19.mp4",
           "poster": "assets/images/interactive/football/restitution-x2-frame-19.jpg"
+        },
+        "restitution:block:1:frame-1": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:block:2:frame-1": {
+          "video": "assets/videos/interactive/football/block-restitution-x2-frame-1.mp4",
+          "poster": "assets/images/interactive/football/block-restitution-x2-frame-1.jpg"
+        },
+        "restitution:block:1:frame-7": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:block:2:frame-7": {
+          "video": "assets/videos/interactive/football/block-restitution-x2-frame-7.mp4",
+          "poster": "assets/images/interactive/football/block-restitution-x2-frame-7.jpg"
+        },
+        "restitution:block:1:frame-19": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:block:2:frame-19": {
+          "video": "assets/videos/interactive/football/block-restitution-x2-frame-19.mp4",
+          "poster": "assets/images/interactive/football/block-restitution-x2-frame-19.jpg"
         }
       },
       "editTimeline": {
