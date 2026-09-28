@@ -173,7 +173,7 @@ test("ramp insertion requires a chosen position and only runs at frame one", () 
     const selection = {...initial,stepIndex,positionChosen:true};
     const result = describeSelection(ramp,config.controls,selection);
     assert.equal(result.key,`insert:green:${name}:frame-1`);
-    assert.match(result.clip.video,new RegExp(`insert_green_${name}\\.mp4$`));
+    assert.match(result.clip.video,new RegExp(`insert_green_${name}\\.mp4(?:\\?.*)?$`));
     assert.equal(describeSelection(ramp,config.controls,{...selection,editFrame:23}),null);
   }
 });

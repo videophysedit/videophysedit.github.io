@@ -3640,16 +3640,16 @@
           "poster": "assets/images/interactive/ramp/source.jpg"
         },
         "insert:green:near:frame-1": {
-          "video": "assets/videos/interactive/ramp/insert_green_near.mp4",
-          "poster": "assets/images/interactive/ramp/insert_green_near.jpg"
+          "video": "assets/videos/interactive/ramp/insert_green_near.mp4?v=restore-31",
+          "poster": "assets/images/interactive/ramp/insert_green_near.jpg?v=restore-31"
         },
         "insert:green:middle:frame-1": {
-          "video": "assets/videos/interactive/ramp/insert_green_middle.mp4",
-          "poster": "assets/images/interactive/ramp/insert_green_middle.jpg"
+          "video": "assets/videos/interactive/ramp/insert_green_middle.mp4?v=restore-31",
+          "poster": "assets/images/interactive/ramp/insert_green_middle.jpg?v=restore-31"
         },
         "insert:green:far:frame-1": {
-          "video": "assets/videos/interactive/ramp/insert_green_far.mp4",
-          "poster": "assets/images/interactive/ramp/insert_green_far.jpg"
+          "video": "assets/videos/interactive/ramp/insert_green_far.mp4?v=restore-31",
+          "poster": "assets/images/interactive/ramp/insert_green_far.jpg?v=restore-31"
         }
       },
       "insertion": {
