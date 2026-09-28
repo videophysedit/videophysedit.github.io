@@ -179,13 +179,14 @@ test("ramp insertion requires a chosen position and only runs at frame one", () 
   }
 });
 
-test("two-ball collision exposes the five available initial-frame edits", async () => {
-  assert.deepEqual(sceneModes(pool).map(mode => mode.id), ["remove", "mass", "velocity"]);
+test("two-ball collision exposes four edits in the first generation window", async () => {
+  assert.deepEqual(sceneModes(pool).map(mode => mode.id), ["remove", "mass"]);
   assert.deepEqual(editableFrames(pool), [1]);
   assert.equal(initialSelection(pool, config.controls).timeChosen, true);
   const variants = listVariants(pool, config.controls);
-  assert.equal(variants.length, 5);
-  assert.deepEqual(new Set(variants.map(variant => variant.mode)), new Set(["remove", "mass", "velocity"]));
+  assert.equal(variants.length, 4);
+  assert.equal(pool.source.frameCount, 77);
+  assert.deepEqual(new Set(variants.map(variant => variant.mode)), new Set(["remove", "mass"]));
   for (const variant of variants) {
     assert.ok(variant.clip);
     assert.equal(variant.editFrame, 1);
@@ -193,8 +194,6 @@ test("two-ball collision exposes the five available initial-frame edits", async 
     await access(new URL(`../${variant.clip.video}`, import.meta.url));
     await access(new URL(`../${variant.clip.poster}`, import.meta.url));
   }
-  const cueVelocity = describeSelection(pool, config.controls, { mode: "velocity", objectId: "cue", stepIndex: 0, editFrame: 1 });
-  assert.match(cueVelocity.instruction, /white ball's initial velocity to 4×/);
   const targetMass = describeSelection(pool, config.controls, { mode: "mass", objectId: "target", stepIndex: 0, editFrame: 1 });
   assert.match(targetMass.instruction, /black ball's mass to 3×/);
   assert.equal(describeSelection(pool, config.controls, { mode: "velocity", objectId: "target", stepIndex: 0, editFrame: 1 }), null);
