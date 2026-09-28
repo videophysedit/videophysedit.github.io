@@ -76,7 +76,7 @@ function render(item) {
       const video = document.createElement("video");
       video.muted = true;
       video.playsInline = true;
-      video.preload = visible ? "auto" : "none";
+      video.preload = "auto";
       video.setAttribute("aria-label", `${item.label} — ${name}`);
       video.addEventListener("loadedmetadata", () => { if (activeGeneration === generation) metadataReady(); });
       video.addEventListener("error", () => {
@@ -162,12 +162,7 @@ document.addEventListener("visibilitychange", () => {
 });
 new IntersectionObserver(entries => {
   visible = entries[0].isIntersecting;
-  if (visible) {
-    videos.forEach(video => {
-      if (video.preload === "none") { video.preload = "auto"; video.load(); }
-    });
-    autoplay();
-  }
+  if (visible) autoplay();
   else pause();
 }).observe(grid);
 

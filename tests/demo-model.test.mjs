@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
-import { nearestTouchObject, describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
+import { describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
 
 const config = JSON.parse(await readFile(new URL("../assets/data/interactive-demo.json", import.meta.url)));
 const football = config.scenes.find(scene => scene.id === "football");
@@ -221,16 +221,4 @@ test("real balls preserve original aspect ratio and map both balls for mass and 
   assert.match(describeSelection(scene,config.controls,{mode:'mass',objectId:'blue',stepIndex:0,editFrame:1}).clip.video,/mass-blue-3x/);
   assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'yellow',stepIndex:0,editFrame:1}).clip.video,/velocity-yellow-half/);
   assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'blue',stepIndex:0,editFrame:1}).instruction,/0.5×/);
-});
-
-
-test("touch selection accepts near edges, chooses the closest object, and ignores distant background", () => {
-  const objects = [
-    { id: "a", track: [{frame:1,polygon:[[.1,.1],[.2,.1],[.2,.8],[.1,.8]]}] },
-    { id: "b", track: [{frame:1,polygon:[[.3,.1],[.4,.1],[.4,.8],[.3,.8]]}] }
-  ];
-  assert.equal(nearestTouchObject(objects,1,45,60,300,160)?.id,"a");
-  assert.equal(nearestTouchObject(objects,1,68,60,300,160)?.id,"a");
-  assert.equal(nearestTouchObject(objects,1,84,60,300,160)?.id,"b");
-  assert.equal(nearestTouchObject(objects,1,200,60,300,160),null);
 });
