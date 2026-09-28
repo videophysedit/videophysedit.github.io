@@ -107,7 +107,8 @@ button, a, summary { touch-action: manipulation; }
 .results-table caption { caption-side: bottom; padding-top: 14px; text-align: left; color: var(--text); font-size: 12px; }
 .results-table th, .results-table td { padding: 12px 13px; white-space: nowrap; }
 .results-table thead { border-block: 1.5px solid #8ca7be; color: var(--ink); }
-.results-table thead tr:first-child th:not(:first-child) { text-align: center; padding-top: 14px; border-bottom: 1px solid var(--line); }
+.results-table thead th[scope="colgroup"] { position: relative; text-align: center; padding-top: 14px; }
+.results-table thead th[scope="colgroup"]::after { content: ""; position: absolute; bottom: 0; left: 8px; right: 8px; height: 1px; background: var(--line); }
 .results-table th:first-child { text-align: left; }
 .results-table tbody tr { border-bottom: 1px solid var(--line); }
 .results-table tbody th { font-weight: 500; }
