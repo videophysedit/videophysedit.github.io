@@ -431,7 +431,7 @@ async function initialize() {
       find("demo-control-hint").textContent = control.hint;
       find("demo-ticks").innerHTML = control.steps.map((step, index) => `<button type="button" data-step="${index}" aria-label="Set ${escapeText(control.label.toLowerCase())} to ${escapeText(step.label)}" aria-pressed="false">${escapeText(step.label)}</button>`).join("");
     }
-    find("demo-edit-time").hidden = !scene.editTimeline || selection.mode === "insert";
+    find("demo-edit-time").hidden = !scene.editTimeline || fixedEditTime || selection.mode === "insert";
     if (scene.editTimeline) {
       const frames = editableFrames(scene, selection.mode);
       editFrameRange.max = String(frames.length - 1);
