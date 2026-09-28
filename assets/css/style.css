@@ -200,12 +200,14 @@ button, a, summary { touch-action: manipulation; }
 .publication-authors > span, .publication-authors > a { white-space: nowrap; }
 .publication-authors sup { margin-left: 2px; font-size: .65em; }
 .publication-affiliations { max-width: 720px; margin-inline: auto; line-height: 1.6; }
-.interaction-prompt { text-align: center; color: var(--deep-blue); font-size: 17px; font-weight: 600; line-height: 1.65; margin: 28px auto; padding: 20px 16px; max-width: 960px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.interaction-prompt span { display: inline-block; margin-left: 5px; }
+.interaction-prompt { display: flex; align-items: center; justify-content: center; gap: 16px; text-align: center; color: var(--deep-blue); font-size: 17px; font-weight: 600; line-height: 1.65; margin: 28px auto; padding: 20px 24px; max-width: 960px; border: 1px solid rgba(49,95,132,.12); border-radius: 12px; background: linear-gradient(110deg,rgba(49,95,132,.035),rgba(49,95,132,.115) 52%,rgba(49,95,132,.045)); box-shadow: 0 6px 20px rgba(49,95,132,.045); }
+.interaction-prompt .prompt-arrow { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: rgba(49,95,132,.1); font-size: 23px; line-height: 1; animation: prompt-arrow-float 2.4s ease-in-out infinite; }
+@keyframes prompt-arrow-float { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) { .interaction-prompt .prompt-arrow { animation: none; } }
 @media (max-width: 640px) {
   .publication-authors { column-gap: 16px; row-gap: 8px; font-size: 15px; margin-top: 20px; }
   .publication-affiliations { font-size: 13px; margin-top: 12px; }
-  .interaction-prompt { font-size: 15px; max-width: none; margin: 24px auto; padding: 18px 8px; }
+  .interaction-prompt { gap: 10px; font-size: 14px; max-width: none; margin: 24px auto; padding: 16px 14px; }
 }
 
 .institution-logos { display: flex; align-items: center; justify-content: center; gap: 22px; margin: 18px auto 0; }
