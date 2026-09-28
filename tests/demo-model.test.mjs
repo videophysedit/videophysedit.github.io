@@ -179,14 +179,14 @@ test("ramp insertion requires a chosen position and only runs at frame one", () 
   }
 });
 
-test("two-ball collision exposes four edits in the first generation window", async () => {
-  assert.deepEqual(sceneModes(pool).map(mode => mode.id), ["remove", "mass"]);
+test("two-ball collision exposes removal, mass and three insertion positions in the first window", async () => {
+  assert.deepEqual(sceneModes(pool).map(mode => mode.id), ["remove", "mass", "insert"]);
   assert.deepEqual(editableFrames(pool), [1]);
   assert.equal(initialSelection(pool, config.controls).timeChosen, true);
   const variants = listVariants(pool, config.controls);
-  assert.equal(variants.length, 4);
+  assert.equal(variants.length, 7);
   assert.equal(pool.source.frameCount, 77);
-  assert.deepEqual(new Set(variants.map(variant => variant.mode)), new Set(["remove", "mass"]));
+  assert.deepEqual(new Set(variants.map(variant => variant.mode)), new Set(["remove", "mass", "insert"]));
   for (const variant of variants) {
     assert.ok(variant.clip);
     assert.equal(variant.editFrame, 1);
@@ -197,4 +197,15 @@ test("two-ball collision exposes four edits in the first generation window", asy
   const targetMass = describeSelection(pool, config.controls, { mode: "mass", objectId: "target", stepIndex: 0, editFrame: 1 });
   assert.match(targetMass.instruction, /black ball's mass to 3×/);
   assert.equal(describeSelection(pool, config.controls, { mode: "velocity", objectId: "target", stepIndex: 0, editFrame: 1 }), null);
+});
+
+test("pool insertion uses yellow balls on the pool table at three chosen positions", () => {
+  const selection = { mode: "insert", stepIndex: 0, editFrame: 1, timeChosen: true, positionChosen: false };
+  assert.equal(describeSelection(pool, config.controls, selection), null);
+  for (const [stepIndex, position] of ["near", "middle", "far"].entries()) {
+    const result = describeSelection(pool, config.controls, { ...selection, stepIndex, positionChosen: true });
+    assert.equal(result.key, "insert:yellow:" + position + ":frame-1");
+    assert.match(result.instruction, /yellow ball.*pool table/);
+    assert.ok(result.clip.video.endsWith("insert-yellow-" + position + ".mp4"));
+  }
 });

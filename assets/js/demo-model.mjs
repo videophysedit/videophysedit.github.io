@@ -76,7 +76,7 @@ export function describeSelection(scene, controls, selection) {
   const name = object.label.toLowerCase();
   let instruction;
   if (mode === "remove") instruction = `Remove the ${name}.`;
-  else if (mode === "insert" && scene.insertion.positions) instruction = `Add a ${name} at the ${step.label.toLowerCase()} position on the book.`;
+  else if (mode === "insert" && scene.insertion.positions) instruction = `Add a ${name} at the ${step.label.toLowerCase()} position on the ${scene.insertion.surface || "book"}.`;
   else if (mode === "insert") instruction = `Add a ${name} at ${step.name ? "the center" : `${step.label} of the path`}.`;
   else if (mode === "velocity") instruction = `Set the ${name}'s ${editFrame === 1 ? 'initial velocity' : 'velocity'} to ${step.label} the source velocity.`;
   else if (mode === "mass") instruction = `Increase the ${name}'s mass to ${step.label} its original value.`;

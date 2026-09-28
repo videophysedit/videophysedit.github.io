@@ -3703,7 +3703,7 @@
     {
       "id": "pool",
       "title": "Two-ball collision",
-      "subtitle": "Removal & mass",
+      "subtitle": "Removal, mass & insertion",
       "illustration": "collision",
       "defaultMode": "remove",
       "parameterDemo": true,
@@ -3732,6 +3732,28 @@
               "id": "3",
               "value": 3,
               "label": "3×"
+            }
+          ]
+        },
+        "insert": {
+          "label": "Position",
+          "hint": "Choose a position on the pool table.",
+          "defaultIndex": 1,
+          "steps": [
+            {
+              "id": "near",
+              "label": "Near",
+              "value": 0.25
+            },
+            {
+              "id": "middle",
+              "label": "Middle",
+              "value": 0.5
+            },
+            {
+              "id": "far",
+              "label": "Far",
+              "value": 0.75
             }
           ]
         }
@@ -3860,6 +3882,66 @@
         "mass:target:3:frame-1": {
           "video": "assets/videos/interactive/pool/mass-target-3x-first-window.mp4",
           "poster": "assets/images/interactive/pool/mass-target-3x.jpg"
+        },
+        "insert:yellow:near:frame-1": {
+          "video": "assets/videos/interactive/pool/insert-yellow-near.mp4",
+          "poster": "assets/images/interactive/pool/insert-yellow-near.jpg"
+        },
+        "insert:yellow:middle:frame-1": {
+          "video": "assets/videos/interactive/pool/insert-yellow-middle.mp4",
+          "poster": "assets/images/interactive/pool/insert-yellow-middle.jpg"
+        },
+        "insert:yellow:far:frame-1": {
+          "video": "assets/videos/interactive/pool/insert-yellow-far.mp4",
+          "poster": "assets/images/interactive/pool/insert-yellow-far.jpg"
+        }
+      },
+      "insertion": {
+        "surface": "pool table",
+        "frames": [
+          1
+        ],
+        "object": {
+          "id": "yellow",
+          "label": "Yellow ball",
+          "shape": "sphere",
+          "color": "amber",
+          "w": 0.030555555555555555,
+          "h": 0.052083333333333336
+        },
+        "positions": [
+          {
+            "id": "near",
+            "label": "Near",
+            "x": 0.3840277777777778,
+            "y": 0.60625,
+            "w": 0.030555555555555555,
+            "h": 0.05625
+          },
+          {
+            "id": "middle",
+            "label": "Middle",
+            "x": 0.4270833333333333,
+            "y": 0.5625,
+            "w": 0.030555555555555555,
+            "h": 0.052083333333333336
+          },
+          {
+            "id": "far",
+            "label": "Far",
+            "x": 0.46597222222222223,
+            "y": 0.521875,
+            "w": 0.027777777777777776,
+            "h": 0.05
+          }
+        ],
+        "start": {
+          "x": 0.3840277777777778,
+          "y": 0.6343749999999999
+        },
+        "end": {
+          "x": 0.46597222222222223,
+          "y": 0.546875
         }
       }
     }

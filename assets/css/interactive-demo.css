@@ -202,3 +202,5 @@
 .demo-insert-position { position:absolute; transform:translate(-50%,-50%); border:2px dashed #438e64; border-radius:50%; background:#d4eed850; cursor:pointer; pointer-events:auto; padding:0; min-width:24px; transition:background .18s,box-shadow .18s; }
 .demo-insert-position:hover, .demo-insert-position[aria-pressed="true"] { background:#54a86688; border-style:solid; box-shadow:0 0 0 5px #7abf8a33; }
 .demo-insert-position span { position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%); padding:2px 7px; border-radius:4px; background:#f6fff8eb; color:#285f40; font:600 12px system-ui; white-space:nowrap; }
+.demo-shell[data-scene="pool"] .demo-insert-position[data-position="0"] span { left:auto; right:calc(100% + 7px); bottom:50%; transform:translateY(50%); }
+.demo-shell[data-scene="pool"] .demo-insert-position[data-position="1"] span { top:calc(100% + 7px); bottom:auto; }

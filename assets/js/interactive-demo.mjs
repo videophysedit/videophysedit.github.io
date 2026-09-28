@@ -1,4 +1,4 @@
-import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=pool-30";
+import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=pool-insert-35";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -23,7 +23,7 @@ const colors = {
 
 function insertionGuide(scene, descriptor, selection) {
   if (selection?.mode !== "insert") return "";
-  if (scene.insertion.positions) return scene.insertion.positions.map((point, index) => `<button type="button" class="demo-insert-position" data-position="${index}" style="left:${point.x*100}%;top:${point.y*100}%;width:${point.w*100}%;aspect-ratio:${point.w*scene.source.width/(point.h*scene.source.height)}" aria-label="Add green ball at ${point.label.toLowerCase()} position" aria-pressed="${Boolean(descriptor && selection.stepIndex === index)}"><span>${escapeText(point.label)}</span></button>`).join("");
+  if (scene.insertion.positions) return scene.insertion.positions.map((point, index) => `<button type="button" class="demo-insert-position" data-position="${index}" style="left:${point.x*100}%;top:${point.y*100}%;width:${point.w*100}%;aspect-ratio:${point.w*scene.source.width/(point.h*scene.source.height)}" aria-label="Add ${escapeText(scene.insertion.object.label.toLowerCase())} at ${point.label.toLowerCase()} position" aria-pressed="${Boolean(descriptor && selection.stepIndex === index)}"><span>${escapeText(point.label)}</span></button>`).join("");
   if (!descriptor) return "";
   const { start, end } = scene.insertion;
   const object = insertionObject(scene, descriptor.step.value);
@@ -230,7 +230,7 @@ async function initialize() {
     find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
-    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? `Select an edit time, then click ${editObjectName()}` : descriptor ? "No result for this edit yet" : selection.mode === "insert" ? "Click a position on the book" : `Click ${editObjectName()} in the source video`) : "What would happen without it?";
+    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? `Select an edit time, then click ${editObjectName()}` : descriptor ? "No result for this edit yet" : selection.mode === "insert" ? `Click a position on the ${scene.insertion.surface || "book"}` : `Click ${editObjectName()} in the source video`) : "What would happen without it?";
     startHint.querySelector("p").hidden = actualScene;
     startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
@@ -350,7 +350,7 @@ async function initialize() {
     root.dataset.variant = descriptor?.key || "";
     root.dataset.editFrame = String(selection.editFrame);
     savedSelections.set(scene.id, { ...selection });
-    find("demo-command").textContent = descriptor?.instruction || (selection.mode === "insert" ? "Click a position on the book." : needsEditTime() ? `Select an edit time, then click ${editObjectName()} in the source video.` : scene.editTimeline ? `Click ${editObjectName()} in the source video.` : "Click an object in the source scene to remove it.");
+    find("demo-command").textContent = descriptor?.instruction || (selection.mode === "insert" ? `Click a position on the ${scene.insertion.surface || "book"}.` : needsEditTime() ? `Select an edit time, then click ${editObjectName()} in the source video.` : scene.editTimeline ? `Click ${editObjectName()} in the source video.` : "Click an object in the source scene to remove it.");
     find("demo-result-hint").textContent = descriptor ? modes.find(mode => mode.id === selection.mode).label : "Counterfactual video";
     root.querySelectorAll("[data-object]").forEach(button => {
       const selected = button.dataset.object === selection.objectId;
@@ -420,7 +420,7 @@ async function initialize() {
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? `Select an edit time, then click ${editObjectName()} you want to edit.` : "Click an object to remove it. Click again to restore it.";
-    find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval || fixedMultiplier;
+    find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval || fixedMultiplier || (selection.mode === "insert" && Boolean(scene.insertion.positions));
     if (!isRemoval) {
       const control = controls()[selection.mode];
       const singleValue = control.steps.length === 1;
