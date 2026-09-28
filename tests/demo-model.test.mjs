@@ -7,8 +7,8 @@ const config = JSON.parse(await readFile(new URL("../assets/data/interactive-dem
 const football = config.scenes.find(scene => scene.id === "football");
 const domino = config.scenes.find(scene => scene.id === "domino");
 
-test("two scenes have unique exact variant keys and useful initial states", () => {
-  assert.equal(config.scenes.length, 2);
+test("three scenes have unique exact variant keys and useful initial states", () => {
+  assert.equal(config.scenes.length, 3);
   for (const scene of config.scenes) {
     const variants = listVariants(scene, config.controls);
     assert.equal(new Set(variants.map(item => item.key)).size, variants.length);
@@ -145,4 +145,20 @@ test("football controls use exact clips and scene-wide gravity", async () => {
   }
   assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:2}),null);
   assert.match(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:0}).clip.video,/source/);
+});
+
+
+test("ramp uses mass twenty and contact-frame tracks without changing domino mass", async () => {
+  const ramp = config.scenes.find(scene => scene.id === "ramp");
+  assert.deepEqual(editableFrames(ramp), [1,23]);
+  const variants = listVariants(ramp, config.controls);
+  assert.equal(variants.length,12);
+  for (const variant of variants) {
+    assert.ok(variant.clip);
+    await access(new URL(`../${variant.clip.video}`, import.meta.url));
+    if (variant.mode === "mass") assert.equal(variant.step.value,20);
+    if (variant.mode === "mass" && variant.object.id === "yellow") assert.equal(variant.clip.video,ramp.source.video);
+    assert.equal(objectAtFrame(variant.object,variant.editFrame).polygon.length,40);
+  }
+  assert.ok(listVariants(domino,config.controls).filter(v=>v.mode==="mass").every(v=>v.step.value===10));
 });

@@ -8,6 +8,10 @@ export const modes = [
   { id: "gravity", label: "Gravity", icon: "gravity" },
 ];
 
+export function sceneControls(scene, controls) {
+  return { ...controls, ...scene.controls };
+}
+
 export function editableObjects(scene, mode) {
   if (scene.globalEdits?.includes(mode)) return [{ id: "scene", label: "Scene", scope: "scene", edits: [mode] }];
   return scene.objects.filter(object => object.edits.includes(mode));
@@ -44,6 +48,7 @@ export function objectAtFrame(object, frame) {
 }
 
 export function initialSelection(scene, controls) {
+  controls = sceneControls(scene, controls);
   const mode = scene.defaultMode || "remove";
   return {
     mode,
@@ -55,6 +60,7 @@ export function initialSelection(scene, controls) {
 }
 
 export function describeSelection(scene, controls, selection) {
+  controls = sceneControls(scene, controls);
   const { mode, objectId, stepIndex, editFrame = 1 } = selection;
   if (scene.editTimeline && selection.timeChosen === false) return null;
   if (!modes.some(item => item.id === mode)) return null;
@@ -88,6 +94,7 @@ export function insertionObject(scene, fraction) {
 }
 
 export function listVariants(scene, controls) {
+  controls = sceneControls(scene, controls);
   const selections = [];
   for (const mode of sceneModes(scene)) {
     if (mode.id === "insert") {

@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=fixed-gravity-27";
+import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=ramp-28";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -14,6 +14,7 @@ const icons = {
 };
 const icon = name => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.arrow}</svg>`;
 const colors = {
+  red: ["#ffe0dc", "#c87970", "#964c45"],
   blue: ["#d7efff", "#629ac5", "#315f84"],
   amber: ["#ffe4b1", "#d7a55b", "#a1753d"],
   slate: ["#edf0f5", "#a5b1c0", "#697b91"],
@@ -78,6 +79,7 @@ async function initialize() {
   if (!config.scenes?.length) throw new Error("No demo scenes configured");
   const savedSelections = new Map();
   let scene = config.scenes[0];
+  const controls = () => sceneControls(scene, config.controls);
   let selection;
   let descriptor;
   let loadedResultKey = null;
@@ -210,7 +212,7 @@ async function initialize() {
     find("demo-return").hidden = atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
     find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || (scene.parameterDemo ? "Click an object" : "Click a domino")) : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || `Click ${editObjectName()}`) : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
   }
 
   function updateMediaState() {
@@ -265,8 +267,8 @@ async function initialize() {
     playbackMode = "comparison";
     stopPlayback();
     restartOnPlay = true;
-    if (sourceReady() && Math.abs(sourceVideo.currentTime - editTime()) > .01) sourceVideo.currentTime = Math.min(editTime(), sourceVideo.duration);
-    if (resultVideo.readyState >= 1 && Number.isFinite(resultVideo.duration)) resultVideo.currentTime = Math.min(editTime(), resultVideo.duration);
+    if (sourceReady() && Math.abs(sourceVideo.currentTime - editTime()) > .01) sourceVideo.currentTime = Math.min(editTime() + .001, sourceVideo.duration);
+    if (resultVideo.readyState >= 1 && Number.isFinite(resultVideo.duration)) resultVideo.currentTime = Math.min(editTime() + .001, resultVideo.duration);
     updateHotspotVisibility();
   }
 
@@ -342,7 +344,7 @@ async function initialize() {
   function updateSelection(commit = true) {
     selection.editFrame = nearestEditFrame(scene, selection.editFrame);
     showEditFrame();
-    descriptor = describeSelection(scene, config.controls, selection);
+    descriptor = describeSelection(scene, controls(), selection);
     root.dataset.variant = descriptor?.key || "";
     root.dataset.editFrame = String(selection.editFrame);
     savedSelections.set(scene.id, { ...selection });
@@ -358,9 +360,9 @@ async function initialize() {
       }
     });
     if (selection.mode !== "remove") {
-      const step = config.controls[selection.mode].steps[selection.stepIndex];
+      const step = controls()[selection.mode].steps[selection.stepIndex];
       range.value = String(selection.stepIndex);
-      range.style.setProperty("--range-progress", `${selection.stepIndex / Math.max(1, config.controls[selection.mode].steps.length - 1) * 100}%`);
+      range.style.setProperty("--range-progress", `${selection.stepIndex / Math.max(1, controls()[selection.mode].steps.length - 1) * 100}%`);
       range.setAttribute("aria-valuetext", `${step.label}${step.name ? `, ${step.name}` : ""}`);
       find("demo-value-output").textContent = `${step.label}${step.name ? ` · ${step.name}` : ""}`;
       root.querySelectorAll("[data-step]").forEach(button => button.setAttribute("aria-pressed", String(Number(button.dataset.step) === selection.stepIndex)));
@@ -391,7 +393,7 @@ async function initialize() {
   function renderControls() {
     const availableModes = sceneModes(scene);
     const fixedMultiplier = scene.parameterDemo && ["velocity", "restitution", "gravity"].includes(selection.mode);
-    if (fixedMultiplier) selection.stepIndex = config.controls[selection.mode].defaultIndex;
+    if (fixedMultiplier) selection.stepIndex = controls()[selection.mode].defaultIndex;
     root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
@@ -404,9 +406,9 @@ async function initialize() {
       button.disabled = button.hidden;
       if (["velocity", "restitution", "gravity"].includes(button.dataset.mode)) {
         const mode = modes.find(item => item.id === button.dataset.mode);
-        button.innerHTML = `${icon(mode.icon)}${mode.label}${scene.parameterDemo ? ` ×${config.controls[mode.id].steps[config.controls[mode.id].defaultIndex].value}` : ""}`;
+        button.innerHTML = `${icon(mode.icon)}${mode.label}${scene.parameterDemo ? ` ×${controls()[mode.id].steps[controls()[mode.id].defaultIndex].value}` : ""}`;
       }
-      if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? "Mass ×10" : "Increase mass"}`;
+      if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? `Mass ×${controls().mass.steps[controls().mass.defaultIndex].value}` : "Increase mass"}`;
     });
     const objects = editableObjects(scene, selection.mode).filter(object => object.scope !== "scene");
     find("demo-target").hidden = Boolean(scene.editTimeline) || scene.parameterDemo || selection.mode === "insert";
@@ -414,10 +416,10 @@ async function initialize() {
     find("demo-hotspots").innerHTML = (scene.parameterDemo && !usesObjectSelection() ? [] : objects).map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
-    find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";
+    find("demo-remove-help").textContent = scene.editTimeline ? `Select an edit time, then click ${editObjectName()} you want to edit.` : "Click an object to remove it. Click again to restore it.";
     find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval || fixedMultiplier;
     if (!isRemoval) {
-      const control = config.controls[selection.mode];
+      const control = controls()[selection.mode];
       const singleValue = control.steps.length === 1;
       range.hidden = singleValue;
       find("demo-ticks").hidden = singleValue;
@@ -442,7 +444,7 @@ async function initialize() {
     stopPlayback();
     scene = config.scenes.find(item => item.id === id);
     if (!scene) return;
-    selection = savedSelections.get(scene.id) || initialSelection(scene, config.controls);
+    selection = savedSelections.get(scene.id) || initialSelection(scene, controls());
     descriptor = null;
     loadedResultKey = null;
     sourceFailed = false;
@@ -517,7 +519,7 @@ async function initialize() {
     else if (button.dataset.mode) {
       if (scene.parameterDemo && ["remove", "velocity", "restitution"].includes(button.dataset.mode) && selection.mode !== button.dataset.mode) selection.objectId = null;
       selection.mode = button.dataset.mode;
-      selection.stepIndex = config.controls[selection.mode]?.defaultIndex ?? 0;
+      selection.stepIndex = controls()[selection.mode]?.defaultIndex ?? 0;
       if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = (scene.editTimeline && !scene.parameterDemo) || usesObjectSelection() || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
       renderControls();
     } else if (button.dataset.object) {
@@ -531,7 +533,7 @@ async function initialize() {
     } else if (button.dataset.editIndex !== undefined) {
       selectEditTime(editableFrames(scene)[Number(button.dataset.editIndex)]);
     } else if (button.dataset.action === "reset") {
-      selection = initialSelection(scene, config.controls);
+      selection = initialSelection(scene, controls());
       renderControls();
     } else if (button.dataset.action === "edit-frame") {
       if (scene.editTimeline) {
@@ -592,10 +594,10 @@ async function initialize() {
     });
   }
   sourceVideo.addEventListener("loadedmetadata", () => {
-    if (Number.isFinite(sourceVideo.duration)) sourceVideo.currentTime = Math.min(editTime(), sourceVideo.duration);
+    if (Number.isFinite(sourceVideo.duration)) sourceVideo.currentTime = Math.min(editTime() + .001, sourceVideo.duration);
   });
   resultVideo.addEventListener("loadedmetadata", () => {
-    if (Number.isFinite(resultVideo.duration)) resultVideo.currentTime = Math.min(editTime(), resultVideo.duration);
+    if (Number.isFinite(resultVideo.duration)) resultVideo.currentTime = Math.min(editTime() + .001, resultVideo.duration);
   });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) { stopPlayback(); updateHotspotVisibility(); }

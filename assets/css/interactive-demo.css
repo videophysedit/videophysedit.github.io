@@ -7,7 +7,7 @@
 .demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #d8e2ea; border-radius: 14px; overflow: hidden; background: white; box-shadow: 0 12px 38px #25496109; }
 .demo-loading, .demo-load-error { text-align: center; padding: 80px 25px; color: var(--text); }
 .demo-load-error button { color: var(--deep-blue); border: 0; background: transparent; text-decoration: underline; }
-.demo-scenes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; padding: 9px; border-bottom: 1px solid var(--line); background: #f4f7fa; }
+.demo-scenes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 9px; border-bottom: 1px solid var(--line); background: #f4f7fa; }
 .demo-scene-tab { min-width: 0; display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid transparent; border-radius: 8px; text-align: left; color: var(--text); background: transparent; transition: background .15s, border-color .15s; }
 .demo-scene-tab:hover { background: #eaf0f5; }
 .demo-scene-tab[aria-selected="true"] { border-color: #c8d9e6; background: white; color: var(--ink); box-shadow: 0 2px 6px #25496106; }
