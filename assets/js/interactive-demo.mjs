@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=object-velocity-25";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=fixed-edits-26";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -390,7 +390,9 @@ async function initialize() {
 
   function renderControls() {
     const availableModes = sceneModes(scene);
-    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && ["velocity", "restitution"].includes(selection.mode) ? ["Select an edit", "Select a time", "Click an object", "Choose a value", "Click Play"] : scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
+    const fixedMultiplier = scene.parameterDemo && ["velocity", "restitution"].includes(selection.mode);
+    if (fixedMultiplier) selection.stepIndex = config.controls[selection.mode].defaultIndex;
+    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
     root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
@@ -400,6 +402,10 @@ async function initialize() {
       button.setAttribute("aria-pressed", String(button.dataset.mode === selection.mode));
       button.hidden = !availableModes.some(mode => mode.id === button.dataset.mode);
       button.disabled = button.hidden;
+      if (["velocity", "restitution"].includes(button.dataset.mode)) {
+        const mode = modes.find(item => item.id === button.dataset.mode);
+        button.innerHTML = `${icon(mode.icon)}${mode.label}${scene.parameterDemo ? " ×2" : ""}`;
+      }
       if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? "Mass ×10" : "Increase mass"}`;
     });
     const objects = editableObjects(scene, selection.mode).filter(object => object.scope !== "scene");
@@ -409,7 +415,7 @@ async function initialize() {
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";
-    find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval;
+    find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval || fixedMultiplier;
     if (!isRemoval) {
       const control = config.controls[selection.mode];
       const singleValue = control.steps.length === 1;
