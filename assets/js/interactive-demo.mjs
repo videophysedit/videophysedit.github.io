@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=football-19";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=layout-20";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -389,10 +389,11 @@ async function initialize() {
   function renderControls() {
     const availableModes = sceneModes(scene);
     root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
-    root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline) && !scene.parameterDemo);
+    root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
-    if (scene.parameterDemo) root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
-    find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline) && !scene.parameterDemo);
+    root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
+    find("demo-control-hint").classList.toggle("sr-only", Boolean(scene.editTimeline));
+    find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline));
     root.querySelectorAll("[data-mode]").forEach(button => {
       button.setAttribute("aria-pressed", String(button.dataset.mode === selection.mode));
       button.hidden = !availableModes.some(mode => mode.id === button.dataset.mode);

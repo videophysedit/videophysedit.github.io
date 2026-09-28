@@ -188,7 +188,13 @@
   .has-edit-timeline .demo-edit-time { border-left: 1px solid #dce5ed; padding-left: 26px; margin-left: 6px; width: calc(100% - 6px); }
 }
 
-.parameter-demo .demo-edit-time { display:grid; grid-template-columns:1fr auto; gap:12px; margin:18px 0 32px; }
-.parameter-demo .demo-edit-time label { grid-column:1; grid-row:1; }
-.parameter-demo .demo-edit-time output { grid-column:2; grid-row:1; }
-.parameter-demo .demo-edit-time-track { grid-column:1/-1; grid-row:2; }
+/* Parameter edits share the domino layout, with one additional value row. */
+.has-edit-timeline.parameter-demo .demo-slider-control { grid-column: 1 / 3; grid-row: 2; display: grid; grid-template-columns: auto minmax(60px, 1fr) auto; align-items: center; gap: 8px 13px; width: min(510px, 100%); margin: 0; }
+.has-edit-timeline.parameter-demo .demo-slider-heading { display: contents; }
+.has-edit-timeline.parameter-demo .demo-slider-heading label { grid-column: 1; grid-row: 1; font-size: 14px; color: #627889; }
+.has-edit-timeline.parameter-demo .demo-slider-heading output { grid-column: 3; grid-row: 1; }
+.has-edit-timeline.parameter-demo .demo-slider-control > .demo-range { grid-column: 2; grid-row: 1; }
+.has-edit-timeline.parameter-demo .demo-ticks { grid-column: 2; grid-row: 2; margin: 0; }
+@media (max-width: 640px) {
+  .has-edit-timeline.parameter-demo .demo-slider-control { grid-column: 1 / -1; grid-row: 3; width: 100%; }
+}
