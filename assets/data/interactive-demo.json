@@ -279,13 +279,13 @@
           "caseId": "mass_second_f25"
         },
         "mass:domino-2:10:frame-31": {
-          "video": "assets/videos/interactive/domino/mass18-20260927/second-mass-10x-frame-31.mp4",
-          "poster": "assets/images/interactive/domino/mass18-20260927/second-mass-10x-frame-31.jpg",
+          "video": "assets/videos/interactive/domino/mass-dense-20260928/second-mass-10x-frame-31.mp4",
+          "poster": "assets/images/interactive/domino/mass-dense-20260928/second-mass-10x-frame-31.jpg",
           "caseId": "mass_second_f31"
         },
         "mass:domino-2:10:frame-37": {
-          "video": "assets/videos/interactive/domino/mass18-20260927/second-mass-10x-frame-37.mp4",
-          "poster": "assets/images/interactive/domino/mass18-20260927/second-mass-10x-frame-37.jpg",
+          "video": "assets/videos/interactive/domino/mass-dense-20260928/second-mass-10x-frame-37.mp4",
+          "poster": "assets/images/interactive/domino/mass-dense-20260928/second-mass-10x-frame-37.jpg",
           "caseId": "mass_second_f37"
         },
         "mass:domino-2:10:frame-55": {
