@@ -103,13 +103,21 @@ test("click regions follow the selected source frame and interpolate between key
 });
 
 test("football controls use exact clips and scene-wide gravity", async () => {
-  assert.deepEqual(sceneModes(football).map(m => m.id), ["velocity", "restitution", "gravity"]);
+  assert.deepEqual(sceneModes(football).map(m => m.id), ["remove", "velocity", "restitution", "gravity"]);
   assert.deepEqual(editableFrames(football), [1,7,19]);
   const variants = listVariants(football, config.controls);
-  assert.equal(variants.length, 18);
+  assert.equal(variants.length, 24);
   for (const variant of variants) {
     assert.ok(variant.clip);
     await access(new URL(`../${variant.clip.video}`, import.meta.url));
+  }
+  for (const [objectId, name] of [["football", "ball"], ["block", "block"]]) {
+    for (const editFrame of [1, 7, 19]) {
+      const removal = describeSelection(football, config.controls, {mode: "remove", objectId, editFrame});
+      assert.ok(removal.clip.video.endsWith(`remove-${name}-frame-${editFrame}.mp4`));
+      const object = objectAtFrame(removal.object, editFrame);
+      assert.ok(object.w > 0 && object.h > 0 && object.polygon.length >= 4);
+    }
   }
   const velocity = describeSelection(football, config.controls, {mode:"velocity",objectId:"football",stepIndex:1,editFrame:1});
   assert.match(velocity.clip.video, /speed_x2/);

@@ -17,13 +17,13 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
 
-The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. Football & block includes velocity, football restitution, and scene gravity edits at three times. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
+The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. Football & block includes removal of either object, velocity, football restitution, and scene gravity edits at three times. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
 
 ## Interactive demo
 
 Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). Choose an edit, select a time, click a domino, then play the comparison. Changing the time keeps the selected domino for comparison. Reset returns to time selection. Mass ×10 is available for each of the three dominoes at the same six edit frames.
 
-Football & block offers edits at 0.00, 0.25, and 0.75 seconds: double the football’s velocity, set its restitution to 1.00, or halve scene gravity. Original-value selections replay the source. Each selection applies one edit and looks up its exact prepared video.
+Football & block offers edits at 0.00, 0.25, and 0.75 seconds: remove the football or wooden block, double the football’s velocity, set its restitution to 1.00, or halve scene gravity. For removal, select a time and click the football or wooden block in the source video. Original-value selections replay the source. Each selection applies one edit and looks up its exact prepared video. The football source retains its original 1280×720 resolution; its 67-frame results use 768×432 at 24 fps.
 
 In `assets/data/interactive-demo.json`, set each scene's `source.video`, `source.poster`, and `source.editTime`. Object centers and sizes (`x`, `y`, `w`, `h`) are fractions of the source frame. Match `source.width` and `source.height` to the actual video aspect ratio. The `edits` list controls which objects can be edited in each mode.
 
@@ -48,7 +48,7 @@ Video paths are relative to the website root. The source has its own play/pause 
 
 Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. `editTimeline.frames` sets the allowed edit frames and the preparation-list export. Playback seeking stays continuous; entering edit mode from playback snaps to the nearest allowed frame. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results.
 
-The removal videos contain 81 frames at 24 fps, including the source video before the selected edit time. They use square pixels at 768×432 to match the source's 16:9 display ratio.
+The domino removal videos contain 81 frames at 24 fps, including the source video before the selected edit time. They use square pixels at 768×432 to match the source's 16:9 display ratio.
 
 Export the current video preparation list with `node scripts/list-demo-variants.mjs planned-videos.csv`. Check the selection mapping with `node --test tests/demo-model.test.mjs`.
 

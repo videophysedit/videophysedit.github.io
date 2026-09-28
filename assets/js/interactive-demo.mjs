@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=layout-20";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=remove-22";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -160,6 +160,7 @@ async function initialize() {
   const stageResult = find("demo-result-stage");
   const formatTime = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
   const editTime = () => interventionTime(scene, selection.editFrame);
+  const editObjectName = () => scene.id === "domino" ? "a domino" : "an object";
   const needsEditTime = () => Boolean(scene.editTimeline && !selection.timeChosen);
   const sourceReady = () => Boolean(scene.source.video && !sourceFailed && sourceVideo.readyState >= 1 && Number.isFinite(sourceVideo.duration));
   const playsComparison = () => playbackMode === "comparison" && ready();
@@ -203,12 +204,12 @@ async function initialize() {
     const atEditFrame = !scene.source.video || (sourceReady() && !sourceVideo.seeking && Math.abs(sourceVideo.currentTime - editTime()) < .025);
     const interactive = !playing && atEditFrame && !needsEditTime();
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
-    find("demo-selection").hidden = !interactive || !descriptor?.object.track;
+    find("demo-selection").hidden = !interactive || !descriptor?.object.track || (scene.parameterDemo && selection.mode !== "remove");
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
     find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || (scene.parameterDemo ? "Click an object" : "Click a domino")) : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
   }
 
   function updateMediaState() {
@@ -224,7 +225,7 @@ async function initialize() {
     find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
-    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? "Select an edit time, then click a domino" : descriptor ? "No result for this edit yet" : "Click a domino in the source video") : "What would happen without it?";
+    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? `Select an edit time, then click ${editObjectName()}` : descriptor ? "No result for this edit yet" : `Click ${editObjectName()} in the source video`) : "What would happen without it?";
     startHint.querySelector("p").hidden = actualScene;
     startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
@@ -344,7 +345,7 @@ async function initialize() {
     root.dataset.variant = descriptor?.key || "";
     root.dataset.editFrame = String(selection.editFrame);
     savedSelections.set(scene.id, { ...selection });
-    find("demo-command").textContent = descriptor?.instruction || (needsEditTime() ? "Select an edit time, then click a domino in the source video." : scene.editTimeline ? "Click a domino in the source video." : "Click an object in the source scene to remove it.");
+    find("demo-command").textContent = descriptor?.instruction || (needsEditTime() ? `Select an edit time, then click ${editObjectName()} in the source video.` : scene.editTimeline ? `Click ${editObjectName()} in the source video.` : "Click an object in the source scene to remove it.");
     find("demo-result-hint").textContent = descriptor ? modes.find(mode => mode.id === selection.mode).label : "Counterfactual video";
     root.querySelectorAll("[data-object]").forEach(button => {
       const selected = button.dataset.object === selection.objectId;
@@ -388,7 +389,7 @@ async function initialize() {
 
   function renderControls() {
     const availableModes = sceneModes(scene);
-    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
+    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && selection.mode !== "remove" ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
     root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
@@ -403,7 +404,7 @@ async function initialize() {
     const objects = editableObjects(scene, selection.mode).filter(object => object.scope !== "scene");
     find("demo-target").hidden = Boolean(scene.editTimeline) || scene.parameterDemo || selection.mode === "insert";
     find("demo-object-list").innerHTML = objects.map(object => `<button type="button" class="demo-object" data-object="${object.id}" aria-pressed="false"><span class="demo-object-dot" style="background:${(colors[object.color] || colors.blue)[1]}"></span>${escapeText(object.label)}</button>`).join("");
-    find("demo-hotspots").innerHTML = (scene.parameterDemo ? [] : objects).map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
+    find("demo-hotspots").innerHTML = (scene.parameterDemo && selection.mode !== "remove" ? [] : objects).map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";
@@ -507,6 +508,7 @@ async function initialize() {
     if (!button || button.disabled) return;
     if (button.dataset.scene) selectScene(button.dataset.scene);
     else if (button.dataset.mode) {
+      if (scene.parameterDemo && button.dataset.mode === "remove" && selection.mode !== "remove") selection.objectId = null;
       selection.mode = button.dataset.mode;
       selection.stepIndex = config.controls[selection.mode]?.defaultIndex ?? 0;
       if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = (scene.editTimeline && !scene.parameterDemo) || selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
