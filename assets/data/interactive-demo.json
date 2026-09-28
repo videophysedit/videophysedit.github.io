@@ -1091,8 +1091,8 @@
           "caseId": "remove_second_f1"
         },
         "remove:domino-3:frame-1": {
-          "video": "assets/videos/interactive/domino/delete18-20260927/remove-third-frame-1.mp4",
-          "poster": "assets/images/interactive/domino/delete18-20260927/remove-third-frame-1.jpg",
+          "video": "assets/videos/interactive/domino/dense-20260928/remove-third-frame-1.mp4",
+          "poster": "assets/images/interactive/domino/dense-20260928/remove-third-frame-1.jpg",
           "caseId": "remove_third_f1"
         },
         "remove:domino-1:frame-19": {
