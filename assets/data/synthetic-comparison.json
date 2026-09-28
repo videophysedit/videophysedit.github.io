@@ -5,7 +5,7 @@
       "scene": "bouncing_ball",
       "edit": "edit_dead_ball",
       "label": "Bouncing ball",
-      "instruction": "From frame 1 onwards, reduce the red ball's restitution to 0.4 times its original value.",
+      "instruction": "Reduce the red ball's restitution to 0.4 times its original value.",
       "videos": {
         "source": "assets/videos/comparisons/synthetic/bouncing_ball/source.mp4",
         "vace": "assets/videos/comparisons/synthetic/bouncing_ball/vace.mp4",
@@ -20,7 +20,7 @@
       "scene": "car_gap_jump",
       "edit": "edit_overpowered",
       "label": "Car gap jump",
-      "instruction": "From frame 1 onwards, increase the toy car's initial speed to 2 times its original value.",
+      "instruction": "Increase the toy car's initial speed to 2 times its original value.",
       "videos": {
         "source": "assets/videos/comparisons/synthetic/car_gap_jump/source.mp4",
         "vace": "assets/videos/comparisons/synthetic/car_gap_jump/vace.mp4",
@@ -35,7 +35,7 @@
       "scene": "car_ramp_climb",
       "edit": "edit_slick_wheels",
       "label": "Car ramp climb",
-      "instruction": "From frame 1 onwards, reduce the toy car's friction coefficient to 0.2 times its original value.",
+      "instruction": "Reduce the toy car's friction coefficient to 0.2 times its original value.",
       "videos": {
         "source": "assets/videos/comparisons/synthetic/car_ramp_climb/source.mp4",
         "vace": "assets/videos/comparisons/synthetic/car_ramp_climb/vace.mp4",
@@ -50,7 +50,7 @@
       "scene": "curling_collision",
       "edit": "edit_yellow_at_rest",
       "label": "Curling collision",
-      "instruction": "From frame 1 onwards, leave the yellow stone at rest.",
+      "instruction": "Leave the yellow stone at rest.",
       "videos": {
         "source": "assets/videos/comparisons/synthetic/curling_collision/source.mp4",
         "vace": "assets/videos/comparisons/synthetic/curling_collision/vace.mp4",
@@ -65,7 +65,7 @@
       "scene": "table_marble_collision",
       "edit": "edit_heavy_big_marble",
       "label": "Marble collision",
-      "instruction": "From frame 1 onwards, increase the big marble's mass to 5 times its original value.",
+      "instruction": "Increase the big marble's mass to 5 times its original value.",
       "videos": {
         "source": "assets/videos/comparisons/synthetic/table_marble_collision/source.mp4",
         "vace": "assets/videos/comparisons/synthetic/table_marble_collision/vace.mp4",

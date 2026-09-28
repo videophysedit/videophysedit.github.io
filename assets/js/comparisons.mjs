@@ -185,5 +185,5 @@ try {
 
 }
 for (const kind of ["synthetic", "real", "removal"]) {
-  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=labels-48`);
+  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=instructions-49`);
 }
