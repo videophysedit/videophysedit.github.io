@@ -2526,6 +2526,28 @@
               "label": "20×"
             }
           ]
+        },
+        "insert": {
+          "label": "Position",
+          "hint": "Choose a position on the book. Near and far are measured from the red ball.",
+          "defaultIndex": 0,
+          "steps": [
+            {
+              "id": "near",
+              "label": "Near",
+              "value": 0.0
+            },
+            {
+              "id": "middle",
+              "label": "Middle",
+              "value": 0.5
+            },
+            {
+              "id": "far",
+              "label": "Far",
+              "value": 1.0
+            }
+          ]
         }
       },
       "objects": [
@@ -3616,6 +3638,65 @@
         "mass:yellow:20:frame-23": {
           "video": "assets/videos/interactive/ramp/source.mp4",
           "poster": "assets/images/interactive/ramp/source.jpg"
+        },
+        "insert:green:near:frame-1": {
+          "video": "assets/videos/interactive/ramp/insert_green_near.mp4",
+          "poster": "assets/images/interactive/ramp/insert_green_near.jpg"
+        },
+        "insert:green:middle:frame-1": {
+          "video": "assets/videos/interactive/ramp/insert_green_middle.mp4",
+          "poster": "assets/images/interactive/ramp/insert_green_middle.jpg"
+        },
+        "insert:green:far:frame-1": {
+          "video": "assets/videos/interactive/ramp/insert_green_far.mp4",
+          "poster": "assets/images/interactive/ramp/insert_green_far.jpg"
+        }
+      },
+      "insertion": {
+        "frames": [
+          1
+        ],
+        "object": {
+          "id": "green",
+          "label": "Green ball",
+          "shape": "sphere",
+          "color": "teal",
+          "w": 0.058333333333333334,
+          "h": 0.1
+        },
+        "positions": [
+          {
+            "id": "near",
+            "label": "Near",
+            "x": 0.5840277777777778,
+            "y": 0.3333333333333333,
+            "w": 0.058333333333333334,
+            "h": 0.10208333333333333
+          },
+          {
+            "id": "middle",
+            "label": "Middle",
+            "x": 0.5048611111111111,
+            "y": 0.3697916666666667,
+            "w": 0.058333333333333334,
+            "h": 0.10416666666666667
+          },
+          {
+            "id": "far",
+            "label": "Far",
+            "x": 0.36527777777777776,
+            "y": 0.4322916666666667,
+            "w": 0.059722222222222225,
+            "h": 0.10416666666666667
+          }
+        ],
+        "start": {
+          "x": 0.5840277777777778,
+          "y": 0.38437499999999997
+        },
+        "end": {
+          "x": 0.36527777777777776,
+          "y": 0.484375
         }
       }
     }

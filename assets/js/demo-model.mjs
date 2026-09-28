@@ -25,7 +25,8 @@ export function interventionTime(scene, frame) {
   return scene.editTimeline ? (frame - 1) / scene.source.fps : scene.source.editTime;
 }
 
-export function editableFrames(scene) {
+export function editableFrames(scene, mode) {
+  if (mode === "insert" && scene.insertion?.frames) return scene.insertion.frames;
   return scene.editTimeline?.frames || [scene.editTimeline?.defaultFrame ?? 1];
 }
 
@@ -63,17 +64,19 @@ export function describeSelection(scene, controls, selection) {
   controls = sceneControls(scene, controls);
   const { mode, objectId, stepIndex, editFrame = 1 } = selection;
   if (scene.editTimeline && selection.timeChosen === false) return null;
+  if (mode === "insert" && selection.positionChosen === false) return null;
   if (!modes.some(item => item.id === mode)) return null;
   const object = mode === "insert" ? scene.insertion?.object : editableObjects(scene, mode).find(item => item.id === objectId);
   if (!object) return null;
   const step = controls[mode]?.steps[stepIndex];
   if (mode !== "remove" && (!Number.isInteger(stepIndex) || !step)) return null;
-  if (scene.editTimeline && (!Number.isInteger(editFrame) || editFrame < 1 || editFrame > scene.source.frameCount || !editableFrames(scene).includes(editFrame))) return null;
+  if (scene.editTimeline && (!Number.isInteger(editFrame) || editFrame < 1 || editFrame > scene.source.frameCount || !editableFrames(scene, mode).includes(editFrame))) return null;
   const baseKey = mode === "remove" ? `remove:${object.id}` : `${mode}:${object.id}:${step.id}`;
   const key = scene.editTimeline ? `${baseKey}:frame-${editFrame}` : baseKey;
   const name = object.label.toLowerCase();
   let instruction;
   if (mode === "remove") instruction = `Remove the ${name}.`;
+  else if (mode === "insert" && scene.insertion.positions) instruction = `Add a ${name} at the ${step.label.toLowerCase()} position on the book.`;
   else if (mode === "insert") instruction = `Add a ${name} at ${step.name ? "the center" : `${step.label} of the path`}.`;
   else if (mode === "velocity") instruction = `Set the ${name}'s ${editFrame === 1 ? 'initial velocity' : 'velocity'} to ${step.label} the source velocity.`;
   else if (mode === "mass") instruction = `Increase the ${name}'s mass to ${step.label} its original value.`;
@@ -106,6 +109,5 @@ export function listVariants(scene, controls) {
       else controls[mode.id].steps.forEach((_, stepIndex) => selections.push({ mode: mode.id, objectId: object.id, stepIndex }));
     }
   }
-  const frames = editableFrames(scene);
-  return selections.flatMap(selection => frames.map(editFrame => describeSelection(scene, controls, { ...selection, editFrame })));
+  return selections.flatMap(selection => editableFrames(scene, selection.mode).map(editFrame => describeSelection(scene, controls, { ...selection, editFrame })));
 }

@@ -152,13 +152,28 @@ test("ramp uses mass twenty and contact-frame tracks without changing domino mas
   const ramp = config.scenes.find(scene => scene.id === "ramp");
   assert.deepEqual(editableFrames(ramp), [1,23]);
   const variants = listVariants(ramp, config.controls);
-  assert.equal(variants.length,12);
+  assert.equal(variants.length,15);
   for (const variant of variants) {
     assert.ok(variant.clip);
     await access(new URL(`../${variant.clip.video}`, import.meta.url));
     if (variant.mode === "mass") assert.equal(variant.step.value,20);
     if (variant.mode === "mass" && variant.object.id === "yellow") assert.equal(variant.clip.video,ramp.source.video);
-    assert.equal(objectAtFrame(variant.object,variant.editFrame).polygon.length,40);
+    if (variant.mode !== "insert") assert.equal(objectAtFrame(variant.object,variant.editFrame).polygon.length,40);
   }
   assert.ok(listVariants(domino,config.controls).filter(v=>v.mode==="mass").every(v=>v.step.value===10));
+});
+
+
+test("ramp insertion requires a chosen position and only runs at frame one", () => {
+  const ramp = config.scenes.find(scene => scene.id === "ramp");
+  assert.deepEqual(editableFrames(ramp, "insert"), [1]);
+  const initial = {mode:"insert",stepIndex:0,editFrame:1,timeChosen:true,positionChosen:false};
+  assert.equal(describeSelection(ramp,config.controls,initial),null);
+  for (const [stepIndex, name] of ["near","middle","far"].entries()) {
+    const selection = {...initial,stepIndex,positionChosen:true};
+    const result = describeSelection(ramp,config.controls,selection);
+    assert.equal(result.key,`insert:green:${name}:frame-1`);
+    assert.match(result.clip.video,new RegExp(`insert_green_${name}\\.mp4$`));
+    assert.equal(describeSelection(ramp,config.controls,{...selection,editFrame:23}),null);
+  }
 });
