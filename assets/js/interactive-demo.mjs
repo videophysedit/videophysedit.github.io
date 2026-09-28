@@ -1,4 +1,4 @@
-import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=initial-empty-46";
+import { requiresEditTime, editSelectionComplete, sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=cleanup-61";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -180,8 +180,7 @@ async function initialize() {
   const playsComparison = () => playbackMode === "comparison" && ready();
   const playbackVideos = () => playsComparison() ? [sourceVideo, resultVideo] : [sourceVideo];
   const masterVideo = () => playsComparison() && resultVideo.duration > sourceVideo.duration ? resultVideo : sourceVideo;
-  const editComplete = () => Boolean(selection.modeChosen && descriptor?.clip?.video &&
-    (selection.mode === "insert" || !scene.editTimeline || editableFrames(scene, selection.mode).length === 1 || selection.timeTouched));
+  const editComplete = () => editSelectionComplete(scene, selection, descriptor);
   const canPlay = (mode = playbackMode) => sourceReady() && (mode === "source" || (editComplete() && ready()));
 
   function updatePlayLabel() {
@@ -406,9 +405,14 @@ async function initialize() {
   function renderControls() {
     const availableModes = sceneModes(scene);
     const fixedMultiplier = scene.parameterDemo && ["velocity", "restitution", "gravity", "mass"].includes(selection.mode);
-    const fixedEditTime = Boolean(scene.editTimeline && editableFrames(scene, selection.mode).length === 1);
+    const hasTimeChoice = requiresEditTime(scene, selection.mode);
     if (fixedMultiplier) selection.stepIndex = controls()[selection.mode].defaultIndex;
-    root.querySelector(".demo-steps").innerHTML = (selection.mode === "insert" ? ["Select an edit", "Click a position", "Click Play"] : fixedEditTime && usesObjectSelection() ? ["Select an edit", "Click an object", "Click Play"] : scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
+    const steps = ["Select an edit"];
+    if (hasTimeChoice) steps.push("Select a time");
+    if (selection.mode === "insert") steps.push("Click a position");
+    else if (usesObjectSelection()) steps.push("Click an object");
+    steps.push("Click Play");
+    root.querySelector(".demo-steps").innerHTML = steps.map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
     root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
@@ -442,7 +446,7 @@ async function initialize() {
       find("demo-control-hint").textContent = control.hint;
       find("demo-ticks").innerHTML = control.steps.map((step, index) => `<button type="button" data-step="${index}" aria-label="Set ${escapeText(control.label.toLowerCase())} to ${escapeText(step.label)}" aria-pressed="false">${escapeText(step.label)}</button>`).join("");
     }
-    find("demo-edit-time").hidden = !scene.editTimeline || fixedEditTime || selection.mode === "insert";
+    find("demo-edit-time").hidden = !hasTimeChoice;
     if (scene.editTimeline) {
       const frames = editableFrames(scene, selection.mode);
       editFrameRange.max = String(frames.length - 1);

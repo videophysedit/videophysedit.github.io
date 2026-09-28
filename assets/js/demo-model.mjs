@@ -113,3 +113,13 @@ export function listVariants(scene, controls) {
   }
   return selections.flatMap(selection => editableFrames(scene, selection.mode).map(editFrame => describeSelection(scene, controls, { ...selection, editFrame })));
 }
+
+// Fixed-time and insertion edits do not require a separate time selection.
+export function requiresEditTime(scene, mode) {
+  return Boolean(scene.editTimeline && mode !== "insert" && editableFrames(scene, mode).length > 1);
+}
+
+export function editSelectionComplete(scene, selection, descriptor) {
+  return Boolean(selection.modeChosen && descriptor?.clip?.video &&
+    (!requiresEditTime(scene, selection.mode) || selection.timeTouched));
+}

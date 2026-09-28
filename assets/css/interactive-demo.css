@@ -233,32 +233,24 @@
   .demo-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; font-size: 12px; }
   .demo-steps li { min-width: 0; gap: 6px; }
   .demo-steps li::before { flex: none; width: 22px; height: 22px; font-size: 12px; }
-  .has-edit-timeline .demo-controls { position: relative; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px 10px; padding: 0; }
+  .has-edit-timeline .demo-controls { position: relative; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; padding: 0; }
   .has-edit-timeline .demo-controls-heading { position: absolute; top: 0; right: 0; }
   .demo-reset { width: 32px; height: 32px; }
   .has-edit-timeline .demo-mode-list { grid-column: 1 / -1; grid-row: 1; gap: 8px; }
   .has-edit-timeline .demo-edit-label { flex-basis: 100%; min-height: 32px; display: flex; align-items: center; margin: 0; padding-right: 40px; }
   .has-edit-timeline .demo-mode { flex: 1 1 calc(50% - 4px); min-width: 0; min-height: 40px; padding: 7px 8px; }
   .has-edit-timeline .demo-edit-time { grid-column: 1 / -1; grid-row: 2; max-width: none; width: 100%; margin: 0; padding: 0; border: 0; gap: 14px 8px; }
-  .demo-edit-time-track { padding: 6px 8px 0; }
-  .demo-edit-stops { position: static; display: flex; justify-content: space-between; height: auto; margin: 8px -8px 0; }
-  .demo-edit-stops button { position: static; transform: none; min-width: 0; flex: 1; min-height: 28px; font-size: 10px; }
   .demo-edit-stops button::before { display: none; }
 
   .has-edit-timeline.parameter-demo .demo-slider-control { grid-column: 1 / -1; grid-row: 3; }
-  .demo-playback { gap: 10px; }
   .demo-timeline { min-width: 0; }
-}
 
-@media (max-width: 640px) {
-  .has-edit-timeline .demo-controls { gap: 20px; }
   .has-edit-timeline .demo-edit-label,
   .demo-edit-time label { font-size: 13px; font-weight: 600; color: #536979; }
-  .has-edit-timeline .demo-edit-time { gap: 14px 8px; }
   .demo-edit-time output, .demo-time { font-size: 11px; color: #718493; }
   .demo-edit-time-track { padding: 6px 0 32px; }
   .demo-edit-stops { position: absolute; top: 18px; left: 8.5px; right: 8.5px; height: 24px; margin: 0; display: block; }
-  .demo-edit-stops button { position: absolute; transform: translateX(-50%); min-height: 24px; white-space: nowrap; }
+  .demo-edit-stops button { position: absolute; transform: translateX(-50%); min-width: 0; min-height: 24px; font-size: 10px; white-space: nowrap; }
   .demo-edit-stops button:first-child { transform: translateX(-25%); }
   .demo-edit-stops button:last-child { transform: translateX(-75%); }
   .demo-playback { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 16px 12px; padding: 14px; }

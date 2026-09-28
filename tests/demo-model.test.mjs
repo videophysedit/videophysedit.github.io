@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
-import { describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
+import { requiresEditTime, editSelectionComplete, describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
 
 const config = JSON.parse(await readFile(new URL("../assets/data/interactive-demo.json", import.meta.url)));
 const football = config.scenes.find(scene => scene.id === "football");
@@ -221,4 +221,21 @@ test("real balls preserve original aspect ratio and map both balls for mass and 
   assert.match(describeSelection(scene,config.controls,{mode:'mass',objectId:'blue',stepIndex:0,editFrame:1}).clip.video,/mass-blue-3x/);
   assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'yellow',stepIndex:0,editFrame:1}).clip.video,/velocity-yellow-half/);
   assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'blue',stepIndex:0,editFrame:1}).instruction,/0.5×/);
+});
+
+
+test("play readiness requires explicit edit and visible time choices", () => {
+  for (const scene of config.scenes) {
+    for (const variant of listVariants(scene, config.controls)) {
+      const selected = {mode: variant.mode, modeChosen: true, timeTouched: true};
+      assert.equal(editSelectionComplete(scene, selected, variant), true);
+      assert.equal(editSelectionComplete(scene, {...selected, modeChosen: false}, variant), false);
+      assert.equal(editSelectionComplete(scene, selected, null), false);
+      assert.equal(editSelectionComplete(scene, {...selected, timeTouched: false}, variant), !requiresEditTime(scene, variant.mode));
+    }
+  }
+  assert.equal(requiresEditTime(domino, "remove"), true);
+  assert.equal(requiresEditTime(football, "gravity"), true);
+  assert.equal(requiresEditTime(pool, "remove"), false);
+  assert.equal(requiresEditTime(config.scenes.find(s => s.id === "ramp"), "insert"), false);
 });
