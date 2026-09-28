@@ -1,4 +1,4 @@
-import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=pool-insert-35";
+import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=neutral-43";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -372,11 +372,12 @@ async function initialize() {
     if (scene.editTimeline) {
       const frames = editableFrames(scene, selection.mode);
       const frameIndex = frames.indexOf(selection.editFrame);
+      find("demo-edit-time").classList.toggle("is-unchosen", !selection.timeTouched);
       editFrameRange.value = String(frameIndex);
       editFrameRange.style.setProperty("--range-progress", `${frameIndex / Math.max(1, frames.length - 1) * 100}%`);
       editFrameRange.setAttribute("aria-valuetext", `Frame ${selection.editFrame}, ${editTime().toFixed(2)} seconds`);
       find("demo-edit-frame-output").textContent = `${editTime().toFixed(2)} s`;
-      root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(!needsEditTime() && Number(button.dataset.editIndex) === frameIndex)));
+      root.querySelectorAll("[data-edit-index]").forEach(button => button.setAttribute("aria-pressed", String(Boolean(selection.timeTouched) && Number(button.dataset.editIndex) === frameIndex)));
     }
     positionHotspots();
     updateSelectionShape();
@@ -404,7 +405,7 @@ async function initialize() {
     find("demo-control-hint").classList.toggle("sr-only", Boolean(scene.editTimeline));
     find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline));
     root.querySelectorAll("[data-mode]").forEach(button => {
-      button.setAttribute("aria-pressed", String(button.dataset.mode === selection.mode));
+      button.setAttribute("aria-pressed", String(Boolean(selection.modeChosen) && button.dataset.mode === selection.mode));
       button.hidden = !availableModes.some(mode => mode.id === button.dataset.mode);
       button.disabled = button.hidden;
       if (["velocity", "restitution", "gravity"].includes(button.dataset.mode)) {
@@ -512,6 +513,7 @@ async function initialize() {
   function selectEditTime(frame, commit = true) {
     selection.editFrame = frame;
     selection.timeChosen = true;
+    selection.timeTouched = true;
     updateSelection(commit);
   }
 
@@ -521,6 +523,7 @@ async function initialize() {
     if (button.dataset.scene) selectScene(button.dataset.scene);
     else if (button.dataset.mode) {
       if (scene.parameterDemo && ["remove", "velocity", "restitution", "mass"].includes(button.dataset.mode) && selection.mode !== button.dataset.mode) selection.objectId = null;
+      selection.modeChosen = true;
       selection.mode = button.dataset.mode;
       if (selection.mode === "insert") {
         selection.editFrame = scene.insertion.frames?.[0] ?? 1;

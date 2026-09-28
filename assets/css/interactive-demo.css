@@ -204,3 +204,8 @@
 .demo-insert-position span { position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%); padding:2px 7px; border-radius:4px; background:#f6fff8eb; color:#285f40; font:600 12px system-ui; white-space:nowrap; }
 .demo-shell[data-scene="pool"] .demo-insert-position[data-position="0"] span { left:auto; right:calc(100% + 7px); bottom:50%; transform:translateY(50%); }
 .demo-shell[data-scene="pool"] .demo-insert-position[data-position="1"] span { top:calc(100% + 7px); bottom:auto; }
+
+.demo-edit-time.is-unchosen output { color: #82929f; }
+.demo-edit-time.is-unchosen .demo-range { background: #e4ebf1; }
+.demo-edit-time.is-unchosen .demo-range::-webkit-slider-thumb { background: #b8c4ce; box-shadow: 0 0 0 1px #c7d1d9; }
+.demo-edit-time.is-unchosen .demo-range::-moz-range-thumb { background: #b8c4ce; box-shadow: 0 0 0 1px #c7d1d9; }

@@ -53,6 +53,8 @@ export function initialSelection(scene, controls) {
   const mode = scene.defaultMode || "remove";
   return {
     mode,
+    modeChosen: false,
+    timeTouched: false,
     objectId: mode === "remove" || mode === "insert" ? null : editableObjects(scene, mode)[0]?.id,
     stepIndex: controls[mode]?.defaultIndex ?? 0,
     editFrame: nearestEditFrame(scene, scene.editTimeline?.defaultFrame ?? 1),
