@@ -70,7 +70,7 @@
   }
 
   document.querySelectorAll("[data-comparison]").forEach(grid => {
-    if (["synthetic", "real"].includes(grid.dataset.comparison)) return;
+    if (["synthetic", "real", "removal"].includes(grid.dataset.comparison)) return;
     content.comparisons[grid.dataset.comparison].forEach(method => {
       const figure = document.createElement("figure");
       figure.className = "media-column" + (method.role ? ` is-${method.role}` : "");

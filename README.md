@@ -15,6 +15,7 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - Configure the homepage interactive demo in `assets/data/interactive-demo.json`.
 - Configure synthetic baseline comparisons in `assets/data/synthetic-comparison.json`.
 - Configure real-video baseline comparisons in `assets/data/real-comparison.json`.
+- Configure the seven object-removal comparisons, including VOID, in `assets/data/removal-comparison.json`.
 - Adjust the layout in `assets/css/style.css`.
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.

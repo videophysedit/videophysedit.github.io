@@ -7,7 +7,8 @@ const seek = root.querySelector(".comparison-seek");
 const clock = root.querySelector(".comparison-time");
 const status = root.querySelector(".comparison-status");
 const methods = [
-  ["source", "Source", "source"], ["vace", "VACE"], ["ditto", "Ditto"],
+  ["source", "Source", "source"],
+  root.id === "removal-comparison" ? ["void", "VOID"] : ["vace", "VACE"], ["ditto", "Ditto"],
   ["minimax", "MiniMax H3"], ["seedance", "Seedance 2.5"],
   ["videophysedit", "VideoPhysEdit", "ours"]
 ];
@@ -183,6 +184,6 @@ try {
 }
 
 }
-for (const kind of ["synthetic", "real"]) {
-  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=real-42`);
+for (const kind of ["synthetic", "real", "removal"]) {
+  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=removal-45`);
 }

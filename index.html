@@ -17,8 +17,8 @@
   <link rel="stylesheet" href="assets/css/comparisons.css?v=real-42">
   <link rel="stylesheet" href="assets/css/interactive-demo.css?v=play-row-44">
   <script src="assets/js/content.js" defer></script>
-  <script src="assets/js/site.js?v=real-42" defer></script>
-  <script src="assets/js/comparisons.mjs?v=real-42" type="module"></script>
+  <script src="assets/js/site.js?v=removal-45" defer></script>
+  <script src="assets/js/comparisons.mjs?v=removal-45" type="module"></script>
   <script src="assets/js/method-figure.js?v=method-viewport-2" type="module"></script>
   <script src="assets/js/interactive-demo.mjs?v=play-row-44" type="module"></script>
 </head>
@@ -154,10 +154,18 @@
           </div>
           <p class="comparison-status" role="status"></p>
         </div>
-        <div class="comparison-block" id="removal-comparison">
+        <div class="comparison-block has-cases" id="removal-comparison">
           <h3>Object Removal</h3>
           <p class="comparison-description">Additional comparisons with VOID on object removal tasks.</p>
+          <div class="comparison-cases" role="group" aria-label="Select removal scene"></div>
+          <p class="comparison-instruction" aria-live="polite"></p>
           <div class="comparison-grid" data-comparison="removal" role="region" aria-label="Object removal comparisons" tabindex="0"></div>
+          <div class="comparison-playback">
+            <button class="comparison-play" type="button" disabled>Play all</button>
+            <input class="comparison-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="Removal comparison playback time" disabled>
+            <output class="comparison-time">0.0 s</output>
+          </div>
+          <p class="comparison-status" role="status"></p>
         </div>
       </div>
     </section>

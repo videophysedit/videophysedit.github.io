@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "id": "ball_box_rebound/edit_remove_target_after_impact",
+      "scene": "ball_box_rebound",
+      "edit": "edit_remove_target_after_impact",
+      "label": "Ball & box",
+      "instruction": "From frame 32 onwards, remove the little football from the scene.",
+      "aspect": "16/9",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/ball_box_rebound/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/ball_box_rebound/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/ball_box_rebound/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/ball_box_rebound/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/ball_box_rebound/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/ball_box_rebound/seedance.mp4"
+      }
+    },
+    {
+      "id": "toy_car_ball/edit_remove_toy_ball_after_push",
+      "scene": "toy_car_ball",
+      "edit": "edit_remove_toy_ball_after_push",
+      "label": "Toy car & ball",
+      "instruction": "From frame 18 onwards, remove the toy ball from the scene.",
+      "aspect": "16/9",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/toy_car_ball/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/toy_car_ball/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/toy_car_ball/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/toy_car_ball/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/toy_car_ball/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/toy_car_ball/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
+      "scene": "real__morpheus_collision_big_hits_small",
+      "edit": "edit_remove_big_ball",
+      "label": "Large & small balls (real)",
+      "instruction": "From frame 1 onward, remove the large ball from the scene.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
+      }
+    },
+    {
+      "id": "ball_block/edit_remove_block_after_impact",
+      "scene": "ball_block",
+      "edit": "edit_remove_block_after_impact",
+      "label": "Ball & block",
+      "instruction": "From frame 17 onwards, remove the wooden block from the scene.",
+      "aspect": "16/9",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/ball_block/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/ball_block/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/ball_block/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/ball_block/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/ball_block/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/ball_block/seedance.mp4"
+      }
+    },
+    {
+      "id": "ramp_collision/edit_remove_blue_marble",
+      "scene": "ramp_collision",
+      "edit": "edit_remove_blue_marble",
+      "label": "Ramp collision",
+      "instruction": "From frame 1 onwards, remove the blue marble from the scene.",
+      "aspect": "16/9",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/ramp_collision/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/ramp_collision/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/ramp_collision/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/ramp_collision/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/ramp_collision/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/ramp_collision/seedance.mp4"
+      }
+    },
+    {
+      "id": "table_marble_collision/edit_remove_small_marble",
+      "scene": "table_marble_collision",
+      "edit": "edit_remove_small_marble",
+      "label": "Marble collision",
+      "instruction": "From frame 1 onwards, remove the small marble from the scene.",
+      "aspect": "16/9",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/table_marble_collision/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/table_marble_collision/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/table_marble_collision/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/table_marble_collision/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/table_marble_collision/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/table_marble_collision/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__balls_collide/collide_remove_blue",
+      "scene": "real__balls_collide",
+      "edit": "collide_remove_blue",
+      "label": "Two balls (real)",
+      "instruction": "From frame 1 onward, remove the blue ball from the scene.",
+      "aspect": "3/2",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/real__balls_collide/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/real__balls_collide/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/real__balls_collide/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/real__balls_collide/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/real__balls_collide/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/real__balls_collide/seedance.mp4"
+      }
+    }
+  ]
+}
