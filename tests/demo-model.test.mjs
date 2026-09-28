@@ -8,8 +8,8 @@ const football = config.scenes.find(scene => scene.id === "football");
 const domino = config.scenes.find(scene => scene.id === "domino");
 const pool = config.scenes.find(scene => scene.id === "pool");
 
-test("four scenes have unique exact variant keys and useful initial states", () => {
-  assert.equal(config.scenes.length, 4);
+test("five scenes have unique exact variant keys and useful initial states", () => {
+  assert.equal(config.scenes.length, 5);
   for (const scene of config.scenes) {
     const variants = listVariants(scene, config.controls);
     assert.equal(new Set(variants.map(item => item.key)).size, variants.length);
@@ -208,4 +208,17 @@ test("pool insertion uses yellow balls on the pool table at three chosen positio
     assert.match(result.instruction, /yellow ball.*pool table/);
     assert.ok(result.clip.video.endsWith("insert-yellow-" + position + ".mp4"));
   }
+});
+
+test("real balls preserve original aspect ratio and map only supported object edits", async () => {
+  const scene=config.scenes.find(s=>s.id==='real-balls');
+  assert.equal(scene.source.width/scene.source.height,1.5);
+  assert.equal(scene.source.frameCount/scene.source.fps,3);
+  assert.deepEqual(editableFrames(scene),[1]);
+  const variants=listVariants(scene,config.controls);
+  assert.equal(variants.length,4);
+  for(const v of variants){assert.ok(v.clip); await access(new URL('../'+v.clip.video,import.meta.url));}
+  assert.equal(describeSelection(scene,config.controls,{mode:'mass',objectId:'blue',stepIndex:0,editFrame:1}),null);
+  assert.equal(describeSelection(scene,config.controls,{mode:'velocity',objectId:'yellow',stepIndex:0,editFrame:1}),null);
+  assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'blue',stepIndex:0,editFrame:1}).instruction,/0.5×/);
 });

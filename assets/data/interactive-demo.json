@@ -3944,6 +3944,309 @@
           "y": 0.546875
         }
       }
+    },
+    {
+      "id": "real-balls",
+      "title": "Two balls (real)",
+      "subtitle": "Removal, velocity & mass",
+      "illustration": "collision",
+      "defaultMode": "remove",
+      "parameterDemo": true,
+      "source": {
+        "video": "assets/videos/interactive/real-balls/source.mp4",
+        "poster": "assets/images/interactive/real-balls/source.jpg",
+        "editTime": 0,
+        "width": 720,
+        "height": 480,
+        "fps": 30,
+        "frameCount": 90
+      },
+      "editTimeline": {
+        "frames": [
+          1
+        ],
+        "defaultFrame": 1
+      },
+      "controls": {
+        "velocity": {
+          "label": "Velocity",
+          "hint": "Reduce the blue ball's initial velocity to half its original value.",
+          "defaultIndex": 0,
+          "steps": [
+            {
+              "id": "0.5",
+              "value": 0.5,
+              "label": "0.5×"
+            }
+          ]
+        },
+        "mass": {
+          "label": "Mass",
+          "hint": "Increase the yellow ball's mass to 3× its original value.",
+          "defaultIndex": 0,
+          "steps": [
+            {
+              "id": "3",
+              "value": 3,
+              "label": "3×"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "blue",
+          "label": "Blue ball",
+          "color": "blue",
+          "shape": "sphere",
+          "x": 0.15,
+          "y": 0.4166666666666667,
+          "w": 0.07777777777777778,
+          "h": 0.12083333333333333,
+          "edits": [
+            "remove",
+            "velocity"
+          ],
+          "track": [
+            {
+              "frame": 1,
+              "polygon": [
+                [
+                  0.188889,
+                  0.416667
+                ],
+                [
+                  0.187564,
+                  0.432304
+                ],
+                [
+                  0.183679,
+                  0.446875
+                ],
+                [
+                  0.177499,
+                  0.459388
+                ],
+                [
+                  0.169444,
+                  0.468989
+                ],
+                [
+                  0.160065,
+                  0.475025
+                ],
+                [
+                  0.15,
+                  0.477083
+                ],
+                [
+                  0.139935,
+                  0.475025
+                ],
+                [
+                  0.130556,
+                  0.468989
+                ],
+                [
+                  0.122501,
+                  0.459388
+                ],
+                [
+                  0.116321,
+                  0.446875
+                ],
+                [
+                  0.112436,
+                  0.432304
+                ],
+                [
+                  0.111111,
+                  0.416667
+                ],
+                [
+                  0.112436,
+                  0.40103
+                ],
+                [
+                  0.116321,
+                  0.386458
+                ],
+                [
+                  0.122501,
+                  0.373946
+                ],
+                [
+                  0.130556,
+                  0.364344
+                ],
+                [
+                  0.139935,
+                  0.358309
+                ],
+                [
+                  0.15,
+                  0.35625
+                ],
+                [
+                  0.160065,
+                  0.358309
+                ],
+                [
+                  0.169444,
+                  0.364344
+                ],
+                [
+                  0.177499,
+                  0.373946
+                ],
+                [
+                  0.183679,
+                  0.386458
+                ],
+                [
+                  0.187564,
+                  0.40103
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow ball",
+          "color": "amber",
+          "shape": "sphere",
+          "x": 0.9208333333333333,
+          "y": 0.4,
+          "w": 0.08333333333333333,
+          "h": 0.12083333333333333,
+          "edits": [
+            "remove",
+            "mass"
+          ],
+          "track": [
+            {
+              "frame": 1,
+              "polygon": [
+                [
+                  0.9625,
+                  0.4
+                ],
+                [
+                  0.96108,
+                  0.415637
+                ],
+                [
+                  0.956918,
+                  0.430208
+                ],
+                [
+                  0.950296,
+                  0.442721
+                ],
+                [
+                  0.941667,
+                  0.452322
+                ],
+                [
+                  0.931617,
+                  0.458358
+                ],
+                [
+                  0.920833,
+                  0.460417
+                ],
+                [
+                  0.910049,
+                  0.458358
+                ],
+                [
+                  0.9,
+                  0.452322
+                ],
+                [
+                  0.891371,
+                  0.442721
+                ],
+                [
+                  0.884749,
+                  0.430208
+                ],
+                [
+                  0.880586,
+                  0.415637
+                ],
+                [
+                  0.879167,
+                  0.4
+                ],
+                [
+                  0.880586,
+                  0.384363
+                ],
+                [
+                  0.884749,
+                  0.369792
+                ],
+                [
+                  0.891371,
+                  0.357279
+                ],
+                [
+                  0.9,
+                  0.347678
+                ],
+                [
+                  0.910049,
+                  0.341642
+                ],
+                [
+                  0.920833,
+                  0.339583
+                ],
+                [
+                  0.931617,
+                  0.341642
+                ],
+                [
+                  0.941667,
+                  0.347678
+                ],
+                [
+                  0.950296,
+                  0.357279
+                ],
+                [
+                  0.956918,
+                  0.369792
+                ],
+                [
+                  0.96108,
+                  0.384363
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "variants": {
+        "remove:blue:frame-1": {
+          "video": "assets/videos/interactive/real-balls/remove-blue.mp4",
+          "poster": "assets/images/interactive/real-balls/remove-blue.jpg"
+        },
+        "remove:yellow:frame-1": {
+          "video": "assets/videos/interactive/real-balls/remove-yellow.mp4",
+          "poster": "assets/images/interactive/real-balls/remove-yellow.jpg"
+        },
+        "velocity:blue:0.5:frame-1": {
+          "video": "assets/videos/interactive/real-balls/velocity-blue-half.mp4",
+          "poster": "assets/images/interactive/real-balls/velocity-blue-half.jpg"
+        },
+        "mass:yellow:3:frame-1": {
+          "video": "assets/videos/interactive/real-balls/mass-yellow-3x.mp4",
+          "poster": "assets/images/interactive/real-balls/mass-yellow-3x.jpg"
+        }
+      }
     }
   ]
 }
