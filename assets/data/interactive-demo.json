@@ -51,19 +51,18 @@
     },
     "restitution": {
       "label": "Restitution",
-      "hint": "Change the football’s coefficient of restitution.",
+      "hint": "Scale the football’s coefficient of restitution.",
       "defaultIndex": 1,
-      "absolute": true,
       "steps": [
-        {
-          "id": "original",
-          "value": 0.7263794550530338,
-          "label": "Original"
-        },
         {
           "id": "1",
           "value": 1,
-          "label": "1.00"
+          "label": "1×"
+        },
+        {
+          "id": "2",
+          "value": 2,
+          "label": "2×"
         }
       ]
     },
@@ -2362,30 +2361,6 @@
           "video": "assets/videos/interactive/football/velocity-frame-19.mp4",
           "poster": "assets/images/interactive/football/velocity-frame-19.jpg"
         },
-        "restitution:football:original:frame-1": {
-          "video": "assets/videos/interactive/football/source-720p.mp4",
-          "poster": "assets/images/interactive/football/source-720p.jpg"
-        },
-        "restitution:football:1:frame-1": {
-          "video": "assets/videos/interactive/football/restitution-frame-1.mp4",
-          "poster": "assets/images/interactive/football/restitution-frame-1.jpg"
-        },
-        "restitution:football:original:frame-7": {
-          "video": "assets/videos/interactive/football/source-720p.mp4",
-          "poster": "assets/images/interactive/football/source-720p.jpg"
-        },
-        "restitution:football:1:frame-7": {
-          "video": "assets/videos/interactive/football/restitution-frame-7.mp4",
-          "poster": "assets/images/interactive/football/restitution-frame-7.jpg"
-        },
-        "restitution:football:original:frame-19": {
-          "video": "assets/videos/interactive/football/source-720p.mp4",
-          "poster": "assets/images/interactive/football/source-720p.jpg"
-        },
-        "restitution:football:1:frame-19": {
-          "video": "assets/videos/interactive/football/restitution-frame-19.mp4",
-          "poster": "assets/images/interactive/football/restitution-frame-19.jpg"
-        },
         "gravity:scene:1:frame-1": {
           "video": "assets/videos/interactive/football/source-720p.mp4",
           "poster": "assets/images/interactive/football/source-720p.jpg"
@@ -2433,6 +2408,30 @@
         "remove:block:frame-19": {
           "video": "assets/videos/interactive/football/remove-block-frame-19.mp4",
           "poster": "assets/images/interactive/football/remove-block-frame-19.jpg"
+        },
+        "restitution:football:1:frame-1": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:football:2:frame-1": {
+          "video": "assets/videos/interactive/football/restitution-x2-frame-1.mp4",
+          "poster": "assets/images/interactive/football/restitution-x2-frame-1.jpg"
+        },
+        "restitution:football:1:frame-7": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:football:2:frame-7": {
+          "video": "assets/videos/interactive/football/restitution-x2-frame-7.mp4",
+          "poster": "assets/images/interactive/football/restitution-x2-frame-7.jpg"
+        },
+        "restitution:football:1:frame-19": {
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
+        },
+        "restitution:football:2:frame-19": {
+          "video": "assets/videos/interactive/football/restitution-x2-frame-19.mp4",
+          "poster": "assets/images/interactive/football/restitution-x2-frame-19.jpg"
         }
       },
       "editTimeline": {

@@ -125,7 +125,9 @@ test("football controls use exact clips and scene-wide gravity", async () => {
   assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:1,editFrame:13}),null);
   const bounce = describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:1,editFrame:1});
   assert.match(bounce.instruction, /football/);
-  assert.match(bounce.clip.video, /restitution-frame-1/);
+  assert.match(bounce.instruction, /2× its original value/);
+  assert.match(describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:0,editFrame:1}).clip.video, /source-720p/);
+  assert.match(bounce.clip.video, /restitution-x2-frame-1/);
   const gravity = describeSelection(football, config.controls, {mode:"gravity",objectId:"scene",stepIndex:0,editFrame:1});
   assert.match(gravity.clip.video, /gravity_x05/);
   assert.equal(gravity.object.scope, "scene");
