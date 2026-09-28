@@ -3594,8 +3594,8 @@
           "poster": "assets/images/interactive/ramp/mass_blue_f1.jpg"
         },
         "remove:blue:frame-23": {
-          "video": "assets/videos/interactive/ramp/remove_blue_f23.mp4",
-          "poster": "assets/images/interactive/ramp/remove_blue_f23.jpg"
+          "video": "assets/videos/interactive/ramp/remove_blue_f23_sparse6.mp4",
+          "poster": "assets/images/interactive/ramp/remove_blue_f23_sparse6.jpg"
         },
         "mass:blue:20:frame-23": {
           "video": "assets/videos/interactive/ramp/mass_blue_f23.mp4",
