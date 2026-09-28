@@ -225,3 +225,24 @@
   .has-edit-timeline .demo-controls > .demo-play { grid-column: 2 / 4; grid-row: 2; }
   .has-edit-timeline.parameter-demo .demo-slider-control { grid-row: 3; }
 }
+
+/* Keep all six time choices independently tappable on a narrow screen. */
+@media (max-width: 640px) {
+  .has-edit-timeline .demo-controls { grid-template-columns: minmax(0,1fr) auto; gap: 18px 10px; }
+  .has-edit-timeline .demo-mode-list { grid-column: 1; }
+  .has-edit-timeline .demo-controls-heading { grid-column: 2; }
+  .has-edit-timeline .demo-edit-time { grid-column: 1 / -1; grid-row: 2; }
+  .has-edit-timeline .demo-controls > .demo-play { grid-column: 1 / -1; grid-row: 3; justify-self: end; }
+  .has-edit-timeline.parameter-demo .demo-slider-control { grid-row: 4; }
+  .demo-edit-time-track { padding: 12px 0 0; }
+  .demo-edit-stops { position: static; display: flex; justify-content: space-between; height: auto; margin-top: 8px; }
+  .demo-edit-stops button { position: static; transform: none; min-width: 40px; min-height: 44px; font-size: 11px; }
+  .demo-edit-stops button::before { display: none; }
+  .demo-source-play { width: 44px; height: 44px; }
+}
+
+@media (pointer: coarse) {
+  .has-edit-timeline .demo-target { grid-column: 1 / -1; grid-row: 4; margin: 0; }
+  .has-edit-timeline.parameter-demo .demo-slider-control { grid-row: 5; }
+  .demo-object { min-height: 44px; padding: 8px 12px; font-size: 13px; }
+}

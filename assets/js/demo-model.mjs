@@ -113,3 +113,27 @@ export function listVariants(scene, controls) {
   }
   return selections.flatMap(selection => editableFrames(scene, selection.mode).map(editFrame => describeSelection(scene, controls, { ...selection, editFrame })));
 }
+
+// Touch selection uses screen pixels so the tolerance stays small at every size.
+export function nearestTouchObject(objects, frame, x, y, width, height, tolerance = 14) {
+  let selected = null, best = tolerance;
+  for (const source of objects) {
+    const object = objectAtFrame(source, frame);
+    const polygon = object.polygon || Array.from({ length: 24 }, (_, i) => {
+      const angle = i / 24 * Math.PI * 2;
+      return [object.x + Math.cos(angle) * object.w / 2, object.y + Math.sin(angle) * object.h / 2];
+    });
+    const points = polygon.map(([px, py]) => [px * width, py * height]);
+    let inside = false, distance = Infinity;
+    for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+      const [ax, ay] = points[j], [bx, by] = points[i];
+      if ((ay > y) !== (by > y) && x < (bx - ax) * (y - ay) / (by - ay) + ax) inside = !inside;
+      const dx = bx - ax, dy = by - ay;
+      const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy || 1)));
+      distance = Math.min(distance, Math.hypot(x - ax - t * dx, y - ay - t * dy));
+    }
+    if (inside) return source;
+    if (distance < best) { best = distance; selected = source; }
+  }
+  return selected;
+}

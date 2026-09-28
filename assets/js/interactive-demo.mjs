@@ -1,4 +1,4 @@
-import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=initial-empty-46";
+import { nearestTouchObject, sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=touch-51";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -415,7 +415,7 @@ async function initialize() {
       if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? `Mass ×${controls().mass.steps[controls().mass.defaultIndex].value}` : "Increase mass"}`;
     });
     const objects = editableObjects(scene, selection.mode).filter(object => object.scope !== "scene");
-    find("demo-target").hidden = Boolean(scene.editTimeline) || scene.parameterDemo || selection.mode === "insert";
+    find("demo-target").hidden = !objects.length || selection.mode === "insert" || (!window.matchMedia("(pointer: coarse)").matches && (Boolean(scene.editTimeline) || scene.parameterDemo));
     find("demo-object-list").innerHTML = objects.map(object => `<button type="button" class="demo-object" data-object="${object.id}" aria-pressed="false"><span class="demo-object-dot" style="background:${(colors[object.color] || colors.blue)[1]}"></span>${escapeText(object.label)}</button>`).join("");
     find("demo-hotspots").innerHTML = (scene.parameterDemo && !usesObjectSelection() ? [] : objects).map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
@@ -519,6 +519,19 @@ async function initialize() {
 
   root.addEventListener("click", event => {
     const button = event.target.closest("button");
+    if (!button && stageSource.contains(event.target) && event.detail > 0 &&
+        (event.pointerType === "touch" || window.matchMedia("(pointer: coarse)").matches) &&
+        !find("demo-hotspots").hidden) {
+      const bounds = stageSource.getBoundingClientRect();
+      const object = nearestTouchObject(editableObjects(scene, selection.mode).filter(item => item.scope !== "scene"),
+        selection.editFrame, event.clientX - bounds.left, event.clientY - bounds.top, bounds.width, bounds.height);
+      if (object) {
+        selection.objectId = !scene.editTimeline && selection.mode === "remove" && selection.objectId === object.id ? null : object.id;
+        updateSelection();
+        revealSelection(event);
+      }
+      return;
+    }
     if (!button || button.disabled) return;
     if (button.dataset.scene) selectScene(button.dataset.scene);
     else if (button.dataset.mode) {
