@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=object-rest-24";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=object-velocity-25";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -160,7 +160,7 @@ async function initialize() {
   const stageResult = find("demo-result-stage");
   const formatTime = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
   const editTime = () => interventionTime(scene, selection.editFrame);
-  const usesObjectSelection = () => ["remove", "restitution"].includes(selection.mode);
+  const usesObjectSelection = () => ["remove", "velocity", "restitution"].includes(selection.mode);
   const editObjectName = () => scene.id === "domino" ? "a domino" : "an object";
   const needsEditTime = () => Boolean(scene.editTimeline && !selection.timeChosen);
   const sourceReady = () => Boolean(scene.source.video && !sourceFailed && sourceVideo.readyState >= 1 && Number.isFinite(sourceVideo.duration));
@@ -390,7 +390,7 @@ async function initialize() {
 
   function renderControls() {
     const availableModes = sceneModes(scene);
-    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && selection.mode === "restitution" ? ["Select an edit", "Select a time", "Click an object", "Choose a value", "Click Play"] : scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
+    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo && ["velocity", "restitution"].includes(selection.mode) ? ["Select an edit", "Select a time", "Click an object", "Choose a value", "Click Play"] : scene.parameterDemo && !usesObjectSelection() ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
     root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
@@ -509,7 +509,7 @@ async function initialize() {
     if (!button || button.disabled) return;
     if (button.dataset.scene) selectScene(button.dataset.scene);
     else if (button.dataset.mode) {
-      if (scene.parameterDemo && ["remove", "restitution"].includes(button.dataset.mode) && selection.mode !== button.dataset.mode) selection.objectId = null;
+      if (scene.parameterDemo && ["remove", "velocity", "restitution"].includes(button.dataset.mode) && selection.mode !== button.dataset.mode) selection.objectId = null;
       selection.mode = button.dataset.mode;
       selection.stepIndex = config.controls[selection.mode]?.defaultIndex ?? 0;
       if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = (scene.editTimeline && !scene.parameterDemo) || usesObjectSelection() || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
