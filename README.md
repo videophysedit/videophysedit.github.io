@@ -55,7 +55,7 @@ Export the current video preparation list with `node scripts/list-demo-variants.
 
 ## Baseline comparisons
 
-The synthetic comparison section includes five selectable scenes with Source, VACE, Ditto, MiniMax H3, Seedance 2.5, and VideoPhysEdit. Its shared playback timeline uses seconds at the original playback speed. Shorter clips hold their last frame. Each video can also be opened separately.
+The synthetic comparison section includes five selectable scenes with Source, VACE, Ditto, MiniMax H3, Seedance 2.5, and VideoPhysEdit. Videos automatically play together when visible and restart together after the longest clip ends. Shorter clips hold their last frame. Switching scenes starts a new comparison; scrolling away pauses playback. The shared timeline uses seconds at the original playback speed, and manual pause and seeking remain available. Each video can also be opened separately.
 
 ## Publish with GitHub Pages
 

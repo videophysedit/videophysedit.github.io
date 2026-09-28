@@ -12,6 +12,11 @@ const methods = [
   ["videophysedit", "VideoPhysEdit", "ours"]
 ];
 let videos = [], generation = 0, playback = 0, playing = false, frame = 0, time = 0, duration = 0;
+let visible = false, manualPause = false, starting = false, failed = false;
+
+function autoplay() {
+  if (visible && !document.hidden && !manualPause && !failed && duration > 0) startPlayback();
+}
 
 function displayTime() {
   seek.value = time;
@@ -20,6 +25,7 @@ function displayTime() {
 }
 function pause() {
   playback++;
+  starting = false;
   playing = false;
   cancelAnimationFrame(frame);
   videos.forEach(video => video.pause());
@@ -40,6 +46,7 @@ function metadataReady() {
   seek.disabled = false;
   play.disabled = false;
   displayTime();
+  autoplay();
 }
 function render(item) {
   generation++;
@@ -47,6 +54,7 @@ function render(item) {
   videos.forEach(video => { video.removeAttribute("src"); video.load(); });
   videos = [];
   time = duration = 0;
+  manualPause = failed = false;
   play.textContent = "Play all";
   play.disabled = seek.disabled = true;
   status.textContent = "";
@@ -71,6 +79,7 @@ function render(item) {
       video.addEventListener("loadedmetadata", () => { if (activeGeneration === generation) metadataReady(); });
       video.addEventListener("error", () => {
         if (activeGeneration !== generation) return;
+        failed = true;
         pause();
         status.textContent = `${name} could not be loaded. Please reload the page.`;
         play.disabled = seek.disabled = true;
@@ -96,8 +105,9 @@ function render(item) {
   }
   displayTime();
 }
-play.addEventListener("click", async () => {
-  if (playing) { pause(); return; }
+async function startPlayback() {
+  if (playing || starting || failed || !duration) return;
+  starting = true;
   if (time >= duration) seekTo(0);
   const activeGeneration = generation;
   const activeVideos = [...videos];
@@ -108,6 +118,7 @@ play.addEventListener("click", async () => {
   try {
     await Promise.all(activeVideos.filter(video => time < video.duration).map(video => video.play()));
     if (activeGeneration !== generation || activePlayback !== playback) return;
+    starting = false;
     playing = true;
     play.disabled = false;
     play.textContent = "Pause all";
@@ -121,20 +132,37 @@ play.addEventListener("click", async () => {
         if (Math.abs(video.currentTime - target) > 0.15) video.currentTime = target;
       });
       displayTime();
-      if (leader.ended) { time = duration; displayTime(); pause(); return; }
+      if (leader.ended) {
+        pause();
+        seekTo(0);
+        autoplay();
+        return;
+      }
       frame = requestAnimationFrame(tick);
     }
     frame = requestAnimationFrame(tick);
   } catch {
     if (activeGeneration !== generation || activePlayback !== playback) return;
     pause();
+    manualPause = true;
     play.disabled = false;
     status.textContent = "Playback could not start. Please try again.";
   }
+}
+play.addEventListener("click", () => {
+  if (playing) { manualPause = true; pause(); }
+  else { manualPause = false; startPlayback(); }
 });
-seek.addEventListener("input", () => { seekTo(Number(seek.value)); pause(); });
-document.addEventListener("visibilitychange", () => { if (document.hidden) pause(); });
-new IntersectionObserver(entries => { if (!entries[0].isIntersecting) pause(); }).observe(root);
+seek.addEventListener("input", () => { manualPause = true; seekTo(Number(seek.value)); pause(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) pause();
+  else autoplay();
+});
+new IntersectionObserver(entries => {
+  visible = entries[0].isIntersecting;
+  if (visible) autoplay();
+  else pause();
+}).observe(grid);
 
 try {
   const response = await fetch("assets/data/synthetic-comparison.json?v=40");
