@@ -244,8 +244,27 @@
   .demo-edit-stops { position: static; display: flex; justify-content: space-between; height: auto; margin: 8px -8px 0; }
   .demo-edit-stops button { position: static; transform: none; min-width: 0; flex: 1; min-height: 28px; font-size: 10px; }
   .demo-edit-stops button::before { display: none; }
-  .has-edit-timeline .demo-controls > .demo-play { grid-column: 1 / -1; grid-row: auto; width: 100%; }
+
   .has-edit-timeline.parameter-demo .demo-slider-control { grid-column: 1 / -1; grid-row: 3; }
   .demo-playback { gap: 10px; }
   .demo-timeline { min-width: 0; }
+}
+
+@media (max-width: 640px) {
+  .has-edit-timeline .demo-controls { gap: 20px; }
+  .has-edit-timeline .demo-edit-label,
+  .demo-edit-time label { font-size: 13px; font-weight: 600; color: #536979; }
+  .has-edit-timeline .demo-edit-time { gap: 14px 8px; }
+  .demo-edit-time output, .demo-time { font-size: 11px; color: #718493; }
+  .demo-edit-time-track { padding: 6px 0 32px; }
+  .demo-edit-stops { position: absolute; top: 18px; left: 8.5px; right: 8.5px; height: 24px; margin: 0; display: block; }
+  .demo-edit-stops button { position: absolute; transform: translateX(-50%); min-height: 24px; white-space: nowrap; }
+  .demo-edit-stops button:first-child { transform: translateX(-25%); }
+  .demo-edit-stops button:last-child { transform: translateX(-75%); }
+  .demo-playback { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 16px 12px; padding: 14px; }
+  .demo-playback > .demo-play { grid-column: 1; grid-row: 1; justify-self: start; min-width: 104px; min-height: 44px; font-size: 16px; font-weight: 700; background: #315f84; border-color: #315f84; color: white; }
+  .demo-playback > .demo-play:disabled { background: #e7edf2; border-color: #cbd7e0; color: #718493; }
+  .demo-playback .demo-time { grid-column: 2; grid-row: 1; text-align: right; }
+  .demo-playback .demo-timeline { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 5px; margin: 0 0 6px; }
+  .demo-playback .demo-media-status { grid-column: 1 / -1; margin: 0; }
 }
