@@ -20,7 +20,7 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
 
-The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. Ramp collision supports removal and Mass ×20 for all three balls at 0.00 and 0.92 seconds (frames 1 and 23, just as the red and blue balls collide). Yellow-ball mass edits replay the source because it remains stationary and does not collide with either ball. Football & block includes removal of either object, velocity, object restitution, and scene gravity edits at three times. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
+The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. Ramp collision supports removal and Mass ×20 for all three balls at 0.00 and 0.92 seconds (frames 1 and 23, just as the red and blue balls collide). Yellow-ball mass edits replay the source because it remains stationary and does not collide with either ball. Football & block includes removal of either object, velocity, object restitution, and scene gravity edits at three times. Authors and affiliation follow the desktop arXiv manuscript. Paper links and citation details are unset. Quantitative results and the abstract follow the current manuscript.
 
 ## Interactive demo
 

@@ -195,3 +195,15 @@ button, a, summary { touch-action: manipulation; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+.publication-authors { column-gap: 22px; row-gap: 10px; color: var(--deep-blue); }
+.publication-authors > span, .publication-authors > a { white-space: nowrap; }
+.publication-authors sup { margin-left: 2px; font-size: .65em; }
+.publication-affiliations { max-width: 720px; margin-inline: auto; line-height: 1.6; }
+.interaction-prompt { text-align: center; color: var(--deep-blue); font-size: 15px; line-height: 1.65; margin: -5px auto 20px; max-width: 740px; }
+.interaction-prompt span { display: inline-block; margin-left: 5px; }
+@media (max-width: 640px) {
+  .publication-authors { column-gap: 16px; row-gap: 8px; font-size: 15px; margin-top: 20px; }
+  .publication-affiliations { font-size: 13px; margin-top: 12px; }
+  .interaction-prompt { font-size: 13px; max-width: 330px; }
+}
