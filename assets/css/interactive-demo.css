@@ -225,3 +225,27 @@
   .has-edit-timeline .demo-controls > .demo-play { grid-column: 2 / 4; grid-row: 2; }
   .has-edit-timeline.parameter-demo .demo-slider-control { grid-row: 3; }
 }
+
+/* Phone layout follows the controls' visual order without tablet grid overrides. */
+@media (max-width: 640px) {
+  .demo-scene-tab { justify-content: center; text-align: center; min-height: 44px; }
+  .demo-scene-tab:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .demo-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; font-size: 12px; }
+  .demo-steps li { min-width: 0; gap: 6px; }
+  .demo-steps li::before { flex: none; width: 22px; height: 22px; font-size: 12px; }
+  .has-edit-timeline .demo-controls { position: relative; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px 10px; padding: 0; }
+  .has-edit-timeline .demo-controls-heading { position: absolute; top: 0; right: 0; }
+  .demo-reset { width: 32px; height: 32px; }
+  .has-edit-timeline .demo-mode-list { grid-column: 1 / -1; grid-row: 1; gap: 8px; }
+  .has-edit-timeline .demo-edit-label { flex-basis: 100%; min-height: 32px; display: flex; align-items: center; margin: 0; padding-right: 40px; }
+  .has-edit-timeline .demo-mode { flex: 1 1 calc(50% - 4px); min-width: 0; min-height: 40px; padding: 7px 8px; }
+  .has-edit-timeline .demo-edit-time { grid-column: 1 / -1; grid-row: 2; max-width: none; width: 100%; margin: 0; padding: 0; border: 0; gap: 14px 8px; }
+  .demo-edit-time-track { padding: 6px 8px 0; }
+  .demo-edit-stops { position: static; display: flex; justify-content: space-between; height: auto; margin: 8px -8px 0; }
+  .demo-edit-stops button { position: static; transform: none; min-width: 0; flex: 1; min-height: 28px; font-size: 10px; }
+  .demo-edit-stops button::before { display: none; }
+  .has-edit-timeline .demo-controls > .demo-play { grid-column: 1 / -1; grid-row: auto; width: 100%; }
+  .has-edit-timeline.parameter-demo .demo-slider-control { grid-column: 1 / -1; grid-row: 3; }
+  .demo-playback { gap: 10px; }
+  .demo-timeline { min-width: 0; }
+}

@@ -18,3 +18,13 @@
   .comparison-instruction { font-size: 14px; }
   .comparison-playback { gap: 8px; }
 }
+
+@media (max-width: 640px) {
+  .comparison-cases { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .comparison-cases button { min-width: 0; min-height: 40px; }
+  .comparison-cases button:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .comparison-block.has-cases .media-column figcaption { min-height: 40px; font-size: 12px; }
+  .comparison-playback { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 12px; }
+  .comparison-time { grid-column: 2; grid-row: 1; min-width: 0; }
+  .comparison-seek { grid-column: 1 / -1; grid-row: 2; width: 100%; margin: 0; }
+}
