@@ -146,7 +146,17 @@
         "fps": 24,
         "frameCount": 81
       },
-      "editTimeline": {"defaultFrame": 1, "frames": [1, 19, 25, 31, 37, 55]},
+      "editTimeline": {
+        "defaultFrame": 1,
+        "frames": [
+          1,
+          19,
+          25,
+          31,
+          37,
+          55
+        ]
+      },
       "objects": [
         {
           "id": "domino-1",
@@ -158,18 +168,301 @@
           "y": 0.4611111111111111,
           "w": 0.1171875,
           "h": 0.41666666666666663,
-          "edits": ["remove", "mass"],
+          "edits": [
+            "remove",
+            "mass"
+          ],
           "track": [
-            {"frame": 1, "polygon": [[0.325, 0.275], [0.38125, 0.241667], [0.407813, 0.255556], [0.370312, 0.625], [0.31875, 0.669444], [0.290625, 0.65]]},
-            {"frame": 13, "polygon": [[0.342187, 0.280556], [0.395313, 0.25], [0.423438, 0.263889], [0.376563, 0.625], [0.320312, 0.669444], [0.290625, 0.65]]},
-            {"frame": 25, "polygon": [[0.414062, 0.341667], [0.440625, 0.319444], [0.4375, 0.408333], [0.359375, 0.622222], [0.323437, 0.669444], [0.3, 0.638889]]},
-            {"frame": 31, "polygon": [[0.435937, 0.408333], [0.484375, 0.366667], [0.471875, 0.452778], [0.360938, 0.630556], [0.320312, 0.669444], [0.301563, 0.627778]]},
-            {"frame": 37, "polygon": [[0.492188, 0.444444], [0.523438, 0.416667], [0.510938, 0.494444], [0.35, 0.65], [0.323437, 0.669444], [0.30625, 0.625]]},
-            {"frame": 43, "polygon": [[0.503125, 0.5], [0.545312, 0.458333], [0.557813, 0.513889], [0.509375, 0.55], [0.323437, 0.669444], [0.310937, 0.625]]},
-            {"frame": 49, "polygon": [[0.35625, 0.575], [0.557813, 0.519444], [0.56875, 0.588889], [0.517188, 0.633333], [0.323437, 0.669444], [0.314063, 0.619444]]},
-            {"frame": 55, "polygon": [[0.35625, 0.575], [0.557813, 0.519444], [0.56875, 0.588889], [0.517188, 0.633333], [0.323437, 0.669444], [0.314063, 0.619444]]},
-            {"frame": 61, "polygon": [[0.35625, 0.575], [0.557813, 0.519444], [0.56875, 0.588889], [0.517188, 0.633333], [0.323437, 0.669444], [0.314063, 0.619444]]},
-            {"frame": 81, "polygon": [[0.35625, 0.575], [0.557813, 0.519444], [0.56875, 0.588889], [0.517188, 0.633333], [0.323437, 0.669444], [0.314063, 0.619444]]}
+            {
+              "frame": 1,
+              "polygon": [
+                [
+                  0.325,
+                  0.275
+                ],
+                [
+                  0.38125,
+                  0.241667
+                ],
+                [
+                  0.407813,
+                  0.255556
+                ],
+                [
+                  0.370312,
+                  0.625
+                ],
+                [
+                  0.31875,
+                  0.669444
+                ],
+                [
+                  0.290625,
+                  0.65
+                ]
+              ]
+            },
+            {
+              "frame": 13,
+              "polygon": [
+                [
+                  0.342187,
+                  0.280556
+                ],
+                [
+                  0.395313,
+                  0.25
+                ],
+                [
+                  0.423438,
+                  0.263889
+                ],
+                [
+                  0.376563,
+                  0.625
+                ],
+                [
+                  0.320312,
+                  0.669444
+                ],
+                [
+                  0.290625,
+                  0.65
+                ]
+              ]
+            },
+            {
+              "frame": 25,
+              "polygon": [
+                [
+                  0.414062,
+                  0.341667
+                ],
+                [
+                  0.440625,
+                  0.319444
+                ],
+                [
+                  0.4375,
+                  0.408333
+                ],
+                [
+                  0.359375,
+                  0.622222
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.3,
+                  0.638889
+                ]
+              ]
+            },
+            {
+              "frame": 31,
+              "polygon": [
+                [
+                  0.435937,
+                  0.408333
+                ],
+                [
+                  0.484375,
+                  0.366667
+                ],
+                [
+                  0.471875,
+                  0.452778
+                ],
+                [
+                  0.360938,
+                  0.630556
+                ],
+                [
+                  0.320312,
+                  0.669444
+                ],
+                [
+                  0.301563,
+                  0.627778
+                ]
+              ]
+            },
+            {
+              "frame": 37,
+              "polygon": [
+                [
+                  0.492188,
+                  0.444444
+                ],
+                [
+                  0.523438,
+                  0.416667
+                ],
+                [
+                  0.510938,
+                  0.494444
+                ],
+                [
+                  0.35,
+                  0.65
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.30625,
+                  0.625
+                ]
+              ]
+            },
+            {
+              "frame": 43,
+              "polygon": [
+                [
+                  0.503125,
+                  0.5
+                ],
+                [
+                  0.545312,
+                  0.458333
+                ],
+                [
+                  0.557813,
+                  0.513889
+                ],
+                [
+                  0.509375,
+                  0.55
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.310937,
+                  0.625
+                ]
+              ]
+            },
+            {
+              "frame": 49,
+              "polygon": [
+                [
+                  0.35625,
+                  0.575
+                ],
+                [
+                  0.557813,
+                  0.519444
+                ],
+                [
+                  0.56875,
+                  0.588889
+                ],
+                [
+                  0.517188,
+                  0.633333
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.314063,
+                  0.619444
+                ]
+              ]
+            },
+            {
+              "frame": 55,
+              "polygon": [
+                [
+                  0.35625,
+                  0.575
+                ],
+                [
+                  0.557813,
+                  0.519444
+                ],
+                [
+                  0.56875,
+                  0.588889
+                ],
+                [
+                  0.517188,
+                  0.633333
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.314063,
+                  0.619444
+                ]
+              ]
+            },
+            {
+              "frame": 61,
+              "polygon": [
+                [
+                  0.35625,
+                  0.575
+                ],
+                [
+                  0.557813,
+                  0.519444
+                ],
+                [
+                  0.56875,
+                  0.588889
+                ],
+                [
+                  0.517188,
+                  0.633333
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.314063,
+                  0.619444
+                ]
+              ]
+            },
+            {
+              "frame": 81,
+              "polygon": [
+                [
+                  0.35625,
+                  0.575
+                ],
+                [
+                  0.557813,
+                  0.519444
+                ],
+                [
+                  0.56875,
+                  0.588889
+                ],
+                [
+                  0.517188,
+                  0.633333
+                ],
+                [
+                  0.323437,
+                  0.669444
+                ],
+                [
+                  0.314063,
+                  0.619444
+                ]
+              ]
+            }
           ]
         },
         {
@@ -182,18 +475,301 @@
           "y": 0.48333333333333334,
           "w": 0.07968749999999997,
           "h": 0.4555555555555556,
-          "edits": ["remove", "mass"],
+          "edits": [
+            "remove",
+            "mass"
+          ],
           "track": [
-            {"frame": 1, "polygon": [[0.425, 0.294444], [0.48125, 0.258333], [0.504687, 0.261111], [0.504687, 0.661111], [0.457813, 0.705556], [0.428125, 0.694444]]},
-            {"frame": 13, "polygon": [[0.425, 0.294444], [0.48125, 0.258333], [0.504687, 0.261111], [0.504687, 0.661111], [0.457813, 0.705556], [0.428125, 0.694444]]},
-            {"frame": 25, "polygon": [[0.44375, 0.3], [0.495312, 0.258333], [0.523438, 0.266667], [0.507812, 0.661111], [0.457813, 0.705556], [0.428125, 0.694444]]},
-            {"frame": 31, "polygon": [[0.498437, 0.305556], [0.540625, 0.275], [0.56875, 0.288889], [0.509375, 0.663889], [0.459375, 0.705556], [0.43125, 0.680556]]},
-            {"frame": 37, "polygon": [[0.55, 0.355556], [0.5875, 0.322222], [0.607812, 0.338889], [0.503125, 0.661111], [0.4625, 0.705556], [0.440625, 0.672222]]},
-            {"frame": 43, "polygon": [[0.617188, 0.438889], [0.654687, 0.391667], [0.673438, 0.430556], [0.489063, 0.691667], [0.4625, 0.705556], [0.445312, 0.666667]]},
-            {"frame": 49, "polygon": [[0.514062, 0.605556], [0.70625, 0.547222], [0.71875, 0.6], [0.667188, 0.666667], [0.467187, 0.705556], [0.459375, 0.652778]]},
-            {"frame": 55, "polygon": [[0.510938, 0.608333], [0.7125, 0.544444], [0.725, 0.602778], [0.673438, 0.669444], [0.475, 0.705556], [0.460938, 0.658333]]},
-            {"frame": 61, "polygon": [[0.510938, 0.608333], [0.7125, 0.544444], [0.725, 0.602778], [0.673438, 0.669444], [0.475, 0.705556], [0.460938, 0.658333]]},
-            {"frame": 81, "polygon": [[0.510938, 0.608333], [0.7125, 0.544444], [0.725, 0.602778], [0.673438, 0.669444], [0.475, 0.705556], [0.460938, 0.658333]]}
+            {
+              "frame": 1,
+              "polygon": [
+                [
+                  0.425,
+                  0.294444
+                ],
+                [
+                  0.48125,
+                  0.258333
+                ],
+                [
+                  0.504687,
+                  0.261111
+                ],
+                [
+                  0.504687,
+                  0.661111
+                ],
+                [
+                  0.457813,
+                  0.705556
+                ],
+                [
+                  0.428125,
+                  0.694444
+                ]
+              ]
+            },
+            {
+              "frame": 13,
+              "polygon": [
+                [
+                  0.425,
+                  0.294444
+                ],
+                [
+                  0.48125,
+                  0.258333
+                ],
+                [
+                  0.504687,
+                  0.261111
+                ],
+                [
+                  0.504687,
+                  0.661111
+                ],
+                [
+                  0.457813,
+                  0.705556
+                ],
+                [
+                  0.428125,
+                  0.694444
+                ]
+              ]
+            },
+            {
+              "frame": 25,
+              "polygon": [
+                [
+                  0.44375,
+                  0.3
+                ],
+                [
+                  0.495312,
+                  0.258333
+                ],
+                [
+                  0.523438,
+                  0.266667
+                ],
+                [
+                  0.507812,
+                  0.661111
+                ],
+                [
+                  0.457813,
+                  0.705556
+                ],
+                [
+                  0.428125,
+                  0.694444
+                ]
+              ]
+            },
+            {
+              "frame": 31,
+              "polygon": [
+                [
+                  0.498437,
+                  0.305556
+                ],
+                [
+                  0.540625,
+                  0.275
+                ],
+                [
+                  0.56875,
+                  0.288889
+                ],
+                [
+                  0.509375,
+                  0.663889
+                ],
+                [
+                  0.459375,
+                  0.705556
+                ],
+                [
+                  0.43125,
+                  0.680556
+                ]
+              ]
+            },
+            {
+              "frame": 37,
+              "polygon": [
+                [
+                  0.55,
+                  0.355556
+                ],
+                [
+                  0.5875,
+                  0.322222
+                ],
+                [
+                  0.607812,
+                  0.338889
+                ],
+                [
+                  0.503125,
+                  0.661111
+                ],
+                [
+                  0.4625,
+                  0.705556
+                ],
+                [
+                  0.440625,
+                  0.672222
+                ]
+              ]
+            },
+            {
+              "frame": 43,
+              "polygon": [
+                [
+                  0.617188,
+                  0.438889
+                ],
+                [
+                  0.654687,
+                  0.391667
+                ],
+                [
+                  0.673438,
+                  0.430556
+                ],
+                [
+                  0.489063,
+                  0.691667
+                ],
+                [
+                  0.4625,
+                  0.705556
+                ],
+                [
+                  0.445312,
+                  0.666667
+                ]
+              ]
+            },
+            {
+              "frame": 49,
+              "polygon": [
+                [
+                  0.514062,
+                  0.605556
+                ],
+                [
+                  0.70625,
+                  0.547222
+                ],
+                [
+                  0.71875,
+                  0.6
+                ],
+                [
+                  0.667188,
+                  0.666667
+                ],
+                [
+                  0.467187,
+                  0.705556
+                ],
+                [
+                  0.459375,
+                  0.652778
+                ]
+              ]
+            },
+            {
+              "frame": 55,
+              "polygon": [
+                [
+                  0.510938,
+                  0.608333
+                ],
+                [
+                  0.7125,
+                  0.544444
+                ],
+                [
+                  0.725,
+                  0.602778
+                ],
+                [
+                  0.673438,
+                  0.669444
+                ],
+                [
+                  0.475,
+                  0.705556
+                ],
+                [
+                  0.460938,
+                  0.658333
+                ]
+              ]
+            },
+            {
+              "frame": 61,
+              "polygon": [
+                [
+                  0.510938,
+                  0.608333
+                ],
+                [
+                  0.7125,
+                  0.544444
+                ],
+                [
+                  0.725,
+                  0.602778
+                ],
+                [
+                  0.673438,
+                  0.669444
+                ],
+                [
+                  0.475,
+                  0.705556
+                ],
+                [
+                  0.460938,
+                  0.658333
+                ]
+              ]
+            },
+            {
+              "frame": 81,
+              "polygon": [
+                [
+                  0.510938,
+                  0.608333
+                ],
+                [
+                  0.7125,
+                  0.544444
+                ],
+                [
+                  0.725,
+                  0.602778
+                ],
+                [
+                  0.673438,
+                  0.669444
+                ],
+                [
+                  0.475,
+                  0.705556
+                ],
+                [
+                  0.460938,
+                  0.658333
+                ]
+              ]
+            }
           ]
         },
         {
@@ -206,18 +782,301 @@
           "y": 0.5125,
           "w": 0.08281249999999996,
           "h": 0.475,
-          "edits": ["remove", "mass"],
+          "edits": [
+            "remove",
+            "mass"
+          ],
           "track": [
-            {"frame": 1, "polygon": [[0.554688, 0.311111], [0.604688, 0.272222], [0.63125, 0.280556], [0.626563, 0.697222], [0.584375, 0.738889], [0.553125, 0.727778]]},
-            {"frame": 13, "polygon": [[0.554688, 0.311111], [0.604688, 0.272222], [0.63125, 0.280556], [0.626563, 0.697222], [0.584375, 0.738889], [0.553125, 0.727778]]},
-            {"frame": 25, "polygon": [[0.554688, 0.311111], [0.604688, 0.272222], [0.63125, 0.280556], [0.626563, 0.697222], [0.584375, 0.738889], [0.553125, 0.727778]]},
-            {"frame": 31, "polygon": [[0.554688, 0.311111], [0.604688, 0.272222], [0.63125, 0.280556], [0.626563, 0.697222], [0.584375, 0.738889], [0.553125, 0.727778]]},
-            {"frame": 37, "polygon": [[0.585938, 0.327778], [0.634375, 0.277778], [0.664062, 0.288889], [0.63125, 0.686111], [0.582812, 0.738889], [0.55625, 0.722222]]},
-            {"frame": 43, "polygon": [[0.689063, 0.366667], [0.721875, 0.325], [0.75, 0.358333], [0.617188, 0.697222], [0.590625, 0.738889], [0.564063, 0.705556]]},
-            {"frame": 49, "polygon": [[0.64375, 0.622222], [0.848437, 0.616667], [0.857812, 0.675], [0.840625, 0.741667], [0.590625, 0.747222], [0.585938, 0.683333]]},
-            {"frame": 55, "polygon": [[0.65, 0.65], [0.860938, 0.683333], [0.860938, 0.744444], [0.832812, 0.791667], [0.592187, 0.75], [0.592187, 0.688889]]},
-            {"frame": 61, "polygon": [[0.65, 0.65], [0.860938, 0.683333], [0.860938, 0.744444], [0.832812, 0.791667], [0.592187, 0.75], [0.592187, 0.688889]]},
-            {"frame": 81, "polygon": [[0.65, 0.65], [0.860938, 0.683333], [0.860938, 0.744444], [0.832812, 0.791667], [0.592187, 0.75], [0.592187, 0.688889]]}
+            {
+              "frame": 1,
+              "polygon": [
+                [
+                  0.554688,
+                  0.311111
+                ],
+                [
+                  0.604688,
+                  0.272222
+                ],
+                [
+                  0.63125,
+                  0.280556
+                ],
+                [
+                  0.626563,
+                  0.697222
+                ],
+                [
+                  0.584375,
+                  0.738889
+                ],
+                [
+                  0.553125,
+                  0.727778
+                ]
+              ]
+            },
+            {
+              "frame": 13,
+              "polygon": [
+                [
+                  0.554688,
+                  0.311111
+                ],
+                [
+                  0.604688,
+                  0.272222
+                ],
+                [
+                  0.63125,
+                  0.280556
+                ],
+                [
+                  0.626563,
+                  0.697222
+                ],
+                [
+                  0.584375,
+                  0.738889
+                ],
+                [
+                  0.553125,
+                  0.727778
+                ]
+              ]
+            },
+            {
+              "frame": 25,
+              "polygon": [
+                [
+                  0.554688,
+                  0.311111
+                ],
+                [
+                  0.604688,
+                  0.272222
+                ],
+                [
+                  0.63125,
+                  0.280556
+                ],
+                [
+                  0.626563,
+                  0.697222
+                ],
+                [
+                  0.584375,
+                  0.738889
+                ],
+                [
+                  0.553125,
+                  0.727778
+                ]
+              ]
+            },
+            {
+              "frame": 31,
+              "polygon": [
+                [
+                  0.554688,
+                  0.311111
+                ],
+                [
+                  0.604688,
+                  0.272222
+                ],
+                [
+                  0.63125,
+                  0.280556
+                ],
+                [
+                  0.626563,
+                  0.697222
+                ],
+                [
+                  0.584375,
+                  0.738889
+                ],
+                [
+                  0.553125,
+                  0.727778
+                ]
+              ]
+            },
+            {
+              "frame": 37,
+              "polygon": [
+                [
+                  0.585938,
+                  0.327778
+                ],
+                [
+                  0.634375,
+                  0.277778
+                ],
+                [
+                  0.664062,
+                  0.288889
+                ],
+                [
+                  0.63125,
+                  0.686111
+                ],
+                [
+                  0.582812,
+                  0.738889
+                ],
+                [
+                  0.55625,
+                  0.722222
+                ]
+              ]
+            },
+            {
+              "frame": 43,
+              "polygon": [
+                [
+                  0.689063,
+                  0.366667
+                ],
+                [
+                  0.721875,
+                  0.325
+                ],
+                [
+                  0.75,
+                  0.358333
+                ],
+                [
+                  0.617188,
+                  0.697222
+                ],
+                [
+                  0.590625,
+                  0.738889
+                ],
+                [
+                  0.564063,
+                  0.705556
+                ]
+              ]
+            },
+            {
+              "frame": 49,
+              "polygon": [
+                [
+                  0.64375,
+                  0.622222
+                ],
+                [
+                  0.848437,
+                  0.616667
+                ],
+                [
+                  0.857812,
+                  0.675
+                ],
+                [
+                  0.840625,
+                  0.741667
+                ],
+                [
+                  0.590625,
+                  0.747222
+                ],
+                [
+                  0.585938,
+                  0.683333
+                ]
+              ]
+            },
+            {
+              "frame": 55,
+              "polygon": [
+                [
+                  0.65,
+                  0.65
+                ],
+                [
+                  0.860938,
+                  0.683333
+                ],
+                [
+                  0.860938,
+                  0.744444
+                ],
+                [
+                  0.832812,
+                  0.791667
+                ],
+                [
+                  0.592187,
+                  0.75
+                ],
+                [
+                  0.592187,
+                  0.688889
+                ]
+              ]
+            },
+            {
+              "frame": 61,
+              "polygon": [
+                [
+                  0.65,
+                  0.65
+                ],
+                [
+                  0.860938,
+                  0.683333
+                ],
+                [
+                  0.860938,
+                  0.744444
+                ],
+                [
+                  0.832812,
+                  0.791667
+                ],
+                [
+                  0.592187,
+                  0.75
+                ],
+                [
+                  0.592187,
+                  0.688889
+                ]
+              ]
+            },
+            {
+              "frame": 81,
+              "polygon": [
+                [
+                  0.65,
+                  0.65
+                ],
+                [
+                  0.860938,
+                  0.683333
+                ],
+                [
+                  0.860938,
+                  0.744444
+                ],
+                [
+                  0.832812,
+                  0.791667
+                ],
+                [
+                  0.592187,
+                  0.75
+                ],
+                [
+                  0.592187,
+                  0.688889
+                ]
+              ]
+            }
           ]
         }
       ],
@@ -405,10 +1264,34 @@
         }
       },
       "presets": [
-        {"label": "First · remove · 0.00 s", "mode": "remove", "objectId": "domino-1", "stepIndex": 0, "editFrame": 1},
-        {"label": "Second · remove · 0.00 s", "mode": "remove", "objectId": "domino-2", "stepIndex": 0, "editFrame": 1},
-        {"label": "First · remove · 1.00 s", "mode": "remove", "objectId": "domino-1", "stepIndex": 0, "editFrame": 25},
-        {"label": "Second · mass ×10 · 0.00 s", "mode": "mass", "objectId": "domino-2", "stepIndex": 0, "editFrame": 1}
+        {
+          "label": "First · remove · 0.00 s",
+          "mode": "remove",
+          "objectId": "domino-1",
+          "stepIndex": 0,
+          "editFrame": 1
+        },
+        {
+          "label": "Second · remove · 0.00 s",
+          "mode": "remove",
+          "objectId": "domino-2",
+          "stepIndex": 0,
+          "editFrame": 1
+        },
+        {
+          "label": "First · remove · 1.00 s",
+          "mode": "remove",
+          "objectId": "domino-1",
+          "stepIndex": 0,
+          "editFrame": 25
+        },
+        {
+          "label": "Second · mass ×10 · 0.00 s",
+          "mode": "mass",
+          "objectId": "domino-2",
+          "stepIndex": 0,
+          "editFrame": 1
+        }
       ]
     },
     {
@@ -422,11 +1305,11 @@
         "gravity"
       ],
       "source": {
-        "video": "assets/videos/interactive/football/source.mp4",
-        "poster": "assets/images/interactive/football/source.jpg",
+        "video": "assets/videos/interactive/football/source-720p.mp4",
+        "poster": "assets/images/interactive/football/source-720p.jpg",
         "editTime": 0,
-        "width": 768,
-        "height": 432,
+        "width": 1280,
+        "height": 720,
         "fps": 24,
         "frameCount": 67
       },
@@ -459,72 +1342,72 @@
       ],
       "variants": {
         "velocity:football:1:frame-1": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "velocity:football:2:frame-1": {
           "video": "assets/videos/interactive/football/speed_x2.mp4",
           "poster": "assets/images/interactive/football/speed_x2.jpg"
         },
         "velocity:football:1:frame-7": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "velocity:football:2:frame-7": {
           "video": "assets/videos/interactive/football/velocity-frame-7.mp4",
           "poster": "assets/images/interactive/football/velocity-frame-7.jpg"
         },
         "velocity:football:1:frame-19": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "velocity:football:2:frame-19": {
           "video": "assets/videos/interactive/football/velocity-frame-19.mp4",
           "poster": "assets/images/interactive/football/velocity-frame-19.jpg"
         },
         "restitution:football:original:frame-1": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "restitution:football:1:frame-1": {
           "video": "assets/videos/interactive/football/restitution-frame-1.mp4",
           "poster": "assets/images/interactive/football/restitution-frame-1.jpg"
         },
         "restitution:football:original:frame-7": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "restitution:football:1:frame-7": {
           "video": "assets/videos/interactive/football/restitution-frame-7.mp4",
           "poster": "assets/images/interactive/football/restitution-frame-7.jpg"
         },
         "restitution:football:original:frame-19": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "restitution:football:1:frame-19": {
           "video": "assets/videos/interactive/football/restitution-frame-19.mp4",
           "poster": "assets/images/interactive/football/restitution-frame-19.jpg"
         },
         "gravity:scene:1:frame-1": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "gravity:scene:0.5:frame-1": {
           "video": "assets/videos/interactive/football/gravity_x05.mp4",
           "poster": "assets/images/interactive/football/gravity_x05.jpg"
         },
         "gravity:scene:1:frame-7": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "gravity:scene:0.5:frame-7": {
           "video": "assets/videos/interactive/football/gravity-frame-7.mp4",
           "poster": "assets/images/interactive/football/gravity-frame-7.jpg"
         },
         "gravity:scene:1:frame-19": {
-          "video": "assets/videos/interactive/football/source.mp4",
-          "poster": "assets/images/interactive/football/source.jpg"
+          "video": "assets/videos/interactive/football/source-720p.mp4",
+          "poster": "assets/images/interactive/football/source-720p.jpg"
         },
         "gravity:scene:0.5:frame-19": {
           "video": "assets/videos/interactive/football/gravity-frame-19.mp4",
