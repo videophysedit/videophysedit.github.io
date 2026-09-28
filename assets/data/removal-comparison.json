@@ -84,7 +84,7 @@
       "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
       "scene": "real__morpheus_collision_big_hits_small",
       "edit": "edit_remove_big_ball",
-      "label": "Large & small balls (real)",
+      "label": "Large & small balls",
       "instruction": "From frame 1 onward, remove the large ball from the scene.",
       "aspect": "5/4",
       "videos": {
@@ -100,7 +100,7 @@
       "id": "real__balls_collide/collide_remove_blue",
       "scene": "real__balls_collide",
       "edit": "collide_remove_blue",
-      "label": "Two balls (real)",
+      "label": "Two balls",
       "instruction": "From frame 1 onward, remove the blue ball from the scene.",
       "aspect": "3/2",
       "videos": {
