@@ -13,10 +13,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=method-viewport-2">
+  <link rel="stylesheet" href="assets/css/style.css?v=abstract-justify-39">
   <link rel="stylesheet" href="assets/css/interactive-demo.css?v=real-balls-37">
   <script src="assets/js/content.js" defer></script>
-  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/site.js?v=remove-edit-section-39" defer></script>
   <script src="assets/js/method-figure.js?v=method-viewport-2" type="module"></script>
   <script src="assets/js/interactive-demo.mjs?v=real-balls-37" type="module"></script>
 </head>
@@ -28,7 +28,6 @@
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <a href="#teaser">Overview</a>
       <a href="#abstract">Abstract</a>
-      <a href="#physical-edits">Physical Edits</a>
       <a href="#method">Method</a>
       <details class="nav-dropdown">
         <summary>Results <span aria-hidden="true">⌄</span></summary>
@@ -75,27 +74,6 @@
           <p>Video editing has advanced substantially in recent years, with methods increasingly accounting for the visual consequences of edits, such as changes to shadows and occlusions. However, the physical consequences of edits, including changes to subsequent motion and interactions, remain less explored. We formulate this problem as <em>physical counterfactual video editing</em> (PCVE), which aims to generate a counterfactual video depicting the resulting motion and interactions given a source video, a physical edit, and its execution frame.
           PCVE is challenging because it requires understanding scene physics and inferring the downstream motion and interactions induced by a physical intervention, while paired factual and counterfactual data and dedicated evaluation metrics are lacking. We introduce <strong>VideoPhysEdit</strong>, a new training-free pipeline for PCVE in rigid-body scenes. It makes physical reasoning explicit through a novel physical scene reconstruction method that recovers a scene reproducing the observed motion and interactions under simulation, enabling the pipeline to apply physical edits as interventions and use the resulting trajectories to guide counterfactual video generation.
           We further construct <strong>PCVE-RigidBench</strong>, a synthetic benchmark with paired source and counterfactual target videos and physical ground truth, and introduce the Physical Edit Score. VideoPhysEdit achieves substantially higher physical edit accuracy than open-source methods and commercial models while maintaining competitive visual fidelity. Its Physical Edit Score is 0.376, the only positive score among the compared methods. Qualitative comparisons on real videos further show that VideoPhysEdit applies to real-world scenes and better depicts the downstream motion and interactions induced by the edits than the compared methods.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="physical-edits" aria-labelledby="edits-title">
-      <div class="container">
-        <h2 class="section-title" id="edits-title">Physical Counterfactual Video Editing</h2>
-        <p class="section-intro">One source video. Different physical edits. Different downstream motion and interactions.</p>
-        <div class="tabs edit-tabs" role="tablist" aria-label="Types of physical edits">
-          <button class="tab is-active" id="tab-composition" role="tab" aria-selected="true" aria-controls="edit-panel" data-edit="composition" type="button">Scene composition</button>
-          <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="edit-panel" data-edit="motion" tabindex="-1" type="button">Motion state</button>
-          <button class="tab" id="tab-parameters" role="tab" aria-selected="false" aria-controls="edit-panel" data-edit="parameters" tabindex="-1" type="button">Physical parameters</button>
-        </div>
-        <div class="edit-panel" id="edit-panel" role="tabpanel" aria-labelledby="tab-composition" tabindex="0">
-          <div class="edit-options" id="edit-options" aria-label="Physical edit"></div>
-          <p class="edit-description" id="edit-description" aria-live="polite"></p>
-          <div class="paired-media">
-            <figure class="media-column"><figcaption>Source video</figcaption><div class="media-slot" id="edit-source" aria-label="Source video placeholder"></div></figure>
-            <div class="pair-arrow" aria-hidden="true">→</div>
-            <figure class="media-column is-ours"><figcaption>VideoPhysEdit</figcaption><div class="media-slot" id="edit-result" aria-label="VideoPhysEdit result placeholder"></div></figure>
-          </div>
         </div>
       </div>
     </section>

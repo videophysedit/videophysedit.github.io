@@ -76,7 +76,7 @@ button, a, summary { touch-action: manipulation; }
 .placeholder-content svg { width: 34px; height: 34px; stroke: #96a6b3; }
 .media-slot video { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: contain; background: #101a24; }
 .teaser-caption { max-width: 925px; margin: 23px auto 0; text-align: center; font-size: 16px; line-height: 1.75; }
-.abstract-copy { font-size: 17px; line-height: 1.8; }
+.abstract-copy { font-size: 17px; line-height: 1.8; text-align: justify; }
 .abstract-copy p + p { margin-top: 20px; }
 .tabs { display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 0 auto 27px; }
 .tab { flex: 0 1 235px; padding: 12px 20px; border: 1px solid var(--line); border-radius: 8px; font: 700 17px/1.4 var(--serif); background: var(--surface); color: var(--ink); transition: color .2s, background .2s, border-color .2s; }

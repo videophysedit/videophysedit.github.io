@@ -69,51 +69,6 @@
     affiliations.textContent = content.affiliations.join(" · ");
   }
 
-  let currentGroup = "composition";
-  function selectEdit(edit) {
-    document.querySelectorAll(".edit-option").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.id === edit.id)));
-    document.querySelector("#edit-description").textContent = edit.description;
-    renderMedia(document.querySelector("#edit-source"), edit.source);
-    renderMedia(document.querySelector("#edit-result"), edit.result);
-  }
-  function selectGroup(key) {
-    currentGroup = key;
-    document.querySelectorAll("[data-edit]").forEach(tab => {
-      const selected = tab.dataset.edit === key;
-      tab.classList.toggle("is-active", selected);
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-    });
-    document.querySelector("#edit-panel").setAttribute("aria-labelledby", `tab-${key}`);
-    const options = document.querySelector("#edit-options");
-    options.replaceChildren();
-    content.editGroups[key].forEach(edit => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "edit-option";
-      button.dataset.id = edit.id;
-      button.textContent = edit.label;
-      button.addEventListener("click", () => selectEdit(edit));
-      options.append(button);
-    });
-    selectEdit(content.editGroups[key][0]);
-  }
-  document.querySelectorAll("[data-edit]").forEach(tab => tab.addEventListener("click", () => selectGroup(tab.dataset.edit)));
-  document.querySelector(".edit-tabs").addEventListener("keydown", event => {
-    const tabs = [...document.querySelectorAll("[data-edit]")];
-    const index = tabs.findIndex(tab => tab.dataset.edit === currentGroup);
-    let next = index;
-    if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-    else if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = tabs.length - 1;
-    else return;
-    event.preventDefault();
-    selectGroup(tabs[next].dataset.edit);
-    tabs[next].focus();
-  });
-  selectGroup(currentGroup);
-
   document.querySelectorAll("[data-comparison]").forEach(grid => {
     content.comparisons[grid.dataset.comparison].forEach(method => {
       const figure = document.createElement("figure");
