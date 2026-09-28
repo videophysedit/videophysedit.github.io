@@ -6,39 +6,6 @@
   const menuToggle = document.querySelector(".menu-toggle");
   const dropdown = document.querySelector(".nav-dropdown");
 
-  const placeholder = () => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "placeholder-content";
-    wrapper.innerHTML = '<svg viewBox="0 0 36 36" fill="none" stroke-width="1.3" aria-hidden="true"><rect x="4" y="7" width="28" height="22" rx="3"/><path d="M10 7v22M26 7v22M4 13h6M4 23h6M26 13h6M26 23h6"/><path d="m16 14 6 4-6 4z"/></svg>';
-    const label = document.createElement("span");
-    label.textContent = "Video coming soon";
-    wrapper.append(label);
-    return wrapper;
-  };
-
-  function renderMedia(container, path) {
-    container.querySelectorAll("video").forEach(video => video.pause());
-    container.replaceChildren();
-    if (!path) {
-      container.append(placeholder());
-      return;
-    }
-    const video = document.createElement("video");
-    video.src = path;
-    video.controls = true;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "metadata";
-    video.setAttribute("aria-label", container.getAttribute("aria-label").replace(" placeholder", ""));
-    container.append(video);
-  }
-
-  document.querySelectorAll("[data-media]").forEach(slot => {
-    const path = slot.dataset.media.split(".").reduce((value, key) => value?.[key], content);
-    renderMedia(slot, path);
-  });
-
   for (const key of ["paper", "arxiv"]) {
     if (!content[key]) continue;
     const current = document.querySelector(`[data-resource="${key}"]`);
@@ -68,22 +35,6 @@
     affiliations.hidden = false;
     affiliations.textContent = content.affiliations.join(" · ");
   }
-
-  document.querySelectorAll("[data-comparison]").forEach(grid => {
-    if (["synthetic", "real", "removal"].includes(grid.dataset.comparison)) return;
-    content.comparisons[grid.dataset.comparison].forEach(method => {
-      const figure = document.createElement("figure");
-      figure.className = "media-column" + (method.role ? ` is-${method.role}` : "");
-      const caption = document.createElement("figcaption");
-      caption.textContent = method.name;
-      const slot = document.createElement("div");
-      slot.className = "media-slot";
-      slot.setAttribute("aria-label", `${method.name} video placeholder`);
-      renderMedia(slot, method.video);
-      figure.append(caption, slot);
-      grid.append(figure);
-    });
-  });
 
   function closeMenu() {
     nav.classList.remove("is-open");
@@ -117,7 +68,10 @@
         else link.removeAttribute("aria-current");
       });
     }, { rootMargin: "-15% 0px -55% 0px", threshold: 0 });
-    document.querySelectorAll("main section[id]").forEach(section => observer.observe(section));
+    nav.querySelectorAll('a[href^="#"]').forEach(link => {
+      const target = document.getElementById(link.hash.slice(1));
+      if (target) observer.observe(target);
+    });
   }
 
   if (content.bibtex) {

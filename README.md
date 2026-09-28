@@ -11,7 +11,7 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 ## Update
 
 - Edit the page text and quantitative table in `index.html`.
-- Set authors, affiliations, paper links, citation, and video paths in `assets/js/content.js`.
+- Set authors, affiliations, paper links, and citation in `assets/js/content.js`.
 - Configure the homepage interactive demo in `assets/data/interactive-demo.json`.
 - Configure synthetic baseline comparisons in `assets/data/synthetic-comparison.json`.
 - Configure real-video baseline comparisons in `assets/data/real-comparison.json`.
@@ -26,7 +26,7 @@ The Three dominoes demo includes its source video, 18 removal results, and 18 ma
 
 Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). Choose an edit, select a time, click a domino, then play the comparison. Changing the time keeps the selected domino for comparison. Reset returns to time selection. Mass ×10 is available for each of the three dominoes at the same six edit frames.
 
-Football & block offers edits at 0.00, 0.25, and 0.75 seconds: remove the football or wooden block, double the football’s velocity, double either object’s coefficient of restitution, or halve scene gravity. Velocity ×2, Restitution ×2, and Gravity ×0.5 are fixed edit buttons, like Mass ×10 in the domino scene. For removal, velocity, and restitution, select a time, click the football or wooden block in the source video, then play. Original-value selections replay the source. Selecting the wooden block for velocity also replays the source at either multiplier. Each selection applies one edit and looks up its exact prepared video. The football source retains its original 1280×720 resolution; its 67-frame results use 768×432 at 24 fps.
+Football & block offers edits at 0.00, 0.25, and 0.75 seconds: remove the football or wooden block, double the football’s velocity, double either object’s coefficient of restitution, or halve scene gravity. Velocity ×2, Restitution ×2, and Gravity ×0.5 are fixed edit buttons, like Mass ×10 in the domino scene. For removal, velocity, and restitution, select a time, click the football or wooden block in the source video, then play. Selecting the wooden block for velocity replays the source. Each selection applies one edit and looks up its exact prepared video. The football source retains its original 1280×720 resolution; its 67-frame results use 768×432 at 24 fps.
 
 In `assets/data/interactive-demo.json`, set each scene's `source.video`, `source.poster`, and `source.editTime`. Object centers and sizes (`x`, `y`, `w`, `h`) are fractions of the source frame. Match `source.width` and `source.height` to the actual video aspect ratio. The `edits` list controls which objects can be edited in each mode.
 
@@ -49,7 +49,7 @@ Add result videos under the exact keys in each scene's `variants` object:
 
 Video paths are relative to the website root. The source has its own play/pause button and can play independently even when a result is selected. The shared playback controls synchronize both clips and hold the shorter clip's last frame. The playback timeline follows the active player. The edit-time slider selects the intervention frame. Only selected clips are loaded, and slider video requests wait until the thumb is released.
 
-Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. `editTimeline.frames` sets the allowed edit frames and the preparation-list export. Playback seeking stays continuous; entering edit mode from playback snaps to the nearest allowed frame. A missing object/action/frame combination shows no result; it never substitutes a clip from another time. The `presets` list points to available results.
+Scenes with `editTimeline` append a one-based frame to the variant key, for example `remove:domino-1:frame-25` or `mass:domino-2:10:frame-1`. Frame 25 corresponds to 1.00 s at 24 fps. Set `source.fps`, `source.frameCount`, and each object's normalized polygon `track` to keep its click region aligned as it moves. `editTimeline.frames` sets the allowed edit frames and the preparation-list export. Playback seeking stays continuous; returning to editing restores the selected edit time. A missing object/action/frame combination shows no result; it never substitutes a clip from another time.
 
 The domino removal videos contain 81 frames at 24 fps, including the source video before the selected edit time. They use square pixels at 768×432 to match the source's 16:9 display ratio.
 
