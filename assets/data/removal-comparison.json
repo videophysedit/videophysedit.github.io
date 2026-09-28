@@ -33,22 +33,6 @@
       }
     },
     {
-      "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
-      "scene": "real__morpheus_collision_big_hits_small",
-      "edit": "edit_remove_big_ball",
-      "label": "Large & small balls (real)",
-      "instruction": "From frame 1 onward, remove the large ball from the scene.",
-      "aspect": "5/4",
-      "videos": {
-        "source": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/source.mp4",
-        "videophysedit": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.mp4",
-        "void": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/void.mp4",
-        "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
-        "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
-        "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
-      }
-    },
-    {
       "id": "ball_block/edit_remove_block_after_impact",
       "scene": "ball_block",
       "edit": "edit_remove_block_after_impact",
@@ -94,6 +78,22 @@
         "ditto": "assets/videos/comparisons/removal/table_marble_collision/ditto.mp4",
         "minimax": "assets/videos/comparisons/removal/table_marble_collision/minimax.mp4",
         "seedance": "assets/videos/comparisons/removal/table_marble_collision/seedance.mp4"
+      }
+    },
+    {
+      "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
+      "scene": "real__morpheus_collision_big_hits_small",
+      "edit": "edit_remove_big_ball",
+      "label": "Large & small balls (real)",
+      "instruction": "From frame 1 onward, remove the large ball from the scene.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
       }
     },
     {
