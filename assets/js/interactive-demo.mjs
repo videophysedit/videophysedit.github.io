@@ -1,8 +1,9 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=domino-17";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=scenes-18";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
 const icons = {
+  gravity: '<path d="M10 3v12m-4-4 4 4 4-4M4 18h12"/>',
   minus: '<path d="M5 10h10"/>', plus: '<path d="M5 10h10M10 5v10"/>',
   arrow: '<path d="M3 10h13m-5-5 5 5-5 5"/>',
   surface: '<path d="M3 14h14M5 17l2-3m3 3 2-3m3 3 2-3M7 4h6v7H7z"/>',
@@ -207,7 +208,7 @@ async function initialize() {
     find("demo-return").hidden = atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     const nearestFrame = nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
     find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || "Click a domino") : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
   }
 
   function updateMediaState() {
@@ -387,6 +388,7 @@ async function initialize() {
 
   function renderControls() {
     const availableModes = sceneModes(scene);
+    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo ? ["Select an edit", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
     root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
     find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline));
     root.querySelectorAll("[data-mode]").forEach(button => {
@@ -395,10 +397,10 @@ async function initialize() {
       button.disabled = button.hidden;
       if (button.dataset.mode === "mass") button.innerHTML = `${icon("mass")}${scene.editTimeline ? "Mass ×10" : "Increase mass"}`;
     });
-    const objects = editableObjects(scene, selection.mode);
-    find("demo-target").hidden = Boolean(scene.editTimeline) || selection.mode === "insert";
+    const objects = editableObjects(scene, selection.mode).filter(object => object.scope !== "scene");
+    find("demo-target").hidden = Boolean(scene.editTimeline) || scene.parameterDemo || selection.mode === "insert";
     find("demo-object-list").innerHTML = objects.map(object => `<button type="button" class="demo-object" data-object="${object.id}" aria-pressed="false"><span class="demo-object-dot" style="background:${(colors[object.color] || colors.blue)[1]}"></span>${escapeText(object.label)}</button>`).join("");
-    find("demo-hotspots").innerHTML = objects.map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
+    find("demo-hotspots").innerHTML = (scene.parameterDemo ? [] : objects).map(object => `<button type="button" class="demo-hotspot ${object.shape === "sphere" ? "is-sphere" : ""} ${object.track ? "is-tracked" : ""}" data-object="${object.id}" aria-pressed="false" aria-label="Select ${escapeText(object.label.toLowerCase())}">${object.track ? "" : `<span aria-hidden="true">${selection.mode === "remove" ? "−" : "+"}</span>`}</button>`).join("");
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";

@@ -2,12 +2,14 @@ export const modes = [
   { id: "remove", label: "Remove", icon: "minus" },
   { id: "mass", label: "Increase mass", icon: "mass" },
   { id: "insert", label: "Insert", icon: "plus" },
-  { id: "velocity", label: "Velocity", icon: "arrow" },
+  { id: "velocity", label: "Initial velocity", icon: "arrow" },
   { id: "friction", label: "Friction", icon: "surface" },
   { id: "restitution", label: "Restitution", icon: "bounce" },
+  { id: "gravity", label: "Gravity", icon: "gravity" },
 ];
 
 export function editableObjects(scene, mode) {
+  if (scene.globalEdits?.includes(mode)) return [{ id: "scene", label: "Scene", scope: "scene", edits: [mode] }];
   return scene.objects.filter(object => object.edits.includes(mode));
 }
 
@@ -70,7 +72,8 @@ export function describeSelection(scene, controls, selection) {
   else if (mode === "velocity") instruction = `Set the ${name}'s initial velocity to ${step.label} the source velocity.`;
   else if (mode === "mass") instruction = `Increase the ${name}'s mass to ${step.label} its original value.`;
   else if (mode === "friction") instruction = `Set the ${name}'s friction coefficient to ${step.label}.`;
-  else instruction = `Set the ${name}'s coefficient of restitution to ${step.label}.`;
+  else if (mode === "gravity") instruction = `Set gravity to ${step.label} its original value.`;
+  else instruction = `Set the ${name}'s coefficient of restitution to ${step.label} its original value.`;
   if (scene.editTimeline) instruction = `From frame ${editFrame}, ${instruction[0].toLowerCase()}${instruction.slice(1)}`;
   return { key, mode, object, step, editFrame, instruction, clip: scene.variants?.[key] ?? null };
 }
