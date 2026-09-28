@@ -180,7 +180,9 @@ async function initialize() {
   const playsComparison = () => playbackMode === "comparison" && ready();
   const playbackVideos = () => playsComparison() ? [sourceVideo, resultVideo] : [sourceVideo];
   const masterVideo = () => playsComparison() && resultVideo.duration > sourceVideo.duration ? resultVideo : sourceVideo;
-  const canPlay = (mode = playbackMode) => sourceReady() && (mode === "source" || !descriptor?.clip?.video || resultFailed || ready());
+  const editComplete = () => Boolean(selection.modeChosen && descriptor?.clip?.video &&
+    (selection.mode === "insert" || !scene.editTimeline || editableFrames(scene, selection.mode).length === 1 || selection.timeTouched));
+  const canPlay = (mode = playbackMode) => sourceReady() && (mode === "source" || (editComplete() && ready()));
 
   function updatePlayLabel() {
     const mainPlaying = playing && (playbackMode === "comparison" || !ready());
@@ -247,7 +249,7 @@ async function initialize() {
     const playable = canPlay("comparison");
     playButton.disabled = !playable;
     timeline.disabled = !canPlay();
-    playButton.title = playable ? (ready() ? "Play source and result together" : "Play the source video") : "Waiting for video";
+    playButton.title = playable ? "Play source and result together" : editComplete() ? "Waiting for video" : "Complete the edit selection first";
     updatePlayLabel();
     const status = find("demo-media-status");
     status.classList.toggle("sr-only", actualScene && !sourceFailed && !resultFailed);
@@ -474,7 +476,7 @@ async function initialize() {
     renderControls();
   }
 
-  async function togglePlayback(mode = ready() ? "comparison" : "source") {
+  async function togglePlayback(mode = "comparison") {
     if (playing && (mode === playbackMode || mode === "source")) {
       stopPlayback();
       updateHotspotVisibility();
