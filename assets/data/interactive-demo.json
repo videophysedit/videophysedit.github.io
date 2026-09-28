@@ -3699,6 +3699,138 @@
           "y": 0.484375
         }
       }
+    },
+    {
+      "id": "pool",
+      "title": "Two-ball collision",
+      "subtitle": "Removal, velocity & mass",
+      "illustration": "collision",
+      "defaultMode": "remove",
+      "parameterDemo": true,
+      "source": {
+        "video": "assets/videos/interactive/pool/source.mp4",
+        "poster": "assets/images/interactive/pool/source.jpg",
+        "editTime": 0,
+        "width": 1280,
+        "height": 720,
+        "fps": 24,
+        "frameCount": 96
+      },
+      "editTimeline": {
+        "defaultFrame": 1,
+        "frames": [
+          1
+        ]
+      },
+      "controls": {
+        "velocity": {
+          "label": "Velocity",
+          "hint": "Scale the white ball's initial velocity.",
+          "defaultIndex": 0,
+          "steps": [
+            {
+              "id": "4",
+              "value": 4,
+              "label": "4×"
+            }
+          ]
+        },
+        "mass": {
+          "label": "Mass",
+          "hint": "Increase the selected ball's mass to 3× its original value.",
+          "defaultIndex": 0,
+          "steps": [
+            {
+              "id": "3",
+              "value": 3,
+              "label": "3×"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "cue",
+          "label": "White ball",
+          "shape": "sphere",
+          "color": "slate",
+          "x": 0.3355,
+          "y": 0.6583,
+          "w": 0.0383,
+          "h": 0.0694,
+          "edits": [
+            "remove",
+            "velocity",
+            "mass"
+          ],
+          "track": [
+            {
+              "frame": 1,
+              "polygon": [
+                [0.326, 0.6236],
+                [0.345, 0.6236],
+                [0.3547, 0.635],
+                [0.3547, 0.6817],
+                [0.345, 0.6931],
+                [0.326, 0.6931],
+                [0.3164, 0.6817],
+                [0.3164, 0.635]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "label": "Black ball",
+          "shape": "sphere",
+          "color": "blue",
+          "x": 0.5,
+          "y": 0.4875,
+          "w": 0.0312,
+          "h": 0.0584,
+          "edits": [
+            "remove",
+            "mass"
+          ],
+          "track": [
+            {
+              "frame": 1,
+              "polygon": [
+                [0.492, 0.4583],
+                [0.508, 0.4583],
+                [0.5156, 0.466],
+                [0.5156, 0.509],
+                [0.508, 0.5167],
+                [0.492, 0.5167],
+                [0.4844, 0.509],
+                [0.4844, 0.466]
+              ]
+            }
+          ]
+        }
+      ],
+      "variants": {
+        "remove:cue:frame-1": {
+          "video": "assets/videos/interactive/pool/remove-cue.mp4",
+          "poster": "assets/images/interactive/pool/remove-cue.jpg"
+        },
+        "remove:target:frame-1": {
+          "video": "assets/videos/interactive/pool/remove-target.mp4",
+          "poster": "assets/images/interactive/pool/remove-target.jpg"
+        },
+        "velocity:cue:4:frame-1": {
+          "video": "assets/videos/interactive/pool/velocity-cue-4x.mp4",
+          "poster": "assets/images/interactive/pool/velocity-cue-4x.jpg"
+        },
+        "mass:cue:3:frame-1": {
+          "video": "assets/videos/interactive/pool/mass-cue-3x.mp4",
+          "poster": "assets/images/interactive/pool/mass-cue-3x.jpg"
+        },
+        "mass:target:3:frame-1": {
+          "video": "assets/videos/interactive/pool/mass-target-3x.mp4",
+          "poster": "assets/images/interactive/pool/mass-target-3x.jpg"
+        }
+      }
     }
   ]
 }

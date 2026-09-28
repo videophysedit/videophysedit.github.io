@@ -6,9 +6,10 @@ import { describeSelection, initialSelection, insertionObject, listVariants, int
 const config = JSON.parse(await readFile(new URL("../assets/data/interactive-demo.json", import.meta.url)));
 const football = config.scenes.find(scene => scene.id === "football");
 const domino = config.scenes.find(scene => scene.id === "domino");
+const pool = config.scenes.find(scene => scene.id === "pool");
 
-test("three scenes have unique exact variant keys and useful initial states", () => {
-  assert.equal(config.scenes.length, 3);
+test("four scenes have unique exact variant keys and useful initial states", () => {
+  assert.equal(config.scenes.length, 4);
   for (const scene of config.scenes) {
     const variants = listVariants(scene, config.controls);
     assert.equal(new Set(variants.map(item => item.key)).size, variants.length);
@@ -176,4 +177,25 @@ test("ramp insertion requires a chosen position and only runs at frame one", () 
     assert.match(result.clip.video,new RegExp(`insert_green_${name}\\.mp4(?:\\?.*)?$`));
     assert.equal(describeSelection(ramp,config.controls,{...selection,editFrame:23}),null);
   }
+});
+
+test("two-ball collision exposes the five available initial-frame edits", async () => {
+  assert.deepEqual(sceneModes(pool).map(mode => mode.id), ["remove", "mass", "velocity"]);
+  assert.deepEqual(editableFrames(pool), [1]);
+  assert.equal(initialSelection(pool, config.controls).timeChosen, true);
+  const variants = listVariants(pool, config.controls);
+  assert.equal(variants.length, 5);
+  assert.deepEqual(new Set(variants.map(variant => variant.mode)), new Set(["remove", "mass", "velocity"]));
+  for (const variant of variants) {
+    assert.ok(variant.clip);
+    assert.equal(variant.editFrame, 1);
+    assert.match(variant.instruction, /^At 0\.00 s,/);
+    await access(new URL(`../${variant.clip.video}`, import.meta.url));
+    await access(new URL(`../${variant.clip.poster}`, import.meta.url));
+  }
+  const cueVelocity = describeSelection(pool, config.controls, { mode: "velocity", objectId: "cue", stepIndex: 0, editFrame: 1 });
+  assert.match(cueVelocity.instruction, /white ball's initial velocity to 4×/);
+  const targetMass = describeSelection(pool, config.controls, { mode: "mass", objectId: "target", stepIndex: 0, editFrame: 1 });
+  assert.match(targetMass.instruction, /black ball's mass to 3×/);
+  assert.equal(describeSelection(pool, config.controls, { mode: "velocity", objectId: "target", stepIndex: 0, editFrame: 1 }), null);
 });
