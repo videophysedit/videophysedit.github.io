@@ -1,4 +1,4 @@
-import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=scenes-18";
+import { modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=football-19";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -388,9 +388,11 @@ async function initialize() {
 
   function renderControls() {
     const availableModes = sceneModes(scene);
-    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo ? ["Select an edit", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
-    root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline));
-    find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline));
+    root.querySelector(".demo-steps").innerHTML = (scene.parameterDemo ? ["Select an edit", "Select a time", "Choose a value", "Click Play"] : ["Select an edit", "Select a time", "Click an object", "Click Play"]).map(text => `<li>${text}</li>`).join("");
+    root.classList.toggle("has-edit-timeline", Boolean(scene.editTimeline) && !scene.parameterDemo);
+    root.classList.toggle("parameter-demo", Boolean(scene.parameterDemo));
+    if (scene.parameterDemo) root.querySelector(".demo-mode-list").after(find("demo-edit-time"));
+    find("demo-command").classList.toggle("sr-only", Boolean(scene.editTimeline) && !scene.parameterDemo);
     root.querySelectorAll("[data-mode]").forEach(button => {
       button.setAttribute("aria-pressed", String(button.dataset.mode === selection.mode));
       button.hidden = !availableModes.some(mode => mode.id === button.dataset.mode);
@@ -404,7 +406,7 @@ async function initialize() {
     const isRemoval = selection.mode === "remove";
     find("demo-remove-help").hidden = Boolean(scene.editTimeline) || !isRemoval;
     find("demo-remove-help").textContent = scene.editTimeline ? "Select an edit time, then click the domino you want to edit." : "Click an object to remove it. Click again to restore it.";
-    find("demo-slider-control").hidden = Boolean(scene.editTimeline) || isRemoval;
+    find("demo-slider-control").hidden = (Boolean(scene.editTimeline) && !scene.parameterDemo) || isRemoval;
     if (!isRemoval) {
       const control = config.controls[selection.mode];
       const singleValue = control.steps.length === 1;
@@ -506,7 +508,7 @@ async function initialize() {
     else if (button.dataset.mode) {
       selection.mode = button.dataset.mode;
       selection.stepIndex = config.controls[selection.mode]?.defaultIndex ?? 0;
-      if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = scene.editTimeline || selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
+      if (!editableObjects(scene, selection.mode).some(object => object.id === selection.objectId)) selection.objectId = (scene.editTimeline && !scene.parameterDemo) || selection.mode === "remove" || selection.mode === "insert" ? null : editableObjects(scene, selection.mode)[0]?.id;
       renderControls();
     } else if (button.dataset.object) {
       if (needsEditTime()) return;

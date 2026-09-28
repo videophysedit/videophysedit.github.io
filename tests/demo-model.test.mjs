@@ -104,22 +104,25 @@ test("click regions follow the selected source frame and interpolate between key
 
 test("football controls use exact clips and scene-wide gravity", async () => {
   assert.deepEqual(sceneModes(football).map(m => m.id), ["velocity", "restitution", "gravity"]);
+  assert.deepEqual(editableFrames(football), [1,7,19]);
   const variants = listVariants(football, config.controls);
-  assert.equal(variants.length, 6);
+  assert.equal(variants.length, 18);
   for (const variant of variants) {
     assert.ok(variant.clip);
     await access(new URL(`../${variant.clip.video}`, import.meta.url));
   }
-  const velocity = describeSelection(football, config.controls, {mode:"velocity",objectId:"football",stepIndex:1});
+  const velocity = describeSelection(football, config.controls, {mode:"velocity",objectId:"football",stepIndex:1,editFrame:1});
   assert.match(velocity.clip.video, /speed_x2/);
-  const bounce = describeSelection(football, config.controls, {mode:"restitution",objectId:"block",stepIndex:1});
-  assert.match(bounce.instruction, /wooden block/);
-  assert.match(bounce.clip.video, /restitution_x2/);
-  const gravity = describeSelection(football, config.controls, {mode:"gravity",objectId:"scene",stepIndex:0});
+  assert.match(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:1,editFrame:7}).clip.video,/velocity-frame-7/);
+  assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:1,editFrame:13}),null);
+  const bounce = describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:1,editFrame:1});
+  assert.match(bounce.instruction, /football/);
+  assert.match(bounce.clip.video, /restitution-frame-1/);
+  const gravity = describeSelection(football, config.controls, {mode:"gravity",objectId:"scene",stepIndex:0,editFrame:1});
   assert.match(gravity.clip.video, /gravity_x05/);
   assert.equal(gravity.object.scope, "scene");
   assert.equal(describeSelection(football,config.controls,{mode:"gravity",objectId:"football",stepIndex:0}),null);
-  assert.equal(describeSelection(football,config.controls,{mode:"restitution",objectId:"football",stepIndex:1}),null);
+  assert.equal(describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:1}),null);
   assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:2}),null);
   assert.match(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:0}).clip.video,/source/);
 });

@@ -2,7 +2,7 @@ export const modes = [
   { id: "remove", label: "Remove", icon: "minus" },
   { id: "mass", label: "Increase mass", icon: "mass" },
   { id: "insert", label: "Insert", icon: "plus" },
-  { id: "velocity", label: "Initial velocity", icon: "arrow" },
+  { id: "velocity", label: "Velocity", icon: "arrow" },
   { id: "friction", label: "Friction", icon: "surface" },
   { id: "restitution", label: "Restitution", icon: "bounce" },
   { id: "gravity", label: "Gravity", icon: "gravity" },
@@ -50,7 +50,7 @@ export function initialSelection(scene, controls) {
     objectId: mode === "remove" || mode === "insert" ? null : editableObjects(scene, mode)[0]?.id,
     stepIndex: controls[mode]?.defaultIndex ?? 0,
     editFrame: nearestEditFrame(scene, scene.editTimeline?.defaultFrame ?? 1),
-    timeChosen: !scene.editTimeline,
+    timeChosen: !scene.editTimeline || Boolean(scene.parameterDemo),
   };
 }
 
@@ -69,12 +69,12 @@ export function describeSelection(scene, controls, selection) {
   let instruction;
   if (mode === "remove") instruction = `Remove the ${name}.`;
   else if (mode === "insert") instruction = `Add a ${name} at ${step.name ? "the center" : `${step.label} of the path`}.`;
-  else if (mode === "velocity") instruction = `Set the ${name}'s initial velocity to ${step.label} the source velocity.`;
+  else if (mode === "velocity") instruction = `Set the ${name}'s ${editFrame === 1 ? 'initial velocity' : 'velocity'} to ${step.label} the source velocity.`;
   else if (mode === "mass") instruction = `Increase the ${name}'s mass to ${step.label} its original value.`;
   else if (mode === "friction") instruction = `Set the ${name}'s friction coefficient to ${step.label}.`;
   else if (mode === "gravity") instruction = `Set gravity to ${step.label} its original value.`;
-  else instruction = `Set the ${name}'s coefficient of restitution to ${step.label} its original value.`;
-  if (scene.editTimeline) instruction = `From frame ${editFrame}, ${instruction[0].toLowerCase()}${instruction.slice(1)}`;
+  else instruction = controls.restitution.absolute ? (step.id === "original" ? `Keep the ${name}'s coefficient of restitution unchanged.` : `Set the ${name}'s coefficient of restitution to ${step.label}.`) : `Set the ${name}'s coefficient of restitution to ${step.label} its original value.`;
+  if (scene.editTimeline) instruction = `${scene.parameterDemo ? `At ${interventionTime(scene, editFrame).toFixed(2)} s` : `From frame ${editFrame}`}, ${instruction[0].toLowerCase()}${instruction.slice(1)}`;
   return { key, mode, object, step, editFrame, instruction, clip: scene.variants?.[key] ?? null };
 }
 

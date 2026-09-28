@@ -17,13 +17,13 @@ Run `python scripts/preview.py` from this directory and open `http://127.0.0.1:8
 - `assets/images/method-overview.pdf` is the original Figure 2 from the paper, rendered directly on the page. The WebP preview remains available if PDF rendering is unavailable.
 - Add videos later under `assets/videos/` and use relative paths, for example `assets/videos/example.mp4`. Empty paths display placeholders without requesting a video.
 
-The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. The other three scenes use labeled illustrations. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
+The Three dominoes demo includes its source video, 18 removal results, and 18 mass ×10 results. Football & block includes velocity, football restitution, and scene gravity edits at three times. Paper links, authors, affiliations, and citation details are unset. Quantitative results and the abstract follow the current manuscript.
 
 ## Interactive demo
 
-Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). First select an edit time using the slider on the left or a time label, then click a domino in the source video and choose an action on the right. Changing the time keeps the selected domino for comparison. Reset returns to time selection. Mass ×10 is available for each of the three dominoes at the same six edit frames. The Examples menu provides shortcuts to selected results.
+Each scene shows its available edit types. Three dominoes includes removal of each of the three objects at six fixed frames: 1, 19, 25, 31, 37, and 55 (0.00, 0.75, 1.00, 1.25, 1.50, and 2.25 seconds). Choose an edit, select a time, click a domino, then play the comparison. Changing the time keeps the selected domino for comparison. Reset returns to time selection. Mass ×10 is available for each of the three dominoes at the same six edit frames.
 
-Each selection applies one edit and looks up one prepared video. Other scene controls cover initial velocity, friction, restitution, and insertion at 1/6, 1/3, 1/2, 2/3, and 5/6 of a path. Elasticity and restitution share one control.
+Football & block offers edits at 0.00, 0.25, and 0.75 seconds: double the football’s velocity, set its restitution to 1.00, or halve scene gravity. Original-value selections replay the source. Each selection applies one edit and looks up its exact prepared video.
 
 In `assets/data/interactive-demo.json`, set each scene's `source.video`, `source.poster`, and `source.editTime`. Object centers and sizes (`x`, `y`, `w`, `h`) are fractions of the source frame. Match `source.width` and `source.height` to the actual video aspect ratio. The `edits` list controls which objects can be edited in each mode.
 
