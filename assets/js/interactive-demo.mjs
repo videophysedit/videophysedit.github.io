@@ -132,6 +132,7 @@ async function initialize() {
           </div>
           <output id="demo-edit-frame-output" for="demo-edit-frame"></output>
         </div>
+      <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play</span></button>
         <div class="demo-controls-heading"><h3>Physical edit</h3><button type="button" class="demo-reset" data-action="reset" title="Reset this scene" aria-label="Reset edit">${icon("reset")}</button></div>
         <div class="demo-mode-list" role="group" aria-labelledby="demo-edit-label"><span class="demo-edit-label" id="demo-edit-label">Select edit</span>${modes.map(mode => `<button class="demo-mode" type="button" data-mode="${mode.id}" aria-pressed="false">${icon(mode.icon)}${mode.label}</button>`).join("")}</div>
         <div class="demo-target" id="demo-target"><span class="demo-field-label">Object</span><div class="demo-object-list" id="demo-object-list" role="group" aria-label="Target object"></div></div>
@@ -146,7 +147,7 @@ async function initialize() {
       </aside>
     </div>
     <div class="demo-playback" role="group" aria-label="Comparison playback">
-      <button class="demo-play" id="demo-play" type="button" data-action="play" disabled>${icon("play")}<span>Play</span></button>
+
       <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
       <span class="demo-time" id="demo-time">0:00 / —</span>
       <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
