@@ -210,15 +210,15 @@ test("pool insertion uses yellow balls on the pool table at three chosen positio
   }
 });
 
-test("real balls preserve original aspect ratio and map only supported object edits", async () => {
+test("real balls preserve original aspect ratio and map both balls for mass and velocity edits", async () => {
   const scene=config.scenes.find(s=>s.id==='real-balls');
   assert.equal(scene.source.width/scene.source.height,1.5);
   assert.equal(scene.source.frameCount/scene.source.fps,3);
   assert.deepEqual(editableFrames(scene),[1]);
   const variants=listVariants(scene,config.controls);
-  assert.equal(variants.length,4);
+  assert.equal(variants.length,6);
   for(const v of variants){assert.ok(v.clip); await access(new URL('../'+v.clip.video,import.meta.url));}
-  assert.equal(describeSelection(scene,config.controls,{mode:'mass',objectId:'blue',stepIndex:0,editFrame:1}),null);
-  assert.equal(describeSelection(scene,config.controls,{mode:'velocity',objectId:'yellow',stepIndex:0,editFrame:1}),null);
+  assert.match(describeSelection(scene,config.controls,{mode:'mass',objectId:'blue',stepIndex:0,editFrame:1}).clip.video,/mass-blue-3x/);
+  assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'yellow',stepIndex:0,editFrame:1}).clip.video,/velocity-yellow-half/);
   assert.match(describeSelection(scene,config.controls,{mode:'velocity',objectId:'blue',stepIndex:0,editFrame:1}).instruction,/0.5×/);
 });

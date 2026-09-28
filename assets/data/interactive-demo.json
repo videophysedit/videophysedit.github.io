@@ -3970,7 +3970,7 @@
       "controls": {
         "velocity": {
           "label": "Velocity",
-          "hint": "Reduce the blue ball's initial velocity to half its original value.",
+          "hint": "Reduce the selected ball's initial velocity to half its original value.",
           "defaultIndex": 0,
           "steps": [
             {
@@ -3982,7 +3982,7 @@
         },
         "mass": {
           "label": "Mass",
-          "hint": "Increase the yellow ball's mass to 3× its original value.",
+          "hint": "Increase the selected ball's mass to 3× its original value.",
           "defaultIndex": 0,
           "steps": [
             {
@@ -4005,7 +4005,8 @@
           "h": 0.12083333333333333,
           "edits": [
             "remove",
-            "velocity"
+            "velocity",
+            "mass"
           ],
           "track": [
             {
@@ -4122,6 +4123,7 @@
           "h": 0.12083333333333333,
           "edits": [
             "remove",
+            "velocity",
             "mass"
           ],
           "track": [
@@ -4245,6 +4247,14 @@
         "mass:yellow:3:frame-1": {
           "video": "assets/videos/interactive/real-balls/mass-yellow-3x.mp4",
           "poster": "assets/images/interactive/real-balls/mass-yellow-3x.jpg"
+        },
+        "mass:blue:3:frame-1": {
+          "video": "assets/videos/interactive/real-balls/mass-blue-3x.mp4",
+          "poster": "assets/images/interactive/real-balls/mass-blue-3x.jpg"
+        },
+        "velocity:yellow:0.5:frame-1": {
+          "video": "assets/videos/interactive/real-balls/velocity-yellow-half.mp4",
+          "poster": "assets/images/interactive/real-balls/velocity-yellow-half.jpg"
         }
       }
     }
