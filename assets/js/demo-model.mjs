@@ -55,7 +55,7 @@ export function initialSelection(scene, controls) {
     mode,
     modeChosen: false,
     timeTouched: false,
-    objectId: mode === "remove" || mode === "insert" ? null : editableObjects(scene, mode)[0]?.id,
+    objectId: null,
     stepIndex: controls[mode]?.defaultIndex ?? 0,
     editFrame: nearestEditFrame(scene, scene.editTimeline?.defaultFrame ?? 1),
     timeChosen: !scene.editTimeline || Boolean(scene.parameterDemo),

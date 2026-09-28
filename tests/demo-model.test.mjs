@@ -15,7 +15,7 @@ test("five scenes have unique exact variant keys and useful initial states", () 
     assert.equal(new Set(variants.map(item => item.key)).size, variants.length);
     assert.ok(variants.every(item => item.instruction));
     const selected = describeSelection(scene, config.controls, initialSelection(scene, config.controls));
-    assert.equal(Boolean(selected), scene.defaultMode !== "remove");
+    assert.equal(selected, null);
   }
 });
 

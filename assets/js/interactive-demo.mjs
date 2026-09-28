@@ -1,4 +1,4 @@
-import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=neutral-43";
+import { sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=initial-empty-46";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -212,9 +212,8 @@ async function initialize() {
     find("demo-hotspots").hidden = !interactive || selection.mode === "insert";
     find("demo-selection").hidden = !interactive || !descriptor?.object.track || (scene.parameterDemo && !usesObjectSelection());
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
-    find("demo-return").hidden = atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
-    const nearestFrame = selection.mode === "insert" ? scene.insertion.frames?.[0] ?? 1 : nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1);
-    find("demo-return").textContent = scene.editTimeline ? `Edit at ${interventionTime(scene, nearestFrame).toFixed(2)} s` : "Edit this scene";
+    find("demo-return").hidden = !descriptor || atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
+    find("demo-return").textContent = "Back to editing";
     find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || `Click ${editObjectName()}`) : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
   }
 
@@ -552,9 +551,7 @@ async function initialize() {
       selection = initialSelection(scene, controls());
       renderControls();
     } else if (button.dataset.action === "edit-frame") {
-      if (scene.editTimeline) {
-        selectEditTime(selection.mode === "insert" ? scene.insertion.frames?.[0] ?? 1 : nearestEditFrame(scene, sourceVideo.currentTime * scene.source.fps + 1));
-      } else showEditFrame();
+      showEditFrame();
     }
     else if (button.dataset.action === "play") togglePlayback();
     else if (button.dataset.action === "play-source") togglePlayback("source");
