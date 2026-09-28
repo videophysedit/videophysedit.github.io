@@ -208,14 +208,14 @@ button, a, summary { touch-action: manipulation; }
   .interaction-prompt { font-size: 15px; max-width: none; margin: 24px auto; padding: 18px 8px; }
 }
 
-.institution-logos { display: flex; align-items: center; justify-content: center; gap: 26px; margin: 20px auto 0; }
+.institution-logos { display: flex; align-items: center; justify-content: center; gap: 22px; margin: 18px auto 0; }
 /* Show only the original blue emblem in the official identity sheet. */
-.fudan-mark { display: block; width: 68px; height: 68px; overflow: hidden; flex: none; }
+.fudan-mark { display: block; width: 54px; height: 54px; overflow: hidden; flex: none; }
 .fudan-mark img { display: block; width: 307.1816%; max-width: none; height: auto; }
-.teai-mark { display: block; width: 368px; max-width: 100%; }
+.teai-mark { display: block; width: 300px; max-width: 100%; }
 .teai-mark img { display: block; width: 100%; height: auto; }
 @media (max-width: 640px) {
   .institution-logos { gap: 16px; margin-top: 18px; }
-  .fudan-mark { width: 48px; height: 48px; }
-  .teai-mark { width: min(260px,calc(100% - 64px)); }
+  .fudan-mark { width: 40px; height: 40px; }
+  .teai-mark { width: min(220px,calc(100% - 56px)); }
 }
