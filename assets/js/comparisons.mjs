@@ -207,5 +207,5 @@ async function initComparison(root, dataPath) {
 
 }
 for (const kind of ["synthetic", "real", "removal"]) {
-  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=bounce-after-first-94`);
+  initComparison(document.querySelector(`#${kind}-comparison`), `assets/data/${kind}-comparison.json?v=real-crop-105`);
 }

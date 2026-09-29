@@ -6,7 +6,7 @@
       "edit": "edit_velocity_x2",
       "label": "Projectile ball",
       "instruction": "Increase the projectile ball's initial speed to 2 times its original value.",
-      "aspect": "5/4",
+      "aspect": "16/9",
       "videos": {
         "source": "assets/videos/comparisons/real/real__morpheus_projectile/source.mp4",
         "videophysedit": "assets/videos/comparisons/real/real__morpheus_projectile/videophysedit.mp4",
@@ -30,7 +30,7 @@
       "edit": "edit_velocity_x0p5",
       "label": "Rolling can",
       "instruction": "Decrease the can's initial speed to 0.5 times its original value.",
-      "aspect": "5/4",
+      "aspect": "16/9",
       "videos": {
         "source": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/source.mp4",
         "videophysedit": "assets/videos/comparisons/real/real__morpheus_rolling_full_can/videophysedit.mp4",
@@ -54,7 +54,7 @@
       "edit": "edit_big_mass_x0p5",
       "label": "Ball collision",
       "instruction": "Decrease the large ball's mass to 0.5 times its original value.",
-      "aspect": "5/4",
+      "aspect": "16/9",
       "videos": {
         "source": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/source.mp4",
         "videophysedit": "assets/videos/comparisons/real/real__morpheus_collision_big_hits_small/videophysedit.mp4",
@@ -78,7 +78,7 @@
       "edit": "ramp_gravity_half",
       "label": "Ball on a ramp",
       "instruction": "Decrease the scene's gravity magnitude to 0.5 times its original value.",
-      "aspect": "3/2",
+      "aspect": "16/9",
       "videos": {
         "source": "assets/videos/comparisons/real/real__ball_ramp/source.mp4",
         "videophysedit": "assets/videos/comparisons/real/real__ball_ramp/videophysedit.mp4",

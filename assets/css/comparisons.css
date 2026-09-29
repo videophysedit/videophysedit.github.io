@@ -28,3 +28,5 @@
   .comparison-time { grid-column: 2; grid-row: 1; min-width: 0; }
   .comparison-seek { grid-column: 1 / -1; grid-row: 2; width: 100%; margin: 0; }
 }
+
+#real-comparison .media-slot video { object-fit: cover; object-position: center; }
