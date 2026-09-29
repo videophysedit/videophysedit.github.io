@@ -82,21 +82,44 @@ test('later metadata cannot reenable controls after a video error', async () => 
 });
 
 
-test('sync does not pull videos back to a stalled startup clock', async () => {
+test('buffering holds faster clips without rewinding and resumes when caught up', async () => {
   const page = await setup(true);
-  const [follower, leader] = page.videos;
-  follower.currentTime = 0.8;
-  leader.currentTime = 0;
-  page.tick(1100); page.tick(2200);
-  assert.equal(follower.currentTime, 0.8);
-  leader.currentTime = 1.5;
-  page.tick(2300);
-  assert.equal(follower.currentTime, 1.5);
-  leader.currentTime = 2;
-  page.tick(2316);
-  assert.equal(follower.currentTime, 1.5);
-  follower.seeking = true;
-  leader.currentTime = 2.2;
-  page.tick(3400);
-  assert.equal(follower.currentTime, 1.5);
+  const [fast, slow] = page.videos;
+  fast.currentTime = 0.8;
+  slow.currentTime = 0;
+  page.tick();
+  assert.equal(fast.currentTime, 0.8);
+  assert.equal(fast.paused, true);
+  slow.currentTime = 0.78;
+  page.tick(); await settle();
+  assert.equal(fast.paused, false);
+  assert.equal(fast.currentTime, 0.8);
+  assert.equal(fast.playCalls, 2);
+});
+
+test('a finished longest clip cannot restart a still playing clip', async () => {
+  const page = await setup(true);
+  const [slow, fast] = page.videos;
+  fast.duration = 4; fast.currentTime = 4; fast.ended = true;
+  slow.currentTime = 0.6;
+  page.tick();
+  assert.equal(slow.currentTime, 0.6);
+  assert.equal(fast.currentTime, 4);
+  assert.equal(slow.playCalls, 1);
+  page.enter();
+  slow.ended = true; slow.currentTime = 3;
+  page.tick(); await settle();
+  assert.equal(slow.currentTime, 0);
+  assert.equal(fast.currentTime, 0);
+  assert.equal(slow.playCalls, 2);
+});
+
+test('manual pause stops a held group and Play resumes it', async () => {
+  const page = await setup(true);
+  page.videos[0].currentTime = 0.8;
+  page.tick();
+  page.root.parts['.comparison-play'].events.click();
+  assert.ok(page.videos.every(video => video.paused));
+  page.root.parts['.comparison-play'].events.click(); await settle();
+  assert.ok(page.videos.every(video => !video.paused));
 });

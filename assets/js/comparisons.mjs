@@ -142,26 +142,33 @@ async function initComparison(root, dataPath) {
       playing = true;
       play.disabled = false;
       play.textContent = "Pause all";
-      // The longest clip is the clock. Shorter clips hold their last frame.
-      const leader = activeVideos.reduce((a, b) => a.duration > b.duration ? a : b);
-      let lastCorrection = 0;
-      let previousLeaderTime = leader.currentTime;
-      function tick(timestamp) {
-        if (!playing || activeGeneration !== generation) return;
-        time = leader.currentTime;
-        // Do not repeatedly seek followers to a clock stalled on its first frame.
-        const advancing = time > previousLeaderTime + 0.001;
-        if (advancing && !leader.seeking && leader.readyState >= 3 && timestamp - lastCorrection >= 1000) {
-          activeVideos.forEach(video => {
-            if (video === leader || video.seeking || video.readyState < 3) return;
-            const target = Math.min(time, video.duration);
-            if (Math.abs(video.currentTime - target) > 0.35) video.currentTime = target;
-          });
-          lastCorrection = timestamp;
-        }
-        previousLeaderTime = time;
+      // Keep playback at its original speed. Hold ahead-of-group clips rather
+      // than seeking them backward, which can repeatedly replay Safari's startup frames.
+      const held = new Set();
+      const resuming = new Set();
+      function tick() {
+        if (!playing || activeGeneration !== generation || activePlayback !== playback) return;
+        const unfinished = activeVideos.filter(video => !video.ended);
+        time = unfinished.length ? Math.min(...unfinished.map(video => video.currentTime)) : duration;
+        activeVideos.forEach(video => {
+          if (video.ended || video.seeking || resuming.has(video)) return;
+          const ahead = video.currentTime - time;
+          if (ahead > 0.15 && !video.paused) {
+            video.pause();
+            held.add(video);
+          } else if (held.has(video) && ahead <= 0.05) {
+            held.delete(video);
+            resuming.add(video);
+            video.play().catch(() => {
+              if (activeGeneration !== generation || activePlayback !== playback) return;
+              pause();
+              manualPause = true;
+              status.textContent = "Playback paused. Tap Play all to resume.";
+            }).finally(() => resuming.delete(video));
+          }
+        });
         displayTime();
-        if (leader.ended) {
+        if (activeVideos.every(video => video.ended)) {
           pause();
           seekTo(0);
           autoplay();
