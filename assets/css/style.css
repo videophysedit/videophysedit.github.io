@@ -239,3 +239,6 @@ button, a, summary { touch-action: manipulation; }
   .task-history { grid-template-columns: 1fr; text-align: center; gap: 14px; }
   .task-intervention > span { display: inline-block; transform: rotate(90deg); }
 }
+
+.task-eyebrow { text-align: center; color: var(--deep-blue); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+.task-equation math { font-size: clamp(26px, 2.7vw, 34px); padding-block: 8px; }
