@@ -219,11 +219,11 @@ button, a, summary { touch-action: manipulation; }
 }
 
 .task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
-.task-equation { max-width: 850px; margin: 20px auto 0; padding: 14px 0; }
+.task-equation { max-width: 850px; margin: 24px auto 0; padding: 20px 22px; background: #f4f7fa; border: 1px solid #dce6ee; border-radius: 12px; }
 .task-equation math { font-size: 20px; color: var(--ink); padding-block: 2px; }
-.task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 28px; max-width: 520px; margin: 16px auto 0; text-align: left; }
-.task-symbols > div { display: flex; align-items: center; gap: 10px; }
-.task-symbols dt { min-width: 35px; flex: none; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
+.task-symbols { display: flex; justify-content: space-between; gap: 12px; margin: 14px 0 0; text-align: left; }
+.task-symbols > div { display: flex; align-items: center; gap: 8px; }
+.task-symbols dt { flex: none; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
 .task-symbols dt var { display: inline-block; padding-right: .16em; }
 .task-symbols sup, .task-symbols sub { position: static; font-size: .65em; line-height: 0; }
 .task-symbols sup { vertical-align: super; }
@@ -231,7 +231,8 @@ button, a, summary { touch-action: manipulation; }
 .task-symbols dd { margin: 0; font-size: 13px; line-height: 1.6; }
 @media (max-width: 640px) {
   .task-intro { font-size: 15px; }
-  .task-symbols { gap: 10px 14px; }
+  .task-equation { padding: 18px 14px; }
+  .task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 14px; }
   .task-symbols > div { gap: 6px; }
   .task-symbols dd { font-size: 12px; }
 }
@@ -242,3 +243,5 @@ button, a, summary { touch-action: manipulation; }
 .task-figure-image { display: block; }
 .task-figure img { display: block; width: 100%; height: auto; }
 .task-figure figcaption { margin-top: 12px; font-size: 13px; line-height: 1.6; text-align: center; }
+
+@media (min-width: 641px) and (max-width: 900px) { .task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 24px; } }
