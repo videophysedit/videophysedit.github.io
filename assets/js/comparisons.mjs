@@ -144,13 +144,22 @@ async function initComparison(root, dataPath) {
       play.textContent = "Pause all";
       // The longest clip is the clock. Shorter clips hold their last frame.
       const leader = activeVideos.reduce((a, b) => a.duration > b.duration ? a : b);
-      function tick() {
+      let lastCorrection = 0;
+      let previousLeaderTime = leader.currentTime;
+      function tick(timestamp) {
         if (!playing || activeGeneration !== generation) return;
         time = leader.currentTime;
-        activeVideos.forEach(video => {
-          const target = Math.min(time, video.duration);
-          if (Math.abs(video.currentTime - target) > 0.15) video.currentTime = target;
-        });
+        // Do not repeatedly seek followers to a clock stalled on its first frame.
+        const advancing = time > previousLeaderTime + 0.001;
+        if (advancing && !leader.seeking && leader.readyState >= 3 && timestamp - lastCorrection >= 1000) {
+          activeVideos.forEach(video => {
+            if (video === leader || video.seeking || video.readyState < 3) return;
+            const target = Math.min(time, video.duration);
+            if (Math.abs(video.currentTime - target) > 0.35) video.currentTime = target;
+          });
+          lastCorrection = timestamp;
+        }
+        previousLeaderTime = time;
         displayTime();
         if (leader.ended) {
           pause();

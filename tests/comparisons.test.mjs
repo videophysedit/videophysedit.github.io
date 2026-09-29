@@ -8,10 +8,11 @@ const settle = () => new Promise(resolve => setImmediate(resolve));
 
 async function setup(visibleBeforeData = false) {
   const videos = [], observers = [];
+  let nextFrame;
   class Element {
     constructor() {
       this.children = []; this.events = {}; this.style = {}; this.dataset = {};
-      this.duration = NaN; this.currentTime = 0; this.ended = false;
+      this.duration = NaN; this.currentTime = 0; this.ended = false; this.readyState = 4; this.seeking = false;
     }
     querySelector(selector) { return this.parts[selector]; }
     querySelectorAll() { return []; }
@@ -41,7 +42,7 @@ async function setup(visibleBeforeData = false) {
   };
   const item = { id: 'one', label: 'One', instruction: 'Remove', videos: { source: 'source.mp4', vace: 'vace.mp4' }, posters: { source: 'source.jpg' } };
   vm.runInNewContext(source, {
-    document, setTimeout, clearTimeout, requestAnimationFrame: () => 1, cancelAnimationFrame() {},
+    document, setTimeout, clearTimeout, requestAnimationFrame: callback => { nextFrame = callback; return 1; }, cancelAnimationFrame() {},
     fetch: async () => ({ ok: true, json: async () => ({ cases: [item, { ...item, id: 'two' }] }) }),
     IntersectionObserver: class {
       constructor(callback) { observers.push(callback); }
@@ -49,7 +50,7 @@ async function setup(visibleBeforeData = false) {
     }
   });
   await settle();
-  return { root, videos, enter: () => observers[0]([{ isIntersecting: true }]) };
+  return { root, videos, tick: timestamp => nextFrame(timestamp), enter: () => observers[0]([{ isIntersecting: true }]) };
 }
 
 test('entering comparison starts videos without waiting for preload metadata', async () => {
@@ -78,4 +79,24 @@ test('later metadata cannot reenable controls after a video error', async () => 
   page.videos[1].events.loadedmetadata();
   assert.equal(page.root.parts['.comparison-play'].disabled, true);
   assert.equal(page.root.parts['.comparison-seek'].disabled, true);
+});
+
+
+test('sync does not pull videos back to a stalled startup clock', async () => {
+  const page = await setup(true);
+  const [follower, leader] = page.videos;
+  follower.currentTime = 0.8;
+  leader.currentTime = 0;
+  page.tick(1100); page.tick(2200);
+  assert.equal(follower.currentTime, 0.8);
+  leader.currentTime = 1.5;
+  page.tick(2300);
+  assert.equal(follower.currentTime, 1.5);
+  leader.currentTime = 2;
+  page.tick(2316);
+  assert.equal(follower.currentTime, 1.5);
+  follower.seeking = true;
+  leader.currentTime = 2.2;
+  page.tick(3400);
+  assert.equal(follower.currentTime, 1.5);
 });
