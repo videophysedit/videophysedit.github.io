@@ -62,8 +62,8 @@ button, a, summary { touch-action: manipulation; }
 .publication-authors { margin-top: 0; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; font-size: 16px; }
 .publication-affiliations { margin-top: 8px; font-size: 15px; color: #697786; }
 .publication-links { margin: 32px auto 0; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; width: min(100%,600px); }
-.resource-link { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 10px 14px; border-radius: 999px; background: #315f84; color: #fff; font-size: 14px; font-weight: 600; border: 1px solid #315f84; box-shadow: none; transition: transform .18s, background .18s, border-color .18s, box-shadow .18s; }
-.resource-link:hover { text-decoration: none; background: #274e6e; border-color: #274e6e; transform: translateY(-2px); box-shadow: 0 5px 12px #23364a10; }
+.resource-link { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 10px 14px; border-radius: 999px; background: #426f92; color: #fff; font-size: 14px; font-weight: 600; border: 1px solid #315f84; box-shadow: none; transition: transform .18s, background .18s, border-color .18s, box-shadow .18s; }
+.resource-link:hover { text-decoration: none; background: #365f80; border-color: #274e6e; transform: translateY(-2px); box-shadow: 0 5px 12px #23364a10; }
 @media (prefers-reduced-motion: reduce) { .resource-link { transition: none; } .resource-link:hover { transform: none; } }
 .resource-link svg { flex: none; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .resource-link.is-unavailable { color: #77828f; background: var(--paper); border-color: var(--line); }
