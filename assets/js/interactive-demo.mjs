@@ -106,7 +106,7 @@ async function initialize() {
       <div class="demo-comparison">
         <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select edit time</li><li>Click an object</li><li>Click Play</li></ol>
         <figure class="demo-view">
-          <figcaption><span>Source video</span><small id="demo-source-hint">Click an object</small></figcaption>
+          <figcaption><span>Source video</span><small id="demo-source-hint" hidden>Click an object</small></figcaption>
           <div class="demo-stage" id="demo-source-stage">
             <div class="demo-illustration" id="demo-source-illustration"></div>
             <video id="demo-source-video" muted playsinline preload="metadata" hidden aria-label="Source video"></video>
