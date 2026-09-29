@@ -8,16 +8,8 @@
 
   for (const key of ["paper", "arxiv"]) {
     if (!content[key]) continue;
-    const current = document.querySelector(`[data-resource="${key}"]`);
-    const link = document.createElement("a");
-    link.className = "resource-link";
-    link.href = content[key];
-    link.dataset.resource = key;
-    link.innerHTML = current.innerHTML;
-    link.querySelector("small")?.remove();
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    current.replaceWith(link);
+    const link = document.querySelector(`[data-resource="${key}"]`);
+    if (link) link.href = content[key];
   }
   if (content.authors.length) {
     const authors = document.querySelector("#authors");
