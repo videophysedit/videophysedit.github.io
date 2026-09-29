@@ -50,8 +50,8 @@ button, a, summary { touch-action: manipulation; }
 .menu-toggle span { margin-left: 8px; }
 .publication-header { background: #fff; min-height: 100vh; min-height: 100svh; padding: clamp(104px, 12svh, 144px) 0 24px; text-align: center; display: flex; flex-direction: column; gap: 32px; }
 .publication-header > .container { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0; margin-block: 0; }
-.cover-identity-group { margin-top: 40px; }
-.cover-lead { max-width: 1040px; margin: 24px auto 0; font-family: var(--serif); font-size: 18px; line-height: 1.65; color: var(--text); }
+.cover-identity-group { margin-top: 32px; }
+.cover-lead { max-width: 1040px; margin: 32px auto 0; font-family: var(--serif); font-size: 18px; line-height: 1.65; color: var(--text); }
 .cover-lead strong { color: var(--deep-blue); font-weight: 700; }
 .cover-next { display: inline-flex; align-items: center; justify-content: center; align-self: center; gap: 12px; min-height: 44px; max-width: 760px; margin-inline: 24px; font-size: 15px; font-weight: 600; line-height: 1.6; }
 .cover-next span { flex: none; font-size: 22px; animation: prompt-arrow-float 2.4s ease-in-out infinite; }
@@ -213,7 +213,7 @@ button, a, summary { touch-action: manipulation; }
 @media (max-width: 640px) {
   .publication-header { padding-top: 96px; gap: 28px; }
   .cover-lead { margin-top: 24px; max-width: 360px; font-size: 16px; }
-  .cover-identity-group { margin-top: 32px; }
+  .cover-identity-group { margin-top: 24px; }
   .publication-links { margin-top: 24px; }
 
 }
