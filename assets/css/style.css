@@ -218,12 +218,10 @@ button, a, summary { touch-action: manipulation; }
 
 }
 
-.task-definition { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 40px; max-width: 1040px; margin: 28px auto 0; }
-.task-definition > * { min-width: 0; }
-.task-intro { margin: 0; font-size: 16px; line-height: 1.8; }
-.task-equation { width: 100%; margin: 0; padding: 0; }
+.task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
+.task-equation { max-width: 850px; margin: 20px auto 0; padding: 14px 0; }
 .task-equation math { font-size: 20px; color: var(--ink); padding-block: 2px; }
-.task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 16px; max-width: 520px; margin: 16px auto 0; text-align: left; }
+.task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 28px; max-width: 520px; margin: 16px auto 0; text-align: left; }
 .task-symbols > div { display: flex; align-items: center; gap: 10px; }
 .task-symbols dt { min-width: 35px; flex: none; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
 .task-symbols dt var { display: inline-block; padding-right: .16em; }
@@ -238,14 +236,9 @@ button, a, summary { touch-action: manipulation; }
   .task-symbols dd { font-size: 12px; }
 }
 
-.task-eyebrow { width: fit-content; margin: 0 auto 12px; padding: 5px 15px; border: 1px solid #c6d8e7; border-radius: 999px; background: #eaf2f8; color: #315f84; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 5px 15px; border: 1px solid #c6d8e7; border-radius: 999px; background: #eaf2f8; color: #315f84; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 
-.task-figure { max-width: 1040px; margin: 32px auto 0; }
+.task-figure { max-width: 850px; margin: 24px auto 0; }
 .task-figure-image { display: block; }
 .task-figure img { display: block; width: 100%; height: auto; }
 .task-figure figcaption { margin-top: 12px; font-size: 13px; line-height: 1.6; text-align: center; }
-
-@media (max-width: 900px) {
-  .task-definition { grid-template-columns: 1fr; gap: 24px; max-width: 850px; }
-  .task-figure { max-width: 850px; margin-top: 28px; }
-}
