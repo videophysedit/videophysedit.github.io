@@ -1,26 +1,26 @@
 {
   "cases": [
     {
-      "id": "bouncing_ball/edit_dead_ball",
+      "id": "bouncing_ball/edit_dead_ball_after_first_bounce",
       "scene": "bouncing_ball",
-      "edit": "edit_dead_ball",
+      "edit": "edit_dead_ball_after_first_bounce",
       "label": "Bouncing ball",
-      "instruction": "Reduce the red ball's restitution to 0.4 times its original value.",
+      "instruction": "From frame 20 onwards, reduce the red ball's restitution to 0.1 times its original value.",
       "videos": {
-        "source": "assets/videos/comparisons/synthetic/bouncing_ball/source.mp4",
-        "vace": "assets/videos/comparisons/synthetic/bouncing_ball/vace.mp4",
-        "ditto": "assets/videos/comparisons/synthetic/bouncing_ball/ditto.mp4",
-        "minimax": "assets/videos/comparisons/synthetic/bouncing_ball/minimax.mp4",
-        "seedance": "assets/videos/comparisons/synthetic/bouncing_ball/seedance.mp4",
-        "videophysedit": "assets/videos/comparisons/synthetic/bouncing_ball/videophysedit.mp4"
+        "source": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/source.mp4",
+        "vace": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/vace.mp4",
+        "ditto": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/ditto.mp4",
+        "minimax": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/minimax.mp4",
+        "seedance": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/seedance.mp4",
+        "videophysedit": "assets/videos/comparisons/synthetic/bouncing_ball/after-first-bounce/videophysedit.mp4"
       },
       "posters": {
-        "source": "assets/images/comparisons/synthetic/bouncing_ball/source.jpg",
-        "vace": "assets/images/comparisons/synthetic/bouncing_ball/vace.jpg",
-        "ditto": "assets/images/comparisons/synthetic/bouncing_ball/ditto.jpg",
-        "minimax": "assets/images/comparisons/synthetic/bouncing_ball/minimax.jpg",
-        "seedance": "assets/images/comparisons/synthetic/bouncing_ball/seedance.jpg",
-        "videophysedit": "assets/images/comparisons/synthetic/bouncing_ball/videophysedit.jpg"
+        "source": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/source.jpg",
+        "vace": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/vace.jpg",
+        "ditto": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/ditto.jpg",
+        "minimax": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/minimax.jpg",
+        "seedance": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/seedance.jpg",
+        "videophysedit": "assets/images/comparisons/synthetic/bouncing_ball/after-first-bounce/videophysedit.jpg"
       }
     },
     {
