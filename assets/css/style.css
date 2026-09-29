@@ -219,9 +219,12 @@ button, a, summary { touch-action: manipulation; }
 .task-equation { max-width: 950px; margin: 24px auto 0; padding: 18px 0; border-block: 1px solid var(--line); }
 .task-equation math { font-size: clamp(21px, 1.8vw, 25px); color: var(--ink); padding-block: 4px; }
 .task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 18px 0 0; text-align: center; }
-.task-symbols dt { color: var(--deep-blue); font-family: var(--serif); font-size: 19px; }
-.task-symbols sup, .task-symbols sub { font-size: .65em; }
-.task-symbols dd { margin: 4px 0 0; font-size: 13px; }
+.task-symbols dt { min-height: 34px; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 19px; }
+.task-symbols dt var { display: inline-block; padding-right: .16em; }
+.task-symbols sup, .task-symbols sub { position: static; font-size: .65em; line-height: 0; }
+.task-symbols sup { vertical-align: super; }
+.task-symbols sub { vertical-align: sub; }
+.task-symbols dd { margin: 8px 0 0; font-size: 13px; line-height: 1.6; }
 .task-notation { margin-top: 18px; text-align: center; font-size: 13px; color: #697786; }
 .task-edits { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; max-width: 1040px; margin: 32px auto; text-align: center; }
 .task-edits h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--deep-blue); }
@@ -240,4 +243,4 @@ button, a, summary { touch-action: manipulation; }
   .task-intervention > span { display: inline-block; transform: rotate(90deg); }
 }
 
-.task-eyebrow { text-align: center; color: var(--deep-blue); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+.task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 5px 15px; border: 1px solid #e8c4a7; border-radius: 999px; background: #fff1e4; color: #934514; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
