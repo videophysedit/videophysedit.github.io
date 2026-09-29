@@ -219,15 +219,15 @@ button, a, summary { touch-action: manipulation; }
 }
 
 .task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
-.task-equation { max-width: 950px; margin: 24px auto 0; padding: 18px 0; border-block: 1px solid var(--line); }
-.task-equation math { font-size: clamp(21px, 1.8vw, 25px); color: var(--ink); padding-block: 4px; }
-.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 18px 0 0; text-align: center; }
-.task-symbols dt { min-height: 34px; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 19px; }
+.task-equation { max-width: 850px; margin: 20px auto 0; padding: 14px 0; }
+.task-equation math { font-size: 20px; color: var(--ink); padding-block: 2px; }
+.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 14px 0 0; text-align: center; }
+.task-symbols dt { min-height: 28px; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
 .task-symbols dt var { display: inline-block; padding-right: .16em; }
 .task-symbols sup, .task-symbols sub { position: static; font-size: .65em; line-height: 0; }
 .task-symbols sup { vertical-align: super; }
 .task-symbols sub { vertical-align: sub; }
-.task-symbols dd { margin: 8px 0 0; font-size: 13px; line-height: 1.6; }
+.task-symbols dd { margin: 6px 0 0; font-size: 13px; line-height: 1.6; }
 @media (max-width: 640px) {
   .task-intro { font-size: 15px; }
   .task-symbols { grid-template-columns: repeat(2,minmax(0,1fr)); }
