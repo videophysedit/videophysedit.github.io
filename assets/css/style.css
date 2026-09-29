@@ -214,3 +214,28 @@ button, a, summary { touch-action: manipulation; }
   .publication-links { margin-top: 24px; }
   .publication-authors { margin-top: 28px; }
 }
+
+.task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
+.task-equation { max-width: 950px; margin: 30px auto 0; padding: 24px 0; border-block: 1px solid var(--line); }
+.task-equation math { font-size: clamp(22px, 2.5vw, 30px); color: var(--ink); }
+.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 24px 0 0; text-align: center; }
+.task-symbols dt { color: var(--deep-blue); font-family: var(--serif); font-size: 19px; }
+.task-symbols sup, .task-symbols sub { font-size: .65em; }
+.task-symbols dd { margin: 4px 0 0; font-size: 13px; }
+.task-notation { margin-top: 18px; text-align: center; font-size: 13px; color: #697786; }
+.task-edits { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; max-width: 1040px; margin: 32px auto; text-align: center; }
+.task-edits h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--deep-blue); }
+.task-edits p { font-size: 14px; margin-top: 8px; }
+.task-history { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1.2fr; align-items: center; gap: 20px; padding: 20px 24px; background: var(--tint); border-radius: 8px; }
+.task-history div > span { display: block; font-size: 12px; color: #697786; margin-bottom: 5px; }
+.task-history strong { font-size: 14px; font-weight: 500; }
+.task-intervention { color: var(--deep-blue); font-size: 13px; font-weight: 600; }
+.task-intervention > span { margin-left: 8px; }
+@media (max-width: 640px) {
+  .task-intro { font-size: 15px; }
+  .task-symbols { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .task-edits { grid-template-columns: 1fr; gap: 22px; }
+  .task-edits p { margin-top: 4px; }
+  .task-history { grid-template-columns: 1fr; text-align: center; gap: 14px; }
+  .task-intervention > span { display: inline-block; transform: rotate(90deg); }
+}
