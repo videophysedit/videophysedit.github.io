@@ -68,7 +68,15 @@ async function initComparison(root, dataPath) {
     play.textContent = "Play all";
     play.disabled = seek.disabled = true;
     status.textContent = "";
-    instruction.textContent = item.instruction;
+    instruction.replaceChildren();
+    const action = /\b(remove|insert|add|increase|decrease|reduce|leave|set|change)\b/i.exec(item.instruction);
+    if (action) {
+      const verb = document.createElement("strong");
+      verb.textContent = action[0];
+      instruction.append(item.instruction.slice(0, action.index), verb, item.instruction.slice(action.index + action[0].length));
+    } else {
+      instruction.textContent = item.instruction;
+    }
     choices.querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.id === item.id)));
     grid.replaceChildren();
     const activeGeneration = generation;
