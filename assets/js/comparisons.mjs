@@ -14,6 +14,7 @@ async function initComparison(root, dataPath) {
     ["videophysedit", "VideoPhysEdit", "ours"]
   ];
   let videos = [], generation = 0, playback = 0, playing = false, frame = 0, time = 0, duration = 0;
+  let selectedCase = null;
   let visible = false, manualPause = false, starting = false, failed = false;
 
   function autoplay() {
@@ -57,6 +58,7 @@ async function initComparison(root, dataPath) {
     autoplay();
   }
   function render(item) {
+    selectedCase = item.id;
     generation++;
     pause();
     videos.forEach(video => { video.removeAttribute("src"); video.load(); });
@@ -133,7 +135,7 @@ async function initComparison(root, dataPath) {
     try {
       // Calling play directly also starts loading when mobile browsers defer preload.
       await Promise.race([
-        Promise.all(activeVideos.filter(video => !Number.isFinite(video.duration) || time < video.duration).map(video => video.play())),
+        Promise.all(activeVideos.filter(video => !Number.isFinite(video.duration) || video.currentTime < video.duration).map(video => video.play())),
         new Promise((_, reject) => { loadTimeout = setTimeout(() => reject(new Error("Video loading timed out")), 15000); })
       ]);
       if (activeGeneration !== generation || activePlayback !== playback) return;
@@ -142,31 +144,12 @@ async function initComparison(root, dataPath) {
       playing = true;
       play.disabled = false;
       play.textContent = "Pause all";
-      // Keep playback at its original speed. Hold ahead-of-group clips rather
-      // than seeking them backward, which can repeatedly replay Safari's startup frames.
-      const held = new Set();
-      const resuming = new Set();
+      // Native playback owns each clip's progress. Do not seek, pause, or
+      // reissue play() to chase another decoder while a group is running.
       function tick() {
         if (!playing || activeGeneration !== generation || activePlayback !== playback) return;
         const unfinished = activeVideos.filter(video => !video.ended);
         time = unfinished.length ? Math.min(...unfinished.map(video => video.currentTime)) : duration;
-        activeVideos.forEach(video => {
-          if (video.ended || video.seeking || resuming.has(video)) return;
-          const ahead = video.currentTime - time;
-          if (ahead > 0.15 && !video.paused) {
-            video.pause();
-            held.add(video);
-          } else if (held.has(video) && ahead <= 0.05) {
-            held.delete(video);
-            resuming.add(video);
-            video.play().catch(() => {
-              if (activeGeneration !== generation || activePlayback !== playback) return;
-              pause();
-              manualPause = true;
-              status.textContent = "Playback paused. Tap Play all to resume.";
-            }).finally(() => resuming.delete(video));
-          }
-        });
         displayTime();
         if (activeVideos.every(video => video.ended)) {
           pause();
@@ -212,7 +195,7 @@ async function initComparison(root, dataPath) {
       button.dataset.id = item.id;
       button.textContent = item.label;
       button.addEventListener("click", () => {
-        render(item);
+        if (selectedCase !== item.id) render(item);
         startPlayback();
       });
       choices.append(button);

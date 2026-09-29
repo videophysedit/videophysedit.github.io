@@ -12,8 +12,10 @@ async function setup(visibleBeforeData = false) {
   class Element {
     constructor() {
       this.children = []; this.events = {}; this.style = {}; this.dataset = {};
-      this.duration = NaN; this.currentTime = 0; this.ended = false; this.readyState = 4; this.seeking = false;
+      this.duration = NaN; this._currentTime = 0; this.ended = false; this.readyState = 4; this.seeking = false;
     }
+    get currentTime() { return this._currentTime; }
+    set currentTime(value) { this._currentTime = value; this.ended = false; }
     querySelector(selector) { return this.parts[selector]; }
     querySelectorAll() { return []; }
     setAttribute() {}
@@ -26,9 +28,10 @@ async function setup(visibleBeforeData = false) {
     play() {
       this.playCalls = (this.playCalls || 0) + 1;
       this.paused = false;
+      if (this.ended) this.currentTime = 0;
       // Model a browser that supplies metadata only after play is requested.
       return Promise.resolve().then(() => {
-        this.duration = 3;
+        if (!Number.isFinite(this.duration)) this.duration = 3;
         this.events.loadedmetadata?.();
       });
     }
@@ -50,7 +53,7 @@ async function setup(visibleBeforeData = false) {
     }
   });
   await settle();
-  return { root, videos, tick: timestamp => nextFrame(timestamp), enter: () => observers[0]([{ isIntersecting: true }]) };
+  return { root, videos, tick: timestamp => nextFrame(timestamp), enter: () => observers[0]([{ isIntersecting: true }]), leave: () => observers[0]([{ isIntersecting: false }]) };
 }
 
 test('entering comparison starts videos without waiting for preload metadata', async () => {
@@ -82,19 +85,17 @@ test('later metadata cannot reenable controls after a video error', async () => 
 });
 
 
-test('buffering holds faster clips without rewinding and resumes when caught up', async () => {
+test('uneven startup never pauses, seeks, or replays a faster video', async () => {
   const page = await setup(true);
   const [fast, slow] = page.videos;
-  fast.currentTime = 0.8;
-  slow.currentTime = 0;
-  page.tick();
+  fast.currentTime = 0.8; slow.currentTime = 0;
+  for (let i = 0; i < 10; i++) page.tick();
   assert.equal(fast.currentTime, 0.8);
-  assert.equal(fast.paused, true);
+  assert.equal(fast.paused, false);
+  assert.equal(fast.playCalls, 1);
   slow.currentTime = 0.78;
   page.tick(); await settle();
-  assert.equal(fast.paused, false);
-  assert.equal(fast.currentTime, 0.8);
-  assert.equal(fast.playCalls, 2);
+  assert.equal(fast.playCalls, 1);
 });
 
 test('a finished longest clip cannot restart a still playing clip', async () => {
@@ -107,14 +108,14 @@ test('a finished longest clip cannot restart a still playing clip', async () => 
   assert.equal(fast.currentTime, 4);
   assert.equal(slow.playCalls, 1);
   page.enter();
-  slow.ended = true; slow.currentTime = 3;
+  slow.currentTime = 3; slow.ended = true;
   page.tick(); await settle();
   assert.equal(slow.currentTime, 0);
   assert.equal(fast.currentTime, 0);
   assert.equal(slow.playCalls, 2);
 });
 
-test('manual pause stops a held group and Play resumes it', async () => {
+test('manual pause stops the group and Play resumes it', async () => {
   const page = await setup(true);
   page.videos[0].currentTime = 0.8;
   page.tick();
@@ -122,4 +123,24 @@ test('manual pause stops a held group and Play resumes it', async () => {
   assert.ok(page.videos.every(video => video.paused));
   page.root.parts['.comparison-play'].events.click(); await settle();
   assert.ok(page.videos.every(video => !video.paused));
+});
+
+test('returning to the viewport does not replay an already finished clip', async () => {
+  const page = await setup(true);
+  const [finished, slow] = page.videos;
+  finished.currentTime = 3; finished.ended = true;
+  slow.currentTime = 0.7;
+  page.tick(); page.leave(); page.enter(); await settle();
+  assert.equal(finished.currentTime, 3);
+  assert.equal(finished.playCalls, 1);
+  assert.equal(slow.currentTime, 0.7);
+  assert.equal(slow.playCalls, 2);
+});
+
+test('selecting the current case does not reload or restart its videos', async () => {
+  const page = await setup(true);
+  page.videos.forEach(video => { video.currentTime = 1; });
+  page.root.parts['.comparison-cases'].children[0].events.click(); await settle();
+  assert.equal(page.videos.length, 2);
+  assert.ok(page.videos.every(video => video.currentTime === 1 && video.playCalls === 1));
 });
