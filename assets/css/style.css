@@ -216,9 +216,9 @@ button, a, summary { touch-action: manipulation; }
 }
 
 .task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
-.task-equation { max-width: 950px; margin: 30px auto 0; padding: 24px 0; border-block: 1px solid var(--line); }
-.task-equation math { font-size: clamp(22px, 2.5vw, 30px); color: var(--ink); }
-.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 24px 0 0; text-align: center; }
+.task-equation { max-width: 950px; margin: 24px auto 0; padding: 18px 0; border-block: 1px solid var(--line); }
+.task-equation math { font-size: clamp(21px, 1.8vw, 25px); color: var(--ink); padding-block: 4px; }
+.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 18px 0 0; text-align: center; }
 .task-symbols dt { color: var(--deep-blue); font-family: var(--serif); font-size: 19px; }
 .task-symbols sup, .task-symbols sub { font-size: .65em; }
 .task-symbols dd { margin: 4px 0 0; font-size: 13px; }
@@ -241,4 +241,3 @@ button, a, summary { touch-action: manipulation; }
 }
 
 .task-eyebrow { text-align: center; color: var(--deep-blue); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
-.task-equation math { font-size: clamp(26px, 2.7vw, 34px); padding-block: 8px; }
