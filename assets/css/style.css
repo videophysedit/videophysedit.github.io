@@ -239,6 +239,6 @@ button, a, summary { touch-action: manipulation; }
 .task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 5px 15px; border: 1px solid #c6d8e7; border-radius: 999px; background: #eaf2f8; color: #315f84; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 
 .task-figure { max-width: 850px; margin: 24px auto 0; }
-.task-figure a { display: block; }
+.task-figure-image { display: block; }
 .task-figure img { display: block; width: 100%; height: auto; }
 .task-figure figcaption { margin-top: 12px; font-size: 13px; line-height: 1.6; text-align: center; }
