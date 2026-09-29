@@ -104,7 +104,7 @@ async function initialize() {
     </div>
     <div class="demo-workspace" id="demo-workspace" role="tabpanel" aria-labelledby="demo-tab-${scene.id}">
       <div class="demo-comparison">
-        <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select a time</li><li>Click an object</li><li>Click Play</li></ol>
+        <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select edit time</li><li>Click an object</li><li>Click Play</li></ol>
         <figure class="demo-view">
           <figcaption><span>Source video</span><small id="demo-source-hint">Click an object</small></figcaption>
           <div class="demo-stage" id="demo-source-stage">
@@ -216,6 +216,25 @@ async function initialize() {
     return Boolean(sourceReady() && currentResultReady(1) && Number.isFinite(resultVideo.duration));
   }
 
+  function nextEditPrompt() {
+    if (!selection.modeChosen) return "Select an edit";
+    if (requiresEditTime(scene, selection.mode) && !selection.timeTouched) return "Select an edit time";
+    if (!descriptor) return selection.mode === "insert" ? "Click a position" : "Click an object";
+    return "Click Play";
+  }
+
+  function updateStepGuide() {
+    const pending = !selection.modeChosen ? 0 : requiresEditTime(scene, selection.mode) && !selection.timeTouched ? 1 : !descriptor ? (requiresEditTime(scene, selection.mode) ? 2 : 1) : Infinity;
+    const items = [...root.querySelectorAll(".demo-steps li")];
+    const current = Math.min(pending, items.length - 1);
+    items.forEach((item, index) => {
+      item.classList.toggle("is-current", index === current);
+      item.classList.toggle("is-done", index < current);
+      if (index === current) item.setAttribute("aria-current", "step");
+      else item.removeAttribute("aria-current");
+    });
+  }
+
   function updateHotspotVisibility() {
     const atEditFrame = !scene.source.video || (sourceReady() && !sourceVideo.seeking && Math.abs(sourceVideo.currentTime - editTime()) < .025);
     const interactive = !playing && atEditFrame && !needsEditTime();
@@ -224,10 +243,11 @@ async function initialize() {
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = !descriptor || atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     find("demo-return").textContent = "Back to editing";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : needsEditTime() ? "Select an edit time" : selection.mode === "insert" ? "Choose a position" : scene.editTimeline ? (descriptor?.object.label || `Click ${editObjectName()}`) : scene.parameterDemo ? "Edits start at 0 s" : "Click an object";
+    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : nextEditPrompt();
   }
 
   function updateMediaState() {
+    updateStepGuide();
     const sourceFrameReady = sourceReady();
     const resultReady = currentResultReady(1);
     sourceVideo.hidden = !sourceFrameReady;
@@ -240,7 +260,7 @@ async function initialize() {
     find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
-    startHint.querySelector("strong").textContent = actualScene ? (needsEditTime() ? `Select an edit time, then click ${editObjectName()}` : descriptor ? "No result for this edit yet" : selection.mode === "insert" ? `Click a position on the ${scene.insertion.surface || "book"}` : `Click ${editObjectName()} in the source video`) : "What would happen without it?";
+    startHint.querySelector("strong").textContent = nextEditPrompt();
     startHint.querySelector("p").hidden = actualScene;
     startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
@@ -360,7 +380,7 @@ async function initialize() {
     root.dataset.variant = descriptor?.key || "";
     root.dataset.editFrame = String(selection.editFrame);
     savedSelections.set(scene.id, { ...selection });
-    find("demo-command").textContent = descriptor?.instruction || (selection.mode === "insert" ? `Click a position on the ${scene.insertion.surface || "book"}.` : needsEditTime() ? `Select an edit time, then click ${editObjectName()} in the source video.` : scene.editTimeline ? `Click ${editObjectName()} in the source video.` : "Click an object in the source scene to remove it.");
+    find("demo-command").textContent = descriptor?.instruction || nextEditPrompt() + ".";
     find("demo-result-hint").textContent = descriptor ? modes.find(mode => mode.id === selection.mode).label : "Counterfactual video";
     root.querySelectorAll("[data-object]").forEach(button => {
       const selected = button.dataset.object === selection.objectId;
@@ -409,7 +429,7 @@ async function initialize() {
     const hasTimeChoice = requiresEditTime(scene, selection.mode);
     if (fixedMultiplier) selection.stepIndex = controls()[selection.mode].defaultIndex;
     const steps = ["Select an edit"];
-    if (hasTimeChoice) steps.push("Select a time");
+    if (hasTimeChoice) steps.push("Select edit time");
     if (selection.mode === "insert") steps.push("Click a position");
     else if (usesObjectSelection()) steps.push("Click an object");
     steps.push("Click Play");

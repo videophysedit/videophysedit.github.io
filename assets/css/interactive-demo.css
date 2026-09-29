@@ -1,4 +1,4 @@
-.interactive-teaser { padding: 40px 0 64px; background: var(--tint); border-top: 1px solid var(--line); }
+.interactive-teaser { padding: 16px 0 24px; background: var(--tint); border-top: 1px solid var(--line); }
 .demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #d8e2ea; border-radius: 14px; overflow: hidden; background: white; box-shadow: 0 12px 38px #25496109; }
 .demo-loading, .demo-load-error { text-align: center; padding: 80px 25px; color: var(--text); }
 .demo-load-error button { color: var(--deep-blue); border: 0; background: transparent; text-decoration: underline; }
@@ -101,7 +101,7 @@
 .demo-media-status { font-size: 10px; color: #81919e; text-align: right; flex: none; margin-left: auto; }
 .demo-media-status.sr-only { width: 1px; margin: -1px; }
 .has-edit-timeline .demo-workspace { grid-template-columns: 1fr; gap: 17px; }
-.has-edit-timeline .demo-controls { display: grid; grid-template-columns: auto minmax(0,1fr) 30px; gap: 20px; align-items: center; padding: 0 0 18px; border: 0; }
+.has-edit-timeline .demo-controls { display: grid; grid-template-columns: auto minmax(0,1fr) 30px; gap: 20px; align-items: center; padding: 0; border: 0; }
 .has-edit-timeline .demo-controls-heading { grid-column: 3; grid-row: 1; margin: 0; }
 .has-edit-timeline .demo-controls-heading h3 { display: none; }
 .has-edit-timeline .demo-mode-list { grid-column: 1; grid-row: 1; }
@@ -251,3 +251,15 @@
   .demo-playback .demo-timeline { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 5px; margin: 0 0 6px; }
   .demo-playback .demo-media-status { grid-column: 1 / -1; margin: 0; }
 }
+
+/* Keep the complete desktop demo below the fixed navigation. */
+@media (min-width: 901px) {
+  .interactive-teaser .wide-container { width: min(100%, 1460px, calc((100svh - 390px) * 3.5556)); min-width: 860px; }
+  .demo-workspace { padding: 16px; }
+  .has-edit-timeline .demo-workspace { gap: 12px; }
+  .demo-comparison { gap: 12px; }
+}
+.demo-steps li.is-current { color: var(--deep-blue); font-weight: 700; }
+.demo-steps li.is-current::before { color: white; background: var(--deep-blue); }
+.demo-steps li.is-done::before { content: "✓"; }
+.demo-steps li.is-done { color: #718493; }
