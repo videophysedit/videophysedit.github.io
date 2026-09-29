@@ -48,7 +48,7 @@ button, a, summary { touch-action: manipulation; }
 .dropdown-menu a:hover { background: var(--tint); text-decoration: none; }
 .menu-toggle { display: none; border: 1px solid var(--line); padding: 7px 12px; border-radius: 7px; background: transparent; color: var(--ink); font-size: 14px; }
 .menu-toggle span { margin-left: 8px; }
-.publication-header { background: #fff; min-height: 100vh; min-height: 100svh; padding: clamp(104px, 12svh, 144px) 0 24px; text-align: center; display: flex; flex-direction: column; gap: 32px; }
+.publication-header { background: radial-gradient(ellipse 62% 68% at 0% 0%, rgba(89, 143, 187, .085), transparent 72%), radial-gradient(ellipse 48% 48% at 100% 70%, rgba(89, 143, 187, .065), transparent 74%), #fff; min-height: 100vh; min-height: 100svh; padding: clamp(104px, 12svh, 144px) 0 24px; text-align: center; display: flex; flex-direction: column; gap: 32px; }
 .publication-header > .container { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0; margin-block: 0; }
 .cover-identity-group { margin-top: 32px; }
 .cover-lead { max-width: 1040px; margin: 32px auto 0; font-family: var(--serif); font-size: 18px; line-height: 1.65; color: var(--text); }
