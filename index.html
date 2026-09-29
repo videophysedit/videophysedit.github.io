@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=cleanup-107">
-  <link rel="stylesheet" href="assets/css/comparisons.css?v=real-crop-105">
+  <link rel="stylesheet" href="assets/css/style.css?v=section-labels-108">
+  <link rel="stylesheet" href="assets/css/comparisons.css?v=edit-labels-108">
   <link rel="stylesheet" href="assets/css/interactive-demo.css?v=demo-frame-106">
   <script src="assets/js/content.js?v=arxiv-83" defer></script>
   <script src="assets/js/demo-layout.js?v=demo-center-72" defer></script>
@@ -93,7 +93,7 @@
 
     <section class="section task-section" id="task" aria-labelledby="task-title">
       <div class="container">
-        <p class="task-eyebrow">A new task</p>
+        <p class="section-eyebrow">A new task</p>
         <h2 class="section-title" id="task-title">Physical Counterfactual Video Editing</h2>
         <p class="task-intro">We formulate physical counterfactual video editing (PCVE) as a new, unified task for physical interventions and their downstream consequences. Given a source video, a physical edit, and its execution frame, the goal is to generate a counterfactual video that preserves the factual history before the intervention and depicts the resulting motion and interactions afterward.</p>
         <div class="task-equation" aria-label="PCVE formulation">
@@ -119,6 +119,7 @@
 
     <section class="section section-tinted" id="method" aria-labelledby="method-title">
       <div class="container wide-container">
+        <p class="section-eyebrow section-eyebrow-method">A new method</p>
         <h2 class="section-title" id="method-title">Explicit Physical Reasoning Guides Visual Generation</h2>
         <p class="section-intro">A training-free pipeline for physical counterfactual video editing in rigid-body scenes.</p>
         <figure class="method-figure" id="method-overview">
@@ -135,6 +136,7 @@
 
     <section class="section" id="benchmark" aria-labelledby="benchmark-title">
       <div class="container">
+        <p class="section-eyebrow section-eyebrow-benchmark">A new benchmark</p>
         <h2 class="section-title" id="benchmark-title">PCVE-RigidBench</h2>
         <p class="section-intro">20 synthetic rigid-body scenes and 129 editing tasks, with paired source and counterfactual target videos and physical ground truth.</p>
         <div class="result-highlights">
@@ -169,7 +171,9 @@
           <h3>Synthetic Videos</h3>
           <p class="comparison-description">Physical edits and their downstream consequences on PCVE-RigidBench.</p>
           <div class="comparison-cases" role="group" aria-label="Select synthetic scene"></div>
-          <p class="comparison-instruction" aria-live="polite"></p>
+          <div class="comparison-edit">
+            <p class="comparison-instruction" aria-live="polite"></p>
+          </div>
           <div class="comparison-grid" data-comparison="synthetic" role="region" aria-label="Synthetic video comparisons" tabindex="0"></div>
           <div class="comparison-playback">
             <button class="comparison-play" type="button" disabled>Play all</button>
@@ -182,7 +186,9 @@
           <h3>Real Videos</h3>
           <p class="comparison-description">Physical edits in real-world scenes.</p>
           <div class="comparison-cases" role="group" aria-label="Select real scene"></div>
-          <p class="comparison-instruction" aria-live="polite"></p>
+          <div class="comparison-edit">
+            <p class="comparison-instruction" aria-live="polite"></p>
+          </div>
           <div class="comparison-grid" data-comparison="real" role="region" aria-label="Real video comparisons" tabindex="0"></div>
           <div class="comparison-playback">
             <button class="comparison-play" type="button" disabled>Play all</button>
@@ -195,7 +201,9 @@
           <h3>Object Removal</h3>
           <p class="comparison-description">Additional comparisons with VOID on object removal tasks.</p>
           <div class="comparison-cases" role="group" aria-label="Select removal scene"></div>
-          <p class="comparison-instruction" aria-live="polite"></p>
+          <div class="comparison-edit">
+            <p class="comparison-instruction" aria-live="polite"></p>
+          </div>
           <div class="comparison-grid" data-comparison="removal" role="region" aria-label="Object removal comparisons" tabindex="0"></div>
           <div class="comparison-playback">
             <button class="comparison-play" type="button" disabled>Play all</button>

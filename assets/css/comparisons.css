@@ -1,7 +1,8 @@
 .comparison-cases { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 16px; }
 .comparison-cases button { padding: 8px 16px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--text); font-size: 14px; }
 .comparison-cases button[aria-pressed="true"] { background: var(--deep-blue); border-color: var(--deep-blue); color: white; }
-.comparison-instruction { text-align: center; color: var(--ink); margin: 0 auto 20px; font-size: 16px; }
+.comparison-edit { max-width: 980px; margin: 0 auto 24px; padding: 14px 22px; border: 1px solid #d1dfe9; border-radius: 10px; background: #eaf1f7; text-align: center; }
+.comparison-instruction { color: var(--ink); margin: 0; font-size: 17px; line-height: 1.65; }
 .comparison-block.has-cases .comparison-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: row; gap: 18px 16px; overflow: visible; padding: 0; }
 .comparison-block.has-cases .media-column figcaption { font-size: 14px; }
 .comparison-open { display: block; text-align: right; font-size: 11px; margin-top: 3px; }
@@ -15,7 +16,8 @@
 @media (max-width: 700px) {
   .comparison-block.has-cases .comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .comparison-cases button { padding: 7px 10px; font-size: 12px; }
-  .comparison-instruction { font-size: 14px; }
+  .comparison-edit { padding: 12px 14px; }
+  .comparison-instruction { font-size: 15px; }
   .comparison-playback { gap: 8px; }
 }
 
