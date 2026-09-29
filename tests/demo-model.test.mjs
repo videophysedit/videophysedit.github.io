@@ -210,9 +210,10 @@ test("pool insertion uses yellow balls on the pool table at three chosen positio
   }
 });
 
-test("real balls preserve original aspect ratio and map both balls for mass and velocity edits", async () => {
+test("real balls use the shared cropped aspect ratio and map both balls for mass and velocity edits", async () => {
   const scene=config.scenes.find(s=>s.id==='real-balls');
-  assert.equal(scene.source.width/scene.source.height,1.5);
+  assert.equal(scene.source.width/scene.source.height,16/9);
+  assert.ok(Math.abs(scene.objects[0].y - 200/405) < 1e-9);
   assert.equal(scene.source.frameCount/scene.source.fps,3);
   assert.deepEqual(editableFrames(scene),[1]);
   const variants=listVariants(scene,config.controls);

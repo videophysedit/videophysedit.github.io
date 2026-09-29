@@ -1333,7 +1333,7 @@
               "polygon": [
                 [
                   0.423438,
-                  0.0
+                  0
                 ],
                 [
                   0.417134,
@@ -1461,35 +1461,35 @@
                 ],
                 [
                   0.50467,
-                  0.0
+                  0
                 ],
                 [
                   0.494516,
-                  0.0
+                  0
                 ],
                 [
                   0.484362,
-                  0.0
+                  0
                 ],
                 [
                   0.474208,
-                  0.0
+                  0
                 ],
                 [
                   0.464054,
-                  0.0
+                  0
                 ],
                 [
                   0.4539,
-                  0.0
+                  0
                 ],
                 [
                   0.443746,
-                  0.0
+                  0
                 ],
                 [
                   0.433592,
-                  0.0
+                  0
                 ]
               ]
             },
@@ -2535,7 +2535,7 @@
             {
               "id": "near",
               "label": "Near",
-              "value": 0.0
+              "value": 0
             },
             {
               "id": "middle",
@@ -2545,7 +2545,7 @@
             {
               "id": "far",
               "label": "Far",
-              "value": 1.0
+              "value": 1
             }
           ]
         }
@@ -3953,11 +3953,11 @@
       "defaultMode": "remove",
       "parameterDemo": true,
       "source": {
-        "video": "assets/videos/interactive/real-balls/source.mp4",
-        "poster": "assets/images/interactive/real-balls/source.jpg",
+        "video": "assets/videos/interactive/real-balls/crop-16x9/source.mp4",
+        "poster": "assets/images/interactive/real-balls/crop-16x9/source.jpg",
         "editTime": 0,
-        "width": 720,
-        "height": 480,
+        "width": 1280,
+        "height": 720,
         "fps": 30,
         "frameCount": 90
       },
@@ -4000,9 +4000,9 @@
           "color": "blue",
           "shape": "sphere",
           "x": 0.15,
-          "y": 0.4166666666666667,
+          "y": 0.49382716049382713,
           "w": 0.07777777777777778,
-          "h": 0.12083333333333333,
+          "h": 0.14320987654320988,
           "edits": [
             "remove",
             "velocity",
@@ -4014,99 +4014,99 @@
               "polygon": [
                 [
                   0.188889,
-                  0.416667
+                  0.4938275555555555
                 ],
                 [
                   0.187564,
-                  0.432304
+                  0.5123602962962963
                 ],
                 [
                   0.183679,
-                  0.446875
+                  0.5296296296296297
                 ],
                 [
                   0.177499,
-                  0.459388
+                  0.5444598518518519
                 ],
                 [
                   0.169444,
-                  0.468989
+                  0.5558388148148148
                 ],
                 [
                   0.160065,
-                  0.475025
+                  0.5629925925925925
                 ],
                 [
                   0.15,
-                  0.477083
+                  0.5654317037037037
                 ],
                 [
                   0.139935,
-                  0.475025
+                  0.5629925925925925
                 ],
                 [
                   0.130556,
-                  0.468989
+                  0.5558388148148148
                 ],
                 [
                   0.122501,
-                  0.459388
+                  0.5444598518518519
                 ],
                 [
                   0.116321,
-                  0.446875
+                  0.5296296296296297
                 ],
                 [
                   0.112436,
-                  0.432304
+                  0.5123602962962963
                 ],
                 [
                   0.111111,
-                  0.416667
+                  0.4938275555555555
                 ],
                 [
                   0.112436,
-                  0.40103
+                  0.4752948148148148
                 ],
                 [
                   0.116321,
-                  0.386458
+                  0.4580242962962963
                 ],
                 [
                   0.122501,
-                  0.373946
+                  0.44319525925925923
                 ],
                 [
                   0.130556,
-                  0.364344
+                  0.4318151111111111
                 ],
                 [
                   0.139935,
-                  0.358309
+                  0.4246625185185185
                 ],
                 [
                   0.15,
-                  0.35625
+                  0.4222222222222222
                 ],
                 [
                   0.160065,
-                  0.358309
+                  0.4246625185185185
                 ],
                 [
                   0.169444,
-                  0.364344
+                  0.4318151111111111
                 ],
                 [
                   0.177499,
-                  0.373946
+                  0.44319525925925923
                 ],
                 [
                   0.183679,
-                  0.386458
+                  0.4580242962962963
                 ],
                 [
                   0.187564,
-                  0.40103
+                  0.4752948148148148
                 ]
               ]
             }
@@ -4118,9 +4118,9 @@
           "color": "amber",
           "shape": "sphere",
           "x": 0.9208333333333333,
-          "y": 0.4,
+          "y": 0.4740740740740741,
           "w": 0.08333333333333333,
-          "h": 0.12083333333333333,
+          "h": 0.14320987654320988,
           "edits": [
             "remove",
             "velocity",
@@ -4132,99 +4132,99 @@
               "polygon": [
                 [
                   0.9625,
-                  0.4
+                  0.4740740740740741
                 ],
                 [
                   0.96108,
-                  0.415637
+                  0.4926068148148148
                 ],
                 [
                   0.956918,
-                  0.430208
+                  0.5098761481481481
                 ],
                 [
                   0.950296,
-                  0.442721
+                  0.5247063703703703
                 ],
                 [
                   0.941667,
-                  0.452322
+                  0.5360853333333333
                 ],
                 [
                   0.931617,
-                  0.458358
+                  0.5432391111111111
                 ],
                 [
                   0.920833,
-                  0.460417
+                  0.5456794074074074
                 ],
                 [
                   0.910049,
-                  0.458358
+                  0.5432391111111111
                 ],
                 [
                   0.9,
-                  0.452322
+                  0.5360853333333333
                 ],
                 [
                   0.891371,
-                  0.442721
+                  0.5247063703703703
                 ],
                 [
                   0.884749,
-                  0.430208
+                  0.5098761481481481
                 ],
                 [
                   0.880586,
-                  0.415637
+                  0.4926068148148148
                 ],
                 [
                   0.879167,
-                  0.4
+                  0.4740740740740741
                 ],
                 [
                   0.880586,
-                  0.384363
+                  0.4555413333333333
                 ],
                 [
                   0.884749,
-                  0.369792
+                  0.438272
                 ],
                 [
                   0.891371,
-                  0.357279
+                  0.42344177777777775
                 ],
                 [
                   0.9,
-                  0.347678
+                  0.41206281481481477
                 ],
                 [
                   0.910049,
-                  0.341642
+                  0.404909037037037
                 ],
                 [
                   0.920833,
-                  0.339583
+                  0.40246874074074074
                 ],
                 [
                   0.931617,
-                  0.341642
+                  0.404909037037037
                 ],
                 [
                   0.941667,
-                  0.347678
+                  0.41206281481481477
                 ],
                 [
                   0.950296,
-                  0.357279
+                  0.42344177777777775
                 ],
                 [
                   0.956918,
-                  0.369792
+                  0.438272
                 ],
                 [
                   0.96108,
-                  0.384363
+                  0.4555413333333333
                 ]
               ]
             }
@@ -4233,28 +4233,28 @@
       ],
       "variants": {
         "remove:blue:frame-1": {
-          "video": "assets/videos/interactive/real-balls/remove-blue.mp4",
-          "poster": "assets/images/interactive/real-balls/remove-blue.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/remove-blue.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/remove-blue.jpg"
         },
         "remove:yellow:frame-1": {
-          "video": "assets/videos/interactive/real-balls/remove-yellow.mp4",
-          "poster": "assets/images/interactive/real-balls/remove-yellow.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/remove-yellow.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/remove-yellow.jpg"
         },
         "velocity:blue:0.5:frame-1": {
-          "video": "assets/videos/interactive/real-balls/velocity-blue-half.mp4",
-          "poster": "assets/images/interactive/real-balls/velocity-blue-half.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/velocity-blue-half.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/velocity-blue-half.jpg"
         },
         "mass:yellow:3:frame-1": {
-          "video": "assets/videos/interactive/real-balls/mass-yellow-3x.mp4",
-          "poster": "assets/images/interactive/real-balls/mass-yellow-3x.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/mass-yellow-3x.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/mass-yellow-3x.jpg"
         },
         "mass:blue:3:frame-1": {
-          "video": "assets/videos/interactive/real-balls/mass-blue-3x.mp4",
-          "poster": "assets/images/interactive/real-balls/mass-blue-3x.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/mass-blue-3x.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/mass-blue-3x.jpg"
         },
         "velocity:yellow:0.5:frame-1": {
-          "video": "assets/videos/interactive/real-balls/velocity-yellow-half.mp4",
-          "poster": "assets/images/interactive/real-balls/velocity-yellow-half.jpg"
+          "video": "assets/videos/interactive/real-balls/crop-16x9/velocity-yellow-half.mp4",
+          "poster": "assets/images/interactive/real-balls/crop-16x9/velocity-yellow-half.jpg"
         }
       }
     }

@@ -96,6 +96,12 @@ async function initialize() {
 
   root.innerHTML = `
     <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
+    <div class="demo-playback" role="group" aria-label="Comparison playback">
+
+      <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
+      <span class="demo-time" id="demo-time">0:00 / —</span>
+      <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
+    </div>
     <div class="demo-workspace" id="demo-workspace" role="tabpanel" aria-labelledby="demo-tab-${scene.id}">
       <div class="demo-comparison">
         <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select a time</li><li>Click an object</li><li>Click Play</li></ol>
@@ -146,12 +152,7 @@ async function initialize() {
         <p class="demo-command" id="demo-command" aria-live="polite"></p>
       </aside>
     </div>
-    <div class="demo-playback" role="group" aria-label="Comparison playback">
-
-      <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
-      <span class="demo-time" id="demo-time">0:00 / —</span>
-      <p class="demo-media-status" id="demo-media-status" role="status">Interaction preview · videos coming soon</p>
-    </div>`;
+`;
   root.removeAttribute("aria-busy");
   const find = id => root.querySelector(`#${id}`);
   const sourceVideo = find("demo-source-video");

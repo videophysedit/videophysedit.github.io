@@ -89,7 +89,7 @@
 .demo-ticks button[aria-pressed="true"] { color: #315f84; font-weight: 700; }
 .demo-control-hint { margin-top: 7px; color: #82909c; font-size: 11px; line-height: 1.65; }
 .demo-command { margin-top: 17px; padding: 10px 11px; border-left: 2px solid #b1c8da; border-radius: 0 4px 4px 0; background: #f5f8fb; color: #4d6e87; font-size: 11px; line-height: 1.75; min-height: 57px; }
-.demo-playback { display: flex; align-items: center; gap: 16px; padding: 12px 21px; border-top: 1px solid var(--line); background: #fcfdfe; }
+.demo-playback { display: flex; align-items: center; gap: 16px; padding: 12px 21px; border-bottom: 1px solid var(--line); background: #fcfdfe; }
 .demo-play { display: flex; align-items: center; justify-content: center; gap: 7px; flex: none; padding: 8px 14px; border-radius: 6px; border: 1px solid #c7d9e7; background: #edf4f9; color: var(--deep-blue); font-size: 15px; white-space: nowrap; }
 .demo-play svg { width: 15px; height: 15px; }
 .demo-play:disabled { color: #98a7b3; background: #f5f7f9; border-color: #e4eaf0; cursor: default; }
