@@ -161,14 +161,6 @@ async function initialize() {
   const timeline = find("demo-timeline");
   const editFrameRange = find("demo-edit-frame");
   const playButton = find("demo-play");
-  // Keep the same playback button and handlers in the phone playback group.
-  const phoneLayout = window.matchMedia("(max-width: 640px)");
-  const placePlayButton = () => {
-    const parent = root.querySelector(phoneLayout.matches ? ".demo-playback" : ".demo-controls");
-    parent.prepend(playButton);
-  };
-  placePlayButton();
-  phoneLayout.addEventListener("change", placePlayButton);
   const sourcePlayButton = find("demo-source-play");
   const stageSource = find("demo-source-stage");
   const stageResult = find("demo-result-stage");

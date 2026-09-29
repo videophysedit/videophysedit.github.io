@@ -1,11 +1,11 @@
-.interactive-teaser { padding: 20px 0; background: #f7f8fa; border-top: 1px solid #e8ebee; }
-.demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #e4e7eb; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 12px 36px rgba(28,42,55,.055); }
+.interactive-teaser { padding: 20px 0; background: radial-gradient(ellipse at 8% 18%, #e5edf5 0%, transparent 58%), radial-gradient(ellipse at 94% 84%, #f3eae0 0%, transparent 55%), #eef1f5; border-top: 1px solid #e3e8ee; }
+.demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #fff; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 20px 50px rgba(35,58,79,.11), 0 3px 10px rgba(35,58,79,.05); }
 .demo-loading, .demo-load-error { text-align: center; padding: 80px 25px; color: var(--text); }
 .demo-load-error button { color: var(--deep-blue); border: 0; background: transparent; text-decoration: underline; }
-.demo-scenes { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; padding: 9px; border-bottom: 1px solid #eceef0; background: #fff; }
+.demo-scenes { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; padding: 9px; border-bottom: 1px solid #e8edf1; background: linear-gradient(110deg,#f6f9fc,#faf8f5); }
 .demo-scene-tab { min-width: 0; display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid transparent; border-radius: 8px; text-align: left; color: var(--text); background: transparent; position: relative; transition: background .15s, color .15s; }
 .demo-scene-tab:hover { background: #f5f6f7; }
-.demo-scene-tab[aria-selected="true"] { background: #f7f8fa; color: var(--deep-blue); }
+.demo-scene-tab[aria-selected="true"] { background: #fff; color: var(--deep-blue); box-shadow: 0 3px 10px rgba(35,58,79,.08); }
 .demo-scene-tab[aria-selected="true"]::after { content: ""; position: absolute; bottom: 0; left: 14px; right: 14px; height: 3px; border-radius: 999px; background: var(--deep-blue); }
 .demo-scene-thumb { width: 52px; flex: none; aspect-ratio: 16/9; overflow: hidden; border: 1px solid #dce4eb; border-radius: 5px; }
 .demo-scene-thumb svg { display: block; width: 100%; height: 100%; }
@@ -17,7 +17,7 @@
 .demo-view > figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--ink); }
 .demo-view > figcaption small { font-size: 10px; font-weight: 400; color: #7a8996; }
 .demo-view-result > figcaption > span { color: var(--demo-accent); }
-.demo-view-result .demo-stage { border-color: transparent; }
+.demo-view-result .demo-stage { border-color: transparent; background: linear-gradient(145deg,#f0f4f8,#f8f5f0); }
 .demo-stage { position: relative; aspect-ratio: 16/9; border: 1px solid #e7e9ec; border-radius: 14px; background: #f6f7f8; overflow: hidden; isolation: isolate; }
 
 .demo-illustration, .demo-stage > video { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -247,10 +247,9 @@
   .demo-edit-stops button:first-child { transform: translateX(-25%); }
   .demo-edit-stops button:last-child { transform: translateX(-75%); }
   .demo-playback { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 16px 12px; padding: 14px; }
-  .demo-playback > .demo-play { grid-column: 1; grid-row: 1; justify-self: start; min-width: 104px; min-height: 44px; font-size: 16px; font-weight: 700; background: #315f84; border-color: #315f84; color: white; }
-  .demo-playback > .demo-play:disabled { background: #f0f1f3; border-color: #e2e5e8; color: #88919b; }
   .demo-playback .demo-time { grid-column: 2; grid-row: 1; text-align: right; }
-  .demo-playback .demo-timeline { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 5px; margin: 0 0 6px; }
+  .has-edit-timeline .demo-controls > .demo-play { grid-column: 1 / -1; grid-row: auto; order: 10; width: 100%; min-height: 48px; margin-top: 4px; }
+  .demo-playback .demo-timeline { grid-column: 1; grid-row: 1; width: 100%; height: 5px; margin: 0; }
   .demo-playback .demo-media-status { grid-column: 1 / -1; margin: 0; }
 }
 
