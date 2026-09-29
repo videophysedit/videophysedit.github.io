@@ -221,16 +221,24 @@ button, a, summary { touch-action: manipulation; }
 .task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
 .task-equation { max-width: 850px; margin: 20px auto 0; padding: 14px 0; }
 .task-equation math { font-size: 20px; color: var(--ink); padding-block: 2px; }
-.task-symbols { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 14px 0 0; text-align: center; }
-.task-symbols dt { min-height: 28px; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
+.task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 28px; max-width: 520px; margin: 16px auto 0; text-align: left; }
+.task-symbols > div { display: flex; align-items: center; gap: 10px; }
+.task-symbols dt { min-width: 35px; flex: none; line-height: 1.6; color: var(--deep-blue); font-family: var(--serif); font-size: 17px; }
 .task-symbols dt var { display: inline-block; padding-right: .16em; }
 .task-symbols sup, .task-symbols sub { position: static; font-size: .65em; line-height: 0; }
 .task-symbols sup { vertical-align: super; }
 .task-symbols sub { vertical-align: sub; }
-.task-symbols dd { margin: 6px 0 0; font-size: 13px; line-height: 1.6; }
+.task-symbols dd { margin: 0; font-size: 13px; line-height: 1.6; }
 @media (max-width: 640px) {
   .task-intro { font-size: 15px; }
-  .task-symbols { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .task-symbols { gap: 10px 14px; }
+  .task-symbols > div { gap: 6px; }
+  .task-symbols dd { font-size: 12px; }
 }
 
 .task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 5px 15px; border: 1px solid #c6d8e7; border-radius: 999px; background: #eaf2f8; color: #315f84; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+
+.task-figure { max-width: 850px; margin: 24px auto 0; }
+.task-figure a { display: block; }
+.task-figure img { display: block; width: 100%; height: auto; }
+.task-figure figcaption { margin-top: 12px; font-size: 13px; line-height: 1.6; text-align: center; }

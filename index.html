@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=task-compact-96">
+  <link rel="stylesheet" href="assets/css/style.css?v=task-examples-97">
   <link rel="stylesheet" href="assets/css/comparisons.css?v=mobile-layout-52">
   <link rel="stylesheet" href="assets/css/interactive-demo.css?v=demo-style-74">
   <script src="assets/js/content.js?v=arxiv-83" defer></script>
@@ -103,12 +103,17 @@
           </math>
           <dl class="task-symbols">
             <div><dt><var>V</var><sup>src</sup></dt><dd>Source video</dd></div>
-            <div><dt><var>e</var></dt><dd>Physical edit in natural language</dd></div>
-            <div><dt><var>t</var><sub>e</sub></dt><dd>Execution frame</dd></div>
             <div><dt><var>V</var><sup>cf</sup></dt><dd>Counterfactual video</dd></div>
+            <div><dt><var>e</var></dt><dd>Physical edit instruction</dd></div>
+            <div><dt><var>t</var><sub>e</sub></dt><dd>Execution frame</dd></div>
           </dl>
         </div>
-
+        <figure class="task-figure">
+          <a href="assets/images/task-examples.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open PCVE-RigidBench task examples as a PDF">
+            <img src="assets/images/task-examples.webp" width="2600" height="1803" loading="lazy" decoding="async" alt="PCVE-RigidBench domino examples: the source sequence and counterfactual sequences after increasing the second domino’s mass, removing the second domino, or removing the first domino at frame 24.">
+          </a>
+          <figcaption>Examples from PCVE-RigidBench show how physical interventions change subsequent motion and interactions.</figcaption>
+        </figure>
       </div>
     </section>
 
