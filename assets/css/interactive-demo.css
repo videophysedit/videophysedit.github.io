@@ -255,7 +255,7 @@
 /* Keep the complete desktop demo below the fixed navigation. */
 @media (min-width: 901px) {
   .interactive-teaser { min-height: calc(100svh - 70px); display: flex; align-items: center; }
-  .interactive-teaser .wide-container { width: min(100%, 1840px, calc((100svh - 330px) * 3.5556)); min-width: 860px; padding-inline: 24px; }
+  .interactive-teaser .wide-container { width: min(100%, 1840px); padding-inline: 24px; }
   .demo-workspace { padding: 16px; }
   .has-edit-timeline .demo-workspace { gap: 12px; }
   .demo-comparison { gap: 12px; }
