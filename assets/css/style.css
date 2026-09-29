@@ -237,7 +237,7 @@ button, a, summary { touch-action: manipulation; }
   .task-symbols dd { font-size: 12px; }
 }
 
-.task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 5px 15px; border: 1px solid #c6d8e7; border-radius: 999px; background: #eaf2f8; color: #315f84; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.task-eyebrow { width: fit-content; margin: 0 auto 16px; padding: 7px 18px; border: 1px solid #315f84; border-radius: 999px; background: #315f84; color: #fff; text-align: center; font-size: 14px; line-height: 1.5; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 
 .task-figure { max-width: 850px; margin: 24px auto 0; }
 .task-figure-image { display: block; }
