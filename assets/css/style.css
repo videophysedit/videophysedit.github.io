@@ -215,16 +215,16 @@ button, a, summary { touch-action: manipulation; }
 .task-equation { max-width: 850px; margin: 24px auto 0; padding: 20px 22px; background: #f4f7fa; border: 1px solid #dce6ee; border-radius: 12px; }
 .task-equation math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; }
 .task-equation > math { font-size: 20px; color: var(--ink); padding-block: 5px; }
-.task-symbols { display: flex; justify-content: space-between; gap: 18px; margin: 16px 0 0; text-align: left; }
-.task-symbols > div { display: grid; grid-template-columns: 2.4em minmax(0,1fr); align-items: center; gap: 8px; min-width: 0; }
-.task-symbols dt { margin: 0; color: var(--deep-blue); font-size: 17px; white-space: nowrap; }
+.task-symbols { display: flex; justify-content: center; gap: 36px; margin: 16px 0 0; text-align: left; }
+.task-symbols > div { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.task-symbols dt { flex: none; margin: 0; color: var(--deep-blue); font-size: 17px; white-space: nowrap; }
 .task-symbols dt math { font-size: 17px; }
 .task-symbols dd { margin: 0; min-width: 0; font-size: 13px; line-height: 1.6; }
 @media (max-width: 640px) {
   .task-intro { font-size: 15px; }
   .task-equation { padding: 18px 14px; }
   .task-symbols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 14px; }
-  .task-symbols > div { grid-template-columns: 32px minmax(0,1fr); gap: 8px; }
+  .task-symbols > div { gap: 7px; }
   .task-symbols dd { font-size: 12px; }
 }
 
