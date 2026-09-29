@@ -61,9 +61,14 @@ button, a, summary { touch-action: manipulation; }
 .publication-authors { margin-top: 36px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; font-size: 16px; }
 .publication-affiliations { margin-top: 8px; font-size: 15px; color: #697786; }
 .publication-links { margin-top: 28px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.resource-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 8px 18px; border-radius: 24px; background: var(--surface); color: var(--deep-blue); font-size: 14px; font-weight: 500; border: 1px solid var(--line); transition: transform .15s, background .15s, border-color .15s; }
-.resource-link:hover { text-decoration: none; background: var(--tint); border-color: var(--blue); transform: translateY(-1px); }
-.resource-link svg { flex: none; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.resource-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 9px 19px; border-radius: 13px; background: var(--surface); color: var(--deep-blue); font-size: 14px; font-weight: 600; border: 1px solid #c7d5e1; transition: transform .18s, background .18s, border-color .18s, box-shadow .18s; }
+.resource-link:hover { text-decoration: none; background: var(--tint); border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 5px 14px #25496112; }
+.resource-link[data-resource="paper"] { background: var(--deep-blue); border-color: var(--deep-blue); color: #fff; box-shadow: 0 3px 10px #315f841c; }
+.resource-link[data-resource="paper"]:hover { background: #274e6e; border-color: #274e6e; box-shadow: 0 6px 16px #315f842b; }
+.resource-link[data-resource="arxiv"] { background: #eaf1f7; border-color: #e0eaf2; }
+.resource-link[data-resource="arxiv"]:hover { background: #dfeaf3; border-color: #c7d5e1; }
+@media (prefers-reduced-motion: reduce) { .resource-link { transition: none; } .resource-link:hover { transform: none; } }
+.resource-link svg { flex: none; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .resource-link.is-unavailable { color: #77828f; background: var(--paper); border-color: var(--line); }
 .resource-link.is-unavailable:hover { transform: none; border-color: var(--line); }
 .resource-link small { font-size: 10px; border-left: 1px solid var(--line); padding-left: 8px; }
