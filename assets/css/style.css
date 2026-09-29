@@ -216,8 +216,8 @@ button, a, summary { touch-action: manipulation; }
 @media (max-width: 640px) {
   .publication-header { padding-top: 96px; gap: 28px; }
   .cover-lead { margin-top: 24px; max-width: 360px; font-size: 16px; }
-  .publication-links { margin-top: 24px; }
-  .publication-authors { margin-top: 28px; }
+  .publication-header > .container { gap: 32px; }
+
 }
 
 .task-intro { max-width: 850px; margin: 0 auto; font-size: 16px; line-height: 1.8; }
