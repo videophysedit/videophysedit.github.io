@@ -1,4 +1,4 @@
-.interactive-teaser { padding: 16px 0 24px; background: var(--tint); border-top: 1px solid var(--line); }
+.interactive-teaser { padding: 20px 0; background: var(--tint); border-top: 1px solid var(--line); }
 .demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #d8e2ea; border-radius: 14px; overflow: hidden; background: white; box-shadow: 0 12px 38px #25496109; }
 .demo-loading, .demo-load-error { text-align: center; padding: 80px 25px; color: var(--text); }
 .demo-load-error button { color: var(--deep-blue); border: 0; background: transparent; text-decoration: underline; }
@@ -254,7 +254,8 @@
 
 /* Keep the complete desktop demo below the fixed navigation. */
 @media (min-width: 901px) {
-  .interactive-teaser .wide-container { width: min(100%, 1460px, calc((100svh - 390px) * 3.5556)); min-width: 860px; }
+  .interactive-teaser { min-height: calc(100svh - 70px); display: flex; align-items: center; }
+  .interactive-teaser .wide-container { width: min(100%, 1840px, calc((100svh - 330px) * 3.5556)); min-width: 860px; padding-inline: 24px; }
   .demo-workspace { padding: 16px; }
   .has-edit-timeline .demo-workspace { gap: 12px; }
   .demo-comparison { gap: 12px; }
