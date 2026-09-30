@@ -29,3 +29,7 @@ The method figure renders from `assets/images/method-overview.pdf`, with a WebP 
 In the `videophysedit/videophysedit.github.io` repository, set **Settings → Pages → Deploy from a branch → main / (root)**. Keep `.nojekyll` at the root.
 
 The layout is inspired by [3DPhysVideo](https://hwidong-kim.github.io/projects/3DPhysVideo/). This site has its own HTML/CSS/JavaScript implementation. Mozilla PDF.js 5.6.205 is bundled under `assets/vendor/pdfjs/` with its Apache 2.0 license. Institution logo sources are documented in `assets/images/identity/SOURCES.md`.
+
+## Visit statistics
+
+GoatCounter records page visits with an asynchronous script in `index.html`. It adds no visible counter or controls. Sign in at https://videophysedit.goatcounter.com/ to view statistics. Keep the dashboard private in GoatCounter settings.
