@@ -127,7 +127,7 @@ test("football controls use exact clips and scene-wide gravity", async () => {
   const bounce = describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:1,editFrame:1});
   assert.match(bounce.instruction, /football/);
   assert.match(bounce.instruction, /2× its original value/);
-  assert.match(describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:0,editFrame:1}).clip.video, /source-720p/);
+  assert.equal(describeSelection(football, config.controls, {mode:"restitution",objectId:"football",stepIndex:0,editFrame:1}).clip.video, football.source.video);
   assert.match(bounce.clip.video, /restitution-x2-frame-1/);
   const gravity = describeSelection(football, config.controls, {mode:"gravity",objectId:"scene",stepIndex:0,editFrame:1});
   assert.match(gravity.clip.video, /gravity_x05/);
@@ -142,7 +142,7 @@ test("football controls use exact clips and scene-wide gravity", async () => {
     const blockBounce = describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:1,editFrame});
     assert.match(blockBounce.instruction, /wooden block/);
     assert.ok(blockBounce.clip.video.endsWith(`block-restitution-x2-frame-${editFrame}.mp4`));
-    assert.match(describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:0,editFrame}).clip.video,/source-720p/);
+    assert.equal(describeSelection(football,config.controls,{mode:"restitution",objectId:"block",stepIndex:0,editFrame}).clip.video,football.source.video);
   }
   assert.equal(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:2}),null);
   assert.match(describeSelection(football,config.controls,{mode:"velocity",objectId:"football",stepIndex:0}).clip.video,/source/);
