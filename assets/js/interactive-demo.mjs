@@ -1,4 +1,4 @@
-import { requiresEditTime, editSelectionComplete, sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, insertionObject, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=cleanup-61";
+import { requiresEditTime, editSelectionComplete, sceneControls, modes, sceneModes, editableObjects, initialSelection, describeSelection, interventionTime, objectAtFrame, editableFrames, nearestEditFrame } from "./demo-model.mjs?v=cleanup-20260930";
 
 const root = document.querySelector("#interactive-demo");
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -23,55 +23,7 @@ const colors = {
 
 function insertionGuide(scene, descriptor, selection) {
   if (selection?.mode !== "insert") return "";
-  if (scene.insertion.positions) return scene.insertion.positions.map((point, index) => `<button type="button" class="demo-insert-position" data-position="${index}" style="left:${point.x*100}%;top:${point.y*100}%;width:${point.w*100}%;aspect-ratio:${point.w*scene.source.width/(point.h*scene.source.height)}" aria-label="Add ${escapeText(scene.insertion.object.label.toLowerCase())} at ${point.label.toLowerCase()} position" aria-pressed="${Boolean(descriptor && selection.stepIndex === index)}"><span>${escapeText(point.label)}</span></button>`).join("");
-  if (!descriptor) return "";
-  const { start, end } = scene.insertion;
-  const object = insertionObject(scene, descriptor.step.value);
-  const x = object.x * 720, y = object.y * 405, w = object.w * 720, h = object.h * 405;
-  const shape = object.shape === "sphere"
-    ? `<ellipse cx="${x}" cy="${y}" rx="${w/2}" ry="${h/2}"/>`
-    : `<rect x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="3"/>`;
-  const stops = [1/6, 1/3, 1/2, 2/3, 5/6].map(fraction => {
-    const point = insertionObject(scene, fraction);
-    return `<circle cx="${point.x*720}" cy="${(point.y+point.h/2)*405}" r="4" fill="white" stroke="#568775" stroke-width="2"/>`;
-  }).join("");
-  return `<svg viewBox="0 0 720 405" aria-hidden="true"><path d="M${start.x*720} ${start.y*405}L${end.x*720} ${end.y*405}" stroke="#568775" stroke-width="2" stroke-dasharray="5 6"/>${stops}<g fill="#98c8b68c" stroke="#407f69" stroke-width="2" stroke-dasharray="5 4">${shape}</g><g transform="translate(${x-44} ${y-h/2-27})"><rect width="88" height="23" rx="5" fill="#f5fff9" stroke="#acd0be"/><text x="44" y="16" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#407f69">New ${escapeText(object.label.toLowerCase())}</text></g></svg>`;
-}
-
-function sceneMarkup(scene, descriptor, prefix, result = false) {
-  const objects = scene.objects.filter(object => !(result && descriptor?.mode === "remove" && descriptor.object.id === object.id));
-  const defs = Object.entries(colors).map(([name, palette]) => `<radialGradient id="${prefix}-${name}" cx="32%" cy="24%" r="76%"><stop stop-color="${palette[0]}"/><stop offset=".5" stop-color="${palette[1]}"/><stop offset="1" stop-color="${palette[2]}"/></radialGradient>`).join("");
-  function shape(object, ghost = false) {
-    const x = object.x * 720, y = object.y * 405, w = object.w * 720, h = object.h * 405;
-    const palette = colors[object.color] || colors.blue;
-    const shadow = `<ellipse cx="${x + 6}" cy="${y + h / 2 + 6}" rx="${w * .57}" ry="${w * .12}" fill="#536478" opacity=".14"/>`;
-    const body = object.shape === "sphere"
-      ? `<ellipse cx="${x}" cy="${y}" rx="${w / 2}" ry="${h / 2}" fill="url(#${prefix}-${object.color})"/><ellipse cx="${x - w * .17}" cy="${y - h * .22}" rx="${w * .1}" ry="${h * .065}" fill="white" opacity=".35"/>`
-      : `<path d="M${x-w/2},${y-h/2} l${w},0 0,${h} -${w},0z" fill="${palette[1]}"/><path d="M${x-w/2},${y-h/2} l${w*.22},${-w*.17} ${w},0 ${-w*.22},${w*.17}z" fill="${palette[0]}"/><path d="M${x+w/2},${y-h/2} l${w*.22},${-w*.17} 0,${h} ${-w*.22},${w*.17}z" fill="${palette[2]}"/>`;
-    return `<g opacity="${ghost ? .62 : 1}">${shadow}${body}</g>`;
-  }
-  let backdrop = '<path d="M38 278 647 251 709 358 92 389z" fill="#e9e8e1"/><path d="m38 278 54 111 0 8-54-111z" fill="#d5d8d5"/><path d="m92 389 617-31v8L92 397z" fill="#cbd1cf"/><path d="m113 279 498-22M142 309l497-25M166 343l497-24" stroke="white" opacity=".52"/>';
-  if (scene.illustration === "ramp") backdrop += '<path d="m99 310 451-166 47 20-450 177z" fill="#c8d2dc"/><path d="m147 341 450-177 0 131-450 56z" fill="#91a2b5"/><path d="m120 306 430-158" stroke="white" stroke-width="2" opacity=".7"/>';
-  if (scene.illustration === "bounce") backdrop += '<path d="M259 191v92" stroke="#b4c1ce" stroke-width="2" stroke-dasharray="5 8"/><ellipse cx="264" cy="294" rx="34" ry="8" fill="#7c94ab" opacity=".12"/>';
-  let addition = "";
-  if (descriptor?.mode === "insert") {
-    const { start, end } = scene.insertion;
-    if (!result) {
-      addition += `<path d="M${start.x*720} ${start.y*405}L${end.x*720} ${end.y*405}" stroke="#669b87" stroke-width="2" stroke-dasharray="5 6"/>`;
-      for (const fraction of [1/6, 1/3, 1/2, 2/3, 5/6]) {
-        const point = insertionObject(scene, fraction);
-        addition += `<circle cx="${point.x*720}" cy="${(point.y+point.h/2)*405}" r="4" fill="#f5fbf8" stroke="#669b87" stroke-width="2"/>`;
-      }
-    }
-    addition += shape(insertionObject(scene, descriptor.step.value), !result);
-  }
-  let annotation = "";
-  if (result && descriptor && !["remove", "insert"].includes(descriptor.mode)) {
-    const x = descriptor.object.x * 720, y = descriptor.object.y * 405;
-    const label = descriptor.mode === "velocity" ? `v₀ × ${descriptor.step.value}` : `${descriptor.mode === "friction" ? "μ" : "e"} = ${descriptor.step.label}`;
-    annotation = `<g transform="translate(${Math.min(568, Math.max(35,x-50))} ${Math.max(35,y-75)})"><rect width="104" height="31" rx="15" fill="#fff" stroke="#c4d4e1"/><text x="52" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#315f84">${escapeText(label)}</text></g>`;
-  }
-  return `<svg viewBox="0 0 720 405" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs>${defs}<linearGradient id="${prefix}-bg" x2="0" y2="1"><stop stop-color="#f7f9fc"/><stop offset="1" stop-color="#edf1f5"/></linearGradient></defs><rect width="720" height="405" fill="url(#${prefix}-bg)"/><path d="M0 257h720" stroke="#dfe5eb"/>${backdrop}${objects.map(object => shape(object)).join("")}${addition}${annotation}</svg>`;
+  return scene.insertion.positions.map((point, index) => `<button type="button" class="demo-insert-position" data-position="${index}" style="left:${point.x*100}%;top:${point.y*100}%;width:${point.w*100}%;aspect-ratio:${point.w*scene.source.width/(point.h*scene.source.height)}" aria-label="Add ${escapeText(scene.insertion.object.label.toLowerCase())} at ${point.label.toLowerCase()} position" aria-pressed="${Boolean(descriptor && selection.stepIndex === index)}"><span>${escapeText(point.label)}</span></button>`).join("");
 }
 
 async function initialize() {
@@ -95,7 +47,7 @@ async function initialize() {
   let selectionAnimation;
 
   root.innerHTML = `
-    <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : sceneMarkup(item, null, `thumb-${item.id}`)}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
+    <div class="demo-scenes" role="tablist" aria-label="Demo scenes">${config.scenes.map((item, index) => `<button type="button" role="tab" id="demo-tab-${item.id}" aria-controls="demo-workspace" aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}" class="demo-scene-tab" data-scene="${item.id}"><span class="demo-scene-thumb">${item.source.poster ? `<img src="${escapeText(item.source.poster)}" alt="">` : ""}</span><strong>${escapeText(item.title)}</strong></button>`).join("")}</div>
     <div class="demo-playback" role="group" aria-label="Comparison playback">
 
       <input class="demo-timeline" id="demo-timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Comparison timeline" disabled>
@@ -106,7 +58,7 @@ async function initialize() {
       <div class="demo-comparison">
         <ol class="demo-steps" aria-label="How to edit"><li>Select an edit</li><li>Select edit time</li><li>Click an object</li><li>Click Play</li></ol>
         <figure class="demo-view">
-          <figcaption><span>Source video</span><small id="demo-source-hint" hidden>Click an object</small></figcaption>
+          <figcaption><span>Source video</span></figcaption>
           <div class="demo-stage" id="demo-source-stage">
             <div class="demo-illustration" id="demo-source-illustration"></div>
             <video id="demo-source-video" muted playsinline preload="metadata" hidden aria-label="Source video"></video>
@@ -235,7 +187,6 @@ async function initialize() {
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = !descriptor || atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
     find("demo-return").textContent = "Back to editing";
-    find("demo-source-hint").textContent = playing ? (playsComparison() ? "Playing in sync" : "Source playback") : nextEditPrompt();
   }
 
   function updateMediaState() {
@@ -300,12 +251,12 @@ async function initialize() {
     const sourceIllustration = find("demo-source-illustration");
     sourceIllustration.innerHTML = scene.source.poster
       ? `<img src="${escapeText(scene.source.poster)}" alt="Source scene at the physical intervention frame">`
-      : sceneMarkup(scene, null, "source");
+      : "";
     find("demo-insertion-overlay").innerHTML = insertionGuide(scene, descriptor, selection);
     const resultIllustration = find("demo-result-illustration");
     resultIllustration.innerHTML = descriptor?.clip?.poster
       ? `<img src="${escapeText(descriptor.clip.poster)}" alt="Preview of the selected physical edit">`
-      : scene.source.video ? "" : sceneMarkup(scene, descriptor, "result", true);
+      : "";
     resultIllustration.classList.toggle("is-unselected", !descriptor);
   }
 

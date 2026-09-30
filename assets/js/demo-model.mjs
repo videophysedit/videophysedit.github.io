@@ -89,15 +89,6 @@ export function describeSelection(scene, controls, selection) {
   return { key, mode, object, step, editFrame, instruction, clip: scene.variants?.[key] ?? null };
 }
 
-export function insertionObject(scene, fraction) {
-  const { object, start, end } = scene.insertion;
-  return {
-    ...object,
-    x: start.x + (end.x - start.x) * fraction,
-    y: start.y + (end.y - start.y) * fraction - object.h / 2,
-  };
-}
-
 export function listVariants(scene, controls) {
   controls = sceneControls(scene, controls);
   const selections = [];

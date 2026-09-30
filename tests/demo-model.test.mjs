@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
-import { requiresEditTime, editSelectionComplete, describeSelection, initialSelection, insertionObject, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
+import { requiresEditTime, editSelectionComplete, describeSelection, initialSelection, listVariants, interventionTime, objectAtFrame, sceneModes, editableFrames, nearestEditFrame } from "../assets/js/demo-model.mjs";
 
 const config = JSON.parse(await readFile(new URL("../assets/data/interactive-demo.json", import.meta.url)));
 const football = config.scenes.find(scene => scene.id === "football");

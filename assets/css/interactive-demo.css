@@ -21,7 +21,7 @@
 .demo-stage { position: relative; aspect-ratio: 16/9; border: 1px solid #e7e9ec; border-radius: 14px; background: #f6f7f8; overflow: hidden; isolation: isolate; }
 
 .demo-illustration, .demo-stage > video { position: absolute; inset: 0; width: 100%; height: 100%; }
-.demo-illustration svg, .demo-illustration img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.demo-illustration img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .demo-stage > video { object-fit: contain; background: #edf1f5; pointer-events: none; }
 .demo-illustration.is-unselected { opacity: .24; }
 .demo-preview-label { position: absolute; left: 11px; top: 10px; z-index: 1; padding: 3px 8px; border: 1px solid #e0e7ed; border-radius: 4px; background: #ffffffda; color: #6d7e8c; font-size: 9px; letter-spacing: .025em; line-height: 1.4; pointer-events: none; }

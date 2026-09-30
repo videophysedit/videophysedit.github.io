@@ -134,7 +134,6 @@
       "id": "domino",
       "title": "Three dominoes",
       "subtitle": "Remove or add mass",
-      "illustration": "chain",
       "defaultMode": "remove",
       "source": {
         "video": "assets/videos/interactive/domino/source.mp4",
@@ -1297,7 +1296,6 @@
       "id": "football",
       "title": "Ball & block",
       "subtitle": "Velocity, restitution & gravity",
-      "illustration": "collision",
       "defaultMode": "velocity",
       "parameterDemo": true,
       "globalEdits": [
@@ -2496,7 +2494,6 @@
     {
       "id": "ramp",
       "title": "Ramp collision",
-      "illustration": "ramp",
       "defaultMode": "remove",
       "source": {
         "video": "assets/videos/interactive/ramp/source.mp4",
@@ -3704,7 +3701,6 @@
       "id": "pool",
       "title": "Two-ball collision",
       "subtitle": "Removal, mass & insertion",
-      "illustration": "collision",
       "defaultMode": "remove",
       "parameterDemo": true,
       "source": {
@@ -3949,7 +3945,6 @@
       "id": "real-balls",
       "title": "Two balls",
       "subtitle": "Removal, velocity & mass",
-      "illustration": "collision",
       "defaultMode": "remove",
       "parameterDemo": true,
       "source": {
