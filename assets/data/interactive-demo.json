@@ -1295,7 +1295,7 @@
     },
     {
       "id": "football",
-      "title": "Football & block",
+      "title": "Ball & block",
       "subtitle": "Velocity, restitution & gravity",
       "illustration": "collision",
       "defaultMode": "velocity",
@@ -1315,7 +1315,7 @@
       "objects": [
         {
           "id": "football",
-          "label": "Football",
+          "label": "Ball",
           "shape": "sphere",
           "color": "slate",
           "x": 0.466,
