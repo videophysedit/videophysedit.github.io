@@ -67,7 +67,7 @@ async function initialize() {
             <div class="demo-selection" id="demo-selection" aria-hidden="true" hidden><span class="demo-selection-bloom" id="demo-selection-bloom"></span></div>
             <div class="demo-hotspots" id="demo-hotspots" role="group" aria-label="Objects in the source scene"></div>
             <button class="demo-source-play" id="demo-source-play" type="button" data-action="play-source" aria-label="Play source video" title="Play source video" hidden>${icon("play")}</button>
-            <button class="demo-return" id="demo-return" type="button" data-action="edit-frame" hidden>Edit this scene</button>
+            <button class="demo-return" id="demo-return" type="button" data-action="edit-frame" hidden>Back to editing</button>
           </div>
         </figure>
         <figure class="demo-view demo-view-result">
@@ -75,8 +75,7 @@ async function initialize() {
           <div class="demo-stage" id="demo-result-stage">
             <div class="demo-illustration" id="demo-result-illustration"></div>
             <video id="demo-result-video" muted playsinline preload="metadata" hidden aria-label="VideoPhysEdit result"></video>
-            <span class="demo-preview-label" id="demo-result-label">Edit preview</span>
-            <div class="demo-start-hint" id="demo-start-hint"><span>${icon("minus")}</span><strong>What would happen without it?</strong><p>Click an object in the source scene.</p></div>
+            <div class="demo-start-hint" id="demo-start-hint"><strong>Select an edit</strong></div>
             <span class="demo-pending" id="demo-pending" hidden>Result video coming soon</span>
           </div>
         </figure>
@@ -186,7 +185,6 @@ async function initialize() {
     find("demo-selection").hidden = !interactive || !descriptor?.object.track || (scene.parameterDemo && !usesObjectSelection());
     find("demo-insertion-overlay").hidden = !interactive || selection.mode !== "insert";
     find("demo-return").hidden = !descriptor || atEditFrame || sourceVideo.seeking || playing || sourceFailed || (scene.source.video && !sourceReady());
-    find("demo-return").textContent = "Back to editing";
   }
 
   function updateMediaState() {
@@ -200,12 +198,9 @@ async function initialize() {
     find("demo-source-label").hidden = Boolean(sourceFrameReady);
     find("demo-source-label").textContent = scene.source.video ? (sourceFailed ? "Video unavailable" : "Loading video…") : "Illustration";
     const actualScene = Boolean(scene.source.video);
-    find("demo-result-label").hidden = actualScene || Boolean(resultReady);
     const startHint = find("demo-start-hint");
     startHint.hidden = actualScene ? Boolean(descriptor?.clip?.video) : Boolean(descriptor);
     startHint.querySelector("strong").textContent = nextEditPrompt();
-    startHint.querySelector("p").hidden = actualScene;
-    startHint.querySelector("span").hidden = actualScene;
     find("demo-pending").hidden = !descriptor || Boolean(resultReady) || (actualScene && !descriptor.clip?.video);
     find("demo-pending").textContent = resultFailed ? "Video unavailable" : descriptor?.clip?.video ? "Loading result…" : "Result video coming soon";
     sourcePlayButton.hidden = !sourceFrameReady;

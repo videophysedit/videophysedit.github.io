@@ -1,5 +1,5 @@
 .interactive-teaser { padding: 20px 0; background: radial-gradient(ellipse at 8% 18%, #e5edf5 0%, transparent 58%), radial-gradient(ellipse at 94% 84%, #f3eae0 0%, transparent 55%), #eef1f5; border-top: 1px solid #e3e8ee; }
-.demo-shell { --demo-accent: #315f84; --demo-pale: #edf4f9; border: 1px solid #fff; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 20px 50px rgba(35,58,79,.11), 0 3px 10px rgba(35,58,79,.05); }
+.demo-shell { --demo-accent: #315f84; border: 1px solid #fff; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 20px 50px rgba(35,58,79,.11), 0 3px 10px rgba(35,58,79,.05); }
 .demo-loading, .demo-load-error { text-align: center; padding: 80px 25px; color: var(--text); }
 .demo-load-error button { color: var(--deep-blue); border: 0; background: transparent; text-decoration: underline; }
 .demo-scenes { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; padding: 9px; border-bottom: 1px solid #e8edf1; background: linear-gradient(110deg,#f6f9fc,#faf8f5); }
@@ -8,7 +8,6 @@
 .demo-scene-tab[aria-selected="true"] { background: #fff; color: var(--deep-blue); box-shadow: 0 3px 10px rgba(35,58,79,.08); }
 .demo-scene-tab[aria-selected="true"]::after { content: ""; position: absolute; bottom: 0; left: 14px; right: 14px; height: 3px; border-radius: 999px; background: var(--deep-blue); }
 .demo-scene-thumb { width: 52px; flex: none; aspect-ratio: 16/9; overflow: hidden; border: 1px solid #dce4eb; border-radius: 5px; }
-.demo-scene-thumb svg { display: block; width: 100%; height: 100%; }
 .demo-scene-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .demo-scene-tab strong { display: block; font-size: 14px; font-weight: 600; line-height: 1.45; }
 .demo-workspace { display: grid; grid-template-columns: minmax(0,1fr) 255px; gap: 22px; padding: 21px; align-items: start; }
@@ -27,13 +26,9 @@
 .demo-preview-label { position: absolute; left: 11px; top: 10px; z-index: 1; padding: 3px 8px; border: 1px solid #e0e7ed; border-radius: 4px; background: #ffffffda; color: #6d7e8c; font-size: 9px; letter-spacing: .025em; line-height: 1.4; pointer-events: none; }
 .demo-pending { position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%); padding: 4px 9px; border-radius: 5px; color: #627585; background: #ffffffdb; font-size: 10px; line-height: 1.5; white-space: nowrap; }
 .demo-start-hint { position: absolute; inset: 0; padding: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-.demo-start-hint > span { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #bfd1df; background: #fafdff; border-radius: 50%; margin-bottom: 12px; color: var(--deep-blue); }
-.demo-start-hint svg { width: 18px; height: 18px; }
 .demo-start-hint strong { font-size: 15px; font-weight: 600; color: #365970; line-height: 1.45; }
-.demo-start-hint p { font-size: 11px; line-height: 1.6; margin-top: 5px; color: #6c8091; }
 .demo-hotspots { position: absolute; inset: 0; }
 .demo-insertion-overlay { position: absolute; inset: 0; pointer-events: none; }
-.demo-insertion-overlay svg { width: 100%; height: 100%; display: block; }
 .demo-hotspot { position: absolute; transform: translate(-50%,-50%); min-width: 30px; min-height: 32px; border: 1.5px dashed #638ca586; border-radius: 7px; background: transparent; padding: 0; cursor: pointer; transition: border-color .12s, background .12s; }
 .demo-hotspot.is-sphere { border-radius: 50%; }
 .demo-hotspot > span { position: absolute; right: -6px; top: -7px; display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; border: 1px solid #adc3d3; background: white; color: var(--deep-blue); font: 600 16px/1 var(--sans); box-shadow: 0 1px 3px #315f8412; }
@@ -121,7 +116,6 @@
   .demo-controls { padding-left: 16px; }
   .demo-view > figcaption small { display: none; }
   .demo-start-hint strong { font-size: 13px; }
-  .demo-start-hint p { font-size: 10px; }
 }
 @media (max-width: 960px) {
   .demo-workspace { grid-template-columns: 1fr; }
