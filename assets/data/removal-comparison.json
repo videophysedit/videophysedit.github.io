@@ -1,6 +1,54 @@
 {
   "cases": [
     {
+      "id": "real__balls_collide/collide_remove_blue",
+      "scene": "real__balls_collide",
+      "edit": "collide_remove_blue",
+      "label": "Two balls",
+      "instruction": "Remove the blue ball from the scene.",
+      "aspect": "3/2",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/real__balls_collide/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/real__balls_collide/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/real__balls_collide/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/real__balls_collide/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/real__balls_collide/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/real__balls_collide/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/real__balls_collide/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/real__balls_collide/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/real__balls_collide/void.jpg",
+        "ditto": "assets/images/comparisons/removal/real__balls_collide/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/real__balls_collide/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/real__balls_collide/seedance.jpg"
+      }
+    },
+    {
+      "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
+      "scene": "real__morpheus_collision_big_hits_small",
+      "edit": "edit_remove_big_ball",
+      "label": "Large & small balls",
+      "instruction": "Remove the large ball from the scene.",
+      "aspect": "5/4",
+      "videos": {
+        "source": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/source.mp4",
+        "videophysedit": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.mp4",
+        "void": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/void.mp4",
+        "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
+        "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
+        "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
+      },
+      "posters": {
+        "source": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/source.jpg",
+        "videophysedit": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.jpg",
+        "void": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/void.jpg",
+        "ditto": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.jpg",
+        "minimax": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.jpg",
+        "seedance": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.jpg"
+      }
+    },
+    {
       "id": "ball_box_rebound/edit_remove_target_after_impact",
       "scene": "ball_box_rebound",
       "edit": "edit_remove_target_after_impact",
@@ -118,54 +166,6 @@
         "ditto": "assets/images/comparisons/removal/table_marble_collision/ditto.jpg",
         "minimax": "assets/images/comparisons/removal/table_marble_collision/minimax.jpg",
         "seedance": "assets/images/comparisons/removal/table_marble_collision/seedance.jpg"
-      }
-    },
-    {
-      "id": "real__morpheus_collision_big_hits_small/edit_remove_big_ball",
-      "scene": "real__morpheus_collision_big_hits_small",
-      "edit": "edit_remove_big_ball",
-      "label": "Large & small balls",
-      "instruction": "Remove the large ball from the scene.",
-      "aspect": "5/4",
-      "videos": {
-        "source": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/source.mp4",
-        "videophysedit": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.mp4",
-        "void": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/void.mp4",
-        "ditto": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.mp4",
-        "minimax": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.mp4",
-        "seedance": "assets/videos/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.mp4"
-      },
-      "posters": {
-        "source": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/source.jpg",
-        "videophysedit": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/videophysedit.jpg",
-        "void": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/void.jpg",
-        "ditto": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/ditto.jpg",
-        "minimax": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/minimax.jpg",
-        "seedance": "assets/images/comparisons/removal/real__morpheus_collision_big_hits_small/seedance.jpg"
-      }
-    },
-    {
-      "id": "real__balls_collide/collide_remove_blue",
-      "scene": "real__balls_collide",
-      "edit": "collide_remove_blue",
-      "label": "Two balls",
-      "instruction": "Remove the blue ball from the scene.",
-      "aspect": "3/2",
-      "videos": {
-        "source": "assets/videos/comparisons/removal/real__balls_collide/source.mp4",
-        "videophysedit": "assets/videos/comparisons/removal/real__balls_collide/videophysedit.mp4",
-        "void": "assets/videos/comparisons/removal/real__balls_collide/void.mp4",
-        "ditto": "assets/videos/comparisons/removal/real__balls_collide/ditto.mp4",
-        "minimax": "assets/videos/comparisons/removal/real__balls_collide/minimax.mp4",
-        "seedance": "assets/videos/comparisons/removal/real__balls_collide/seedance.mp4"
-      },
-      "posters": {
-        "source": "assets/images/comparisons/removal/real__balls_collide/source.jpg",
-        "videophysedit": "assets/images/comparisons/removal/real__balls_collide/videophysedit.jpg",
-        "void": "assets/images/comparisons/removal/real__balls_collide/void.jpg",
-        "ditto": "assets/images/comparisons/removal/real__balls_collide/ditto.jpg",
-        "minimax": "assets/images/comparisons/removal/real__balls_collide/minimax.jpg",
-        "seedance": "assets/images/comparisons/removal/real__balls_collide/seedance.jpg"
       }
     }
   ]
